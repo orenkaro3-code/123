@@ -6,8 +6,8 @@ export default async function handler(req,res){
   const payload=JSON.stringify({contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:{responseMimeType:'application/json',temperature:0.9}});
   const models=(process.env.GEMINI_MODEL?[process.env.GEMINI_MODEL]:[]).concat(['gemini-3.8-flash','gemini-flash-latest','gemini-flash-lite-latest','gemini-3.8-flash']);
   const urls=[];for(const m of models){urls.push(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`)}
-  let last='no response';const errs=[];
-  for(let n=0;n<urls.length;n++){const u=urls[n];if(n)await new Promise(r=>setTimeout(r,1500));try{const r=await fetch(u+'?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:payload});
+  const t0=Date.now();let last='no response';const errs=[];
+  for(let n=0;n<urls.length;n++){const u=urls[n];if(n)await new Promise(r=>setTimeout(r,1500));try{if(Date.now()-t0>40000)break;const r=await fetch(u+'?key='+encodeURIComponent(key),{signal:AbortSignal.timeout(Math.min(25000,55000-(Date.now()-t0))),method:'POST',headers:{'Content-Type':'application/json'},body:payload});
     const j=await r.json().catch(()=>({}));
     if(r.ok){const text=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(p=>p.text||'').join('');if(text)return res.status(200).json({text});last='empty answer';continue}
     last=(j.error&&j.error.message)||('HTTP '+r.status);errs.push(u.split('/')[2]+' '+u.split('/models/')[1]+': '+last.slice(0,160))}catch(e){last=String(e&&e.message||e)}}
