@@ -1,6 +1,7 @@
 import {put,list} from '@vercel/blob';
+import {verifySchool} from './school.js';
 const TYPES=['design','anim','image'];
-async function who(req){const h=req.headers.authorization||'';const t=h.startsWith('Bearer ')?h.slice(7):'';if(!t)return null;
+async function who(req){const h=req.headers.authorization||'';const t=h.startsWith('Bearer ')?h.slice(7):'';if(!t)return null;if(t.startsWith('school.'))return verifySchool(t);
   try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+t},signal:AbortSignal.timeout(6000)});if(!r.ok)return null;const p=await r.json();return p&&p.sub?p:null}catch(e){return null}}
 export default async function handler(req,res){
   const type=String((req.query&&req.query.type)||(req.body&&req.body.type)||'');if(!TYPES.includes(type))return res.status(400).json({error:'bad type'});
