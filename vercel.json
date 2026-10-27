@@ -1,1 +1,1 @@
-{"cleanUrls": true, "functions": {"api/gemini.js": {"maxDuration": 60}, "api/tts.js": {"maxDuration": 60}}}
+{"cleanUrls": true, "functions": {"api/gemini.js": {"maxDuration": 180}, "api/tts.js": {"maxDuration": 60}, "api/pub.js": {"maxDuration": 30}}, "rewrites": [{"source": "/s/:id", "destination": "/api/pub?kind=site&id=:id"}, {"source": "/g/:id", "destination": "/api/pub?kind=game&id=:id"}]}
