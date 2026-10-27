@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paleta-ebon.vercel.app/sitemap.xml
