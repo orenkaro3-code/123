@@ -4,7 +4,7 @@ async function ttsModels(key){
   const pref=['gemini-2.5-flash-preview-tts','gemini-2.5-pro-preview-tts'];let found=[];
   try{const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key='+encodeURIComponent(key),{signal:AbortSignal.timeout(8000)});const j=await r.json();
     found=(j.models||[]).map(m=>String(m.name||'').replace(/^models\//,'')).filter(n=>/tts/i.test(n));}catch(e){}
-  found.sort((a,b)=>(/flash/.test(b)?1:0)-(/flash/.test(a)?1:0));
+  const score=n=>{const v=parseFloat((/(\d+(\.\d+)?)/.exec(n)||[])[1]||0);return v*10+(/flash/.test(n)?3:0)-(/lite/.test(n)?2:0)-(/preview/.test(n)?1:0)};found.sort((a,b)=>score(b)-score(a));
   MODELS=[...new Set([...found,...pref])];return MODELS;
 }
 function wav(pcm,rate){const h=Buffer.alloc(44);h.write('RIFF',0);h.writeUInt32LE(36+pcm.length,4);h.write('WAVE',8);h.write('fmt ',12);h.writeUInt32LE(16,16);h.writeUInt16LE(1,20);h.writeUInt16LE(1,22);h.writeUInt32LE(rate,24);h.writeUInt32LE(rate*2,28);h.writeUInt16LE(2,32);h.writeUInt16LE(16,34);h.write('data',36);h.writeUInt32LE(pcm.length,40);return Buffer.concat([h,pcm])}
