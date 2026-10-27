@@ -1,1 +1,1 @@
-{"cleanUrls":true,"functions":{"api/gemini.js":{"maxDuration":60}}}
+{"cleanUrls": true, "functions": {"api/gemini.js": {"maxDuration": 60}, "api/tts.js": {"maxDuration": 60}}}
