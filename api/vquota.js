@@ -4,7 +4,7 @@ import {verifySchool} from './school.js';
 // One AI video per person per day (Israel time). Identity: Google account, school code, or else the IP address (hashed).
 const day=()=>new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Jerusalem'});
 async function who(req){const h=req.headers.authorization||'';const t=h.startsWith('Bearer ')?h.slice(7):'';
-  if(t.startsWith('school.')){const s=verifySchool(t);if(s)return 's:'+s.sub}
+  if(t.startsWith('school.')||t.startsWith('acct.')){const s=verifySchool(t);if(s)return (t.startsWith('acct.')?'g:':'s:')+s.sub}
   else if(t){try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+t},signal:AbortSignal.timeout(6000)});if(r.ok){const p=await r.json();if(p&&p.sub)return 'g:'+p.sub}}catch(e){}}
   const ip=String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'').split(',')[0].trim();return 'ip:'+ip}
 const key=async req=>{const id=crypto.createHash('sha256').update((process.env.SCHOOL_SECRET||'paleta')+'|'+await who(req)).digest('hex').slice(0,32);return `vq/${day()}/${id}.json`};

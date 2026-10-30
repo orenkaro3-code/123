@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 const norm=c=>String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
-export function verifySchool(t){try{const[k,p,s]=String(t).split('.');if(k!=='school'||!p||!s)return null;const sig=crypto.createHmac('sha256',process.env.SCHOOL_SECRET||'').update(p).digest('base64url');if(sig.length!==s.length||!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(s)))return null;const d=JSON.parse(Buffer.from(p,'base64url').toString());return d.exp>Date.now()?d:null}catch(e){return null}}
+export function signAcct(profile){const p=Buffer.from(JSON.stringify(profile)).toString('base64url'),sig=crypto.createHmac('sha256',process.env.SCHOOL_SECRET||'').update(p).digest('base64url');return `acct.${p}.${sig}`}
+export function verifySchool(t){try{const[k,p,s]=String(t).split('.');if((k!=='school'&&k!=='acct')||!p||!s)return null;const sig=crypto.createHmac('sha256',process.env.SCHOOL_SECRET||'').update(p).digest('base64url');if(sig.length!==s.length||!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(s)))return null;const d=JSON.parse(Buffer.from(p,'base64url').toString());return d.exp>Date.now()?d:null}catch(e){return null}}
 export default async function handler(req,res){
   if(req.method!=='POST')return res.status(405).json({error:'POST only'});
   if(!process.env.SCHOOL_SECRET)return res.status(500).json({error:'not configured'});

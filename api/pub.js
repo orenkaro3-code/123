@@ -1,7 +1,7 @@
 import {put,list} from '@vercel/blob';
 import {verifySchool} from './school.js';
 const KINDS=['site','game'];
-async function who(req){const h=req.headers.authorization||'';const t=h.startsWith('Bearer ')?h.slice(7):'';if(!t)return null;if(t.startsWith('school.'))return verifySchool(t);
+async function who(req){const h=req.headers.authorization||'';const t=h.startsWith('Bearer ')?h.slice(7):'';if(!t)return null;if(t.startsWith('school.')||t.startsWith('acct.'))return verifySchool(t);
   try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+t},signal:AbortSignal.timeout(6000)});if(!r.ok)return null;const p=await r.json();return p&&p.sub?p:null}catch(e){return null}}
 async function load(kind,id){const {blobs}=await list({prefix:`pub/${kind}/${id}.json`,limit:1});if(!blobs.length)return null;const r=await fetch(blobs[0].url+'?t='+Date.now());return r.ok?r.json():null}
 const notFound='<!doctype html><meta charset="utf-8"><title>לא נמצא</title><body style="font-family:system-ui;text-align:center;padding:60px;direction:rtl"><h1>הדף לא נמצא</h1><p><a href="https://paleta-ebon.vercel.app">ליצירת אתר או משחק בפלטה</a></p>';
