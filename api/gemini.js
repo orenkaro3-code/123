@@ -1,7 +1,10 @@
+import searchHandler from './_search.js';
+import genimgHandler from './_genimg.js';
 async function probe(key,q){const out={};if(q.models){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key='+encodeURIComponent(key));const j=await r.json();out.models=(j.models||[]).map(m=>m.name.replace('models/','')).filter(n=>/gemini/.test(n)&&!/tts|image|embed|audio|live/.test(n));return out}
  const m=q.model||'gemini-3.8-flash',gc={maxOutputTokens:+q.max||2000};if(q.think==='low')gc.thinkingConfig={thinkingLevel:'low'};if(q.think==='0')gc.thinkingConfig={thinkingBudget:0};if(q.think==='minimal')gc.thinkingConfig={thinkingLevel:'minimal'};
  const t0=Date.now();const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{role:'user',parts:[{text:'Write a tiny HTML page with a red square. Only HTML.'}]}],generationConfig:gc}),signal:AbortSignal.timeout(100000)});const j=await r.json().catch(()=>({}));out.status=r.status;out.ms=Date.now()-t0;out.err=j.error&&j.error.message;out.usage=j.usageMetadata;return out}
 export default async function handler(req,res){
+  const op=String((req.query&&req.query.op)||'');if(op==='search')return searchHandler(req,res);if(op==='genimg')return genimgHandler(req,res);
   if(req.method==='GET'&&req.query&&(req.query.probe||req.query.models)){const k=process.env.GEMINI_API_KEY;try{return res.status(200).json(await probe(k,req.query))}catch(e){return res.status(500).json({error:String(e.message||e)})}}
   const ping=req.method==='GET'&&req.query&&req.query.ping;if(req.method!=='POST'&&!ping)return res.status(405).json({error:'POST only'});
   const key=process.env.GEMINI_API_KEY;if(!key)return res.status(500).json({error:'GEMINI_API_KEY missing'});
