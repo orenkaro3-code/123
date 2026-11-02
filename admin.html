@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>פלטה · ניהול</title>
+<link rel="icon" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--bg:#0F1117;--panel:#171A22;--panel2:#1E222C;--line:#2A2F3B;--ink:#F2F3F7;--mut:#9AA0AE;--blue:#4C74FF;--red:#FF5A3C;--yel:#FFC21A;--grn:#20C98A;--pink:#FF2E63}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Rubik,system-ui,sans-serif}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+header img{width:40px;height:40px;border-radius:12px;background:#fff;padding:4px}
+header h1{font-size:22px;margin:0;font-weight:800}header h1 small{color:var(--mut);font-weight:500;font-size:14px;margin-inline-start:6px}
+.sp{flex:1}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{background:none;border:0;color:var(--mut);font:600 13px Rubik,system-ui,sans-serif;padding:7px 12px;border-radius:9px;cursor:pointer}
+.seg button.on{background:var(--blue);color:#fff}
+.btn{background:var(--panel2);border:1px solid var(--line);color:var(--ink);font:600 13px Rubik,system-ui,sans-serif;padding:8px 14px;border-radius:10px;cursor:pointer}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff;font-size:16px;padding:12px 22px}
+.me{color:var(--mut);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi span{color:var(--mut);font-size:13px}.kpi b{display:block;font-size:30px;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi i{font-style:normal;font-size:12px;color:var(--mut)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:16px;margin:0 0 12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card h2 small{color:var(--mut);font-weight:500;font-size:12px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-bottom:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:-1px}
+svg text{fill:var(--mut);font:11px Rubik}
+.bars div{display:grid;grid-template-columns:1.5fr 2fr 34px;align-items:center;gap:8px;font-size:13px;margin:6px 0}
+.bars em{display:block;height:8px;border-radius:5px;background:var(--blue)}.bars span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bars b{text-align:left;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:13px}th{color:var(--mut);font-weight:500;text-align:right;padding:8px 6px;border-bottom:1px solid var(--line)}td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.u{display:flex;align-items:center;gap:10px}.u img,.u .av{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--panel2);display:grid;place-items:center;font-weight:800}
+.u div{line-height:1.25}.u small{color:var(--mut);display:block;direction:ltr;text-align:right}
+.tag{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+.tag.google{border-color:#4C74FF55;color:#9DB2FF}.tag.qr{border-color:#20C98A55;color:#7BE7BE}.tag.school{border-color:#FFC21A55;color:#FFD86B}
+.feed div{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}.feed time{color:var(--mut);min-width:86px;font-variant-numeric:tabular-nums}
+.empty{color:var(--mut);text-align:center;padding:24px}
+.gate{min-height:80vh;display:grid;place-items:center;text-align:center}.gate .box{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px 28px;max-width:420px}
+.gate h2{margin:12px 0 6px}.gate p{color:var(--mut);margin:0 0 20px}
+.err{color:#FF8A73;margin-top:12px;font-size:14px}
+.scroll{overflow-x:auto}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid4{grid-template-columns:1fr}.hide-m{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=n=>Number(n||0).toLocaleString('he-IL');
+const fmt=t=>new Date(t).toLocaleString('he-IL',{timeZone:'Asia/Jerusalem',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const ago=t=>{const m=Math.round((Date.now()-t)/6e4);if(m<1)return 'עכשיו';if(m<60)return `לפני ${m} דק׳`;const h=Math.round(m/60);if(h<24)return `לפני ${h} שע׳`;return `לפני ${Math.round(h/24)} ימים`};
+const VIA={google:'Google',qr:'Google דרך QR',school:'קוד בית ספר'};
+const FLAG=c=>c&&c.length===2?String.fromCodePoint(...[...c.toUpperCase()].map(x=>127397+x.charCodeAt(0))):'🌐';
+let TOKEN=null,DAYS=+(localStorage.getItem('adm-days')||14),client=null;
+try{const g=JSON.parse(sessionStorage.getItem('adm-gt')||'null');if(g&&g.exp>Date.now())TOKEN=g.t}catch(e){}
+function gate(msg){app.innerHTML=`<div class="gate"><div class="box"><img src="/logo.png" alt="" width="64" height="64" style="border-radius:16px;background:#fff;padding:6px"><h2>דף הניהול של פלטה</h2><p>כניסה רק עם חשבון Google של מנהל האתר.</p><button class="btn pri" id="go">התחברות עם Google</button>${msg?`<div class="err">${esc(msg)}</div>`:''}</div></div>`;$('#go').onclick=login}
+async function login(){try{const c=await fetch('/api/config').then(r=>r.json());if(!c.googleClientId){gate('חסר GOOGLE_CLIENT_ID בהגדרות');return}
+ if(!window.google||!google.accounts){gate('טוען את Google… נסו שוב בעוד שנייה');return}
+ client=client||google.accounts.oauth2.initTokenClient({client_id:c.googleClientId,scope:'openid email profile',callback:t=>{if(!t||!t.access_token){gate('ההתחברות לא הושלמה');return}TOKEN=t.access_token;try{sessionStorage.setItem('adm-gt',JSON.stringify({t:TOKEN,exp:Date.now()+(t.expires_in||3000)*1000-60000}))}catch(e){}load()}});client.requestAccessToken()}catch(e){gate('ההתחברות נכשלה')}}
+function logout(){TOKEN=null;try{sessionStorage.removeItem('adm-gt')}catch(e){}gate()}
+async function load(){app.innerHTML='<div class="gate"><p>טוען נתונים…</p></div>';
+ let r,j;try{r=await fetch('/api/stats?days='+DAYS,{headers:{Authorization:'Bearer '+TOKEN},cache:'no-store'});j=await r.json()}catch(e){gate('אין חיבור לשרת');return}
+ if(r.status===401){logout();return}if(!r.ok){TOKEN=null;try{sessionStorage.removeItem('adm-gt')}catch(e){}gate((j&&j.error||'שגיאה')+(j&&j.email?` (${j.email})`:''));return}render(j)}
+function chart(series){const W=760,H=220,P=[34,10,26,8],mx=Math.max(4,...series.map(s=>s.views)),n=series.length,bw=(W-P[0]-P[1])/n;
+ const y=v=>H-P[2]-(v/mx)*(H-P[2]-P[3]);let g='';for(let k=0;k<=4;k++){const v=Math.round(mx*k/4),yy=y(v);g+=`<line x1="${P[0]}" x2="${W-P[1]}" y1="${yy}" y2="${yy}" stroke="#2A2F3B"/><text x="${P[0]-6}" y="${yy+4}" text-anchor="end">${v}</text>`}
+ const bars=series.map((s,i)=>{const x=P[0]+i*bw+bw*.18,w=bw*.64,h=H-P[2]-y(s.views);return `<rect x="${x}" y="${y(s.views)}" width="${w}" height="${Math.max(0,h)}" rx="3" fill="#4C74FF"><title>${s.day}: ${s.views} צפיות, ${s.visitors} מבקרים</title></rect>`}).join('');
+ const line=series.map((s,i)=>`${i?'L':'M'}${P[0]+i*bw+bw/2},${y(s.visitors)}`).join(' ');
+ const dots=series.map((s,i)=>`<circle cx="${P[0]+i*bw+bw/2}" cy="${y(s.visitors)}" r="3" fill="#FFC21A"/>`).join('');
+ const step=Math.ceil(n/10),lab=series.map((s,i)=>i%step?'':`<text x="${P[0]+i*bw+bw/2}" y="${H-8}" text-anchor="middle">${s.day.slice(8)}/${s.day.slice(5,7)}</text>`).join('');
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="צפיות ומבקרים לפי יום" style="direction:ltr">${g}${bars}<path d="${line}" fill="none" stroke="#FFC21A" stroke-width="2.5"/>${dots}${lab}</svg>`}
+function bars(list,col){if(!list.length)return '<div class="empty">אין נתונים עדיין</div>';const mx=Math.max(...list.map(x=>x[1]));return '<div class="bars">'+list.map(([k,v])=>`<div><span title="${esc(k)}">${esc(k)}</span><em style="width:${Math.max(4,v/mx*100)}%;background:${col}"></em><b>${nf(v)}</b></div>`).join('')+'</div>'}
+function render(j){const T=j.totals;
+ app.innerHTML=`<header><img src="/logo.png" alt=""><h1>פלטה · ניהול<small>paleta-ebon.vercel.app</small></h1><div class="sp"></div>
+  <div class="seg" id="seg">${[7,14,30,60].map(d=>`<button data-d="${d}" class="${d===DAYS?'on':''}">${d} ימים</button>`).join('')}</div>
+  <button class="btn" id="rf">רענון</button><span class="me">${esc(j.admin)}</span><button class="btn" id="lo">יציאה</button></header>
+ <div class="kpis">
+  <div class="kpi"><span>מבקרים (אנשים)</span><b>${nf(T.visitors)}</b><i>ב-${j.days} הימים האחרונים</i></div>
+  <div class="kpi"><span>צפיות בעמוד</span><b>${nf(T.views)}</b><i>כל טעינה של האתר</i></div>
+  <div class="kpi"><span>ביקורים</span><b>${nf(T.sessions)}</b><i>כניסות נפרדות</i></div>
+  <div class="kpi"><span>נכנסו עם חשבון</span><b>${nf(T.signedIn)}</b><i>Google, QR או קוד</i></div>
+  <div class="kpi"><span>היום</span><b>${nf(T.today?T.today.visitors:0)}</b><i>${nf(T.today?T.today.views:0)} צפיות</i></div>
+ </div>
+ <div class="grid2"><div class="card"><h2>צפיות ומבקרים לפי יום</h2><div class="legend"><span><i style="background:#4C74FF"></i>צפיות</span><span><i style="background:#FFC21A"></i>מבקרים</span></div>${chart(j.series)}</div>
+  <div class="card"><h2>כניסות אחרונות <small>40 האחרונות</small></h2><div class="feed" style="max-height:250px;overflow:auto">${j.recent.length?j.recent.map(r=>`<div><time>${ago(r.last)}</time><span>${FLAG(r.country)} ${esc(r.dev)} · ${esc(r.br)}</span><span class="sp"></span>${r.user?`<span class="tag ${r.user.via}" title="${esc(r.user.email)}">${esc(r.user.name||r.user.email)}</span>`:'<span class="tag">אורח</span>'}</div>`).join(''):'<div class="empty">עדיין אין כניסות</div>'}</div></div></div>
+ <div class="card"><h2>מי נכנס עם חשבון <small>${nf(j.users.length)} חשבונות</small></h2><div class="scroll">${j.users.length?`<table><thead><tr><th>משתמש</th><th>דרך</th><th class="hide-m">כניסה ראשונה</th><th>כניסה אחרונה</th><th>ביקורים</th><th>צפיות</th></tr></thead><tbody>${j.users.map(u=>`<tr><td><div class="u">${u.pic?`<img src="${esc(u.pic)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${esc((u.name||u.email||'?').trim()[0]||'?')}</span>`}<div><b>${esc(u.name||'ללא שם')}</b><small>${esc(u.email||'—')}</small></div></div></td><td><span class="tag ${u.via}">${VIA[u.via]||u.via}</span></td><td class="hide-m">${fmt(u.first)}</td><td>${ago(u.last)}</td><td>${nf(u.sessions)}</td><td>${nf(u.views)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">עוד אף אחד לא התחבר עם חשבון בתקופה הזאת</div>'}</div></div>
+ <div class="grid4"><div class="card"><h2>מאיפה הגיעו</h2>${bars(j.refs,'#4C74FF')}</div><div class="card"><h2>מכשירים</h2>${bars(j.devices,'#20C98A')}</div><div class="card"><h2>דפדפנים</h2>${bars(j.browsers,'#FF5A3C')}</div><div class="card"><h2>מדינות</h2>${bars(j.countries.map(([k,v])=>[FLAG(k)+' '+k,v]),'#FFC21A')}</div></div>
+ ${j.capped?'<p class="me">יש הרבה נתונים, מוצגות 1,500 הכניסות האחרונות.</p>':''}`;
+ document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{DAYS=+b.dataset.d;localStorage.setItem('adm-days',DAYS);load()});$('#rf').onclick=load;$('#lo').onclick=logout}
+TOKEN?load():gate();
+</script>
+</body>
+</html>
