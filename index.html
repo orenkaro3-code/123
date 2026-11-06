@@ -10,14 +10,21 @@
 <style>
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(38vw 38vw at 102% -4%,var(--latin) 0,transparent 62%),radial-gradient(34vw 34vw at -6% 34%,var(--standard) 0,transparent 62%),radial-gradient(40vw 30vw at 70% 104%,var(--shoes-latin) 0,transparent 62%),var(--bg)}
-.brand{display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:14px;flex:1 1 300px;min-width:0}
+.brand h1{overflow-wrap:anywhere}
+@media (max-width:520px){.brand svg{display:none}.hr{width:100%;justify-content:space-between}}
+html[lang="ru"] h1,html[lang="en"] h1{font-size:clamp(1.6rem,4.6vw,2.6rem)}
 .brand svg{width:58px;height:58px;flex:none;background:#fff;border-radius:18px;padding:8px;box-shadow:0 4px 14px rgba(80,70,60,.08)}
 .stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .stats span{font:700 .8rem var(--body);background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;color:var(--muted)}
 .give{margin-top:44px;border-radius:24px;background:var(--shoes-standard);padding:22px 24px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .give b{display:block;font:800 1.2rem var(--body)}
 .give p{margin:4px 0 0;color:var(--muted);max-width:52ch}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:32px 22px}
+.hr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{border:0;background:none;font:800 .8rem var(--body);color:var(--muted);padding:6px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--text);color:#fff}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:32px 22px}
 .sub{margin:6px 0 0;font:700 1.05rem var(--body);color:var(--accent)}
 h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 .cartbtn{position:relative;background:#fff;color:var(--text);border:1px solid var(--line);font-weight:700;box-shadow:0 2px 8px rgba(80,70,60,.06)}
@@ -31,7 +38,7 @@ h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 .cat:hover{transform:translateY(-2px)}
 .cat b{font:800 1.25rem var(--body);position:relative;z-index:1}
 .cat small{font-weight:500;color:var(--muted);position:relative;z-index:1}
-.cat .th{position:absolute;top:-10px;left:-14px;width:96px;height:120px;border-radius:16px;object-fit:cover;transform:rotate(-8deg);box-shadow:0 6px 16px rgba(60,50,40,.18);border:3px solid #fff}
+.cat .th{position:absolute;top:-10px;inset-inline-end:-14px;width:96px;height:120px;border-radius:16px;object-fit:cover;transform:rotate(-8deg);box-shadow:0 6px 16px rgba(60,50,40,.18);border:3px solid #fff}
 .cat .th.ic{object-fit:contain;padding:18px;background:rgba(255,255,255,.55);box-shadow:none;border:0}
 @media (max-width:420px){.cat .th{width:72px;height:92px}}
 .cat[aria-pressed="true"]{border-color:currentColor}
@@ -98,6 +105,7 @@ h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 .tab{border:0;background:none;font:800 .98rem var(--body);color:var(--muted);padding:9px 16px;border-radius:999px;cursor:pointer}
 .tab[aria-selected="true"]{background:var(--accent);color:#fff}
 .tab{white-space:nowrap}
+.tabs{overflow-x:auto}
 @media (max-width:420px){.tab{font-size:.84rem;padding:8px 11px}}
 .who{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .note{background:var(--standard);border-radius:18px;padding:16px 18px;margin-bottom:8px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
@@ -117,13 +125,13 @@ footer a{color:var(--muted)}
 <body>
 <div class="wrap">
 <header>
-  <div class="brand"><svg viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="12" r="5"/><circle cx="42" cy="14" r="5"/><path d="M22 17v18l-6 20M22 35l7 18"/><path d="M42 19l2 14-4 22M44 33l8 20"/><path d="M22 23l10-4 10 4M22 25l-10-6"/><path d="M44 25l9-8"/></svg><div><h1>בגדי ריקודים לבנים</h1><p class="sub">הכול בחינם, לילדים שצריכים</p><div class="stats" id="stats"></div></div></div>
-  <button class="btn cartbtn" id="cartBtn" type="button">עגלה <span class="n" id="cartN">0</span></button>
+  <div class="brand"><svg viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="12" r="5"/><circle cx="42" cy="14" r="5"/><path d="M22 17v18l-6 20M22 35l7 18"/><path d="M42 19l2 14-4 22M44 33l8 20"/><path d="M22 23l10-4 10 4M22 25l-10-6"/><path d="M44 25l9-8"/></svg><div><h1 data-t="title">בגדי ריקודים לבנים</h1><p class="sub" data-t="sub">הכול בחינם, לילדים שצריכים</p><div class="stats" id="stats"></div></div></div>
+  <div class="hr"><div class="lang" role="group" aria-label="Language"><button data-l="he">עב</button><button data-l="ru">RU</button><button data-l="en">EN</button></div><button class="btn cartbtn" id="cartBtn" type="button"><span data-t="cart">עגלה</span> <span class="n" id="cartN">0</span></button></div>
 </header>
 
 <nav class="tabs" role="tablist">
-  <button class="tab" role="tab" data-v="shop" aria-selected="true">הבגדים שלי · חינם</button>
-  <button class="tab" role="tab" data-v="ali" aria-selected="false">אליאקספרס · עד 100 ₪</button>
+  <button class="tab" role="tab" data-v="shop" aria-selected="true" data-t="tabShop">הבגדים שלי · חינם</button>
+  <button class="tab" role="tab" data-v="ali" aria-selected="false" data-t="tabAli">אליאקספרס · עד 100 ₪</button>
 </nav>
 <main id="v-shop">
   <div class="cats" id="cats"></div>
@@ -134,39 +142,39 @@ footer a{color:var(--muted)}
 </main>
 <section id="v-ali" hidden>
   <div class="who" role="group" aria-label="כבר קניתם באליאקספרס?">
-    <button class="chip" data-who="new" aria-pressed="true">מצטרפים חדשים</button>
-    <button class="chip" data-who="old" aria-pressed="false">כבר קניתי באליאקספרס</button>
+    <button class="chip" data-who="new" aria-pressed="true" data-t="whoNew">מצטרפים חדשים</button>
+    <button class="chip" data-who="old" aria-pressed="false" data-t="whoOld">כבר קניתי באליאקספרס</button>
   </div>
   <div class="note" id="aliNote"></div>
   <div id="aliList"></div>
-  <p class="hint" style="margin-top:18px">הקישורים פותחים חיפוש באליאקספרס ממוין מהזול ליקר. המחירים משתנים שם כל הזמן, אז כדאי לבדוק מחיר ומידות לפני שקונים.</p>
+  <p class="hint" style="margin-top:18px" data-t="aliHint">הקישורים פותחים חיפוש באליאקספרס ממוין מהזול ליקר. המחירים משתנים שם כל הזמן, אז כדאי לבדוק מחיר ומידות לפני שקונים.</p>
 </section>
 
-<section class="give"><div><b>הילד גדל מהבגדים?</b><p>אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener">לתרומה ב-WhatsApp</a></section>
-<footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html">ניהול</a></footer>
+<section class="give"><div><b data-t="giveT">הילד גדל מהבגדים?</b><p data-t="giveP">אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener" data-t="giveBtn">לתרומה ב-WhatsApp</a></section>
+<footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html" data-t="admin">ניהול</a></footer>
 </div>
 
 <dialog id="pdlg"><button class="x" type="button" data-close aria-label="סגור">✕</button><div id="pdBody"></div></dialog>
 
 <div class="shade" id="shade" hidden></div>
 <aside class="drawer" id="drawer" aria-label="עגלה" aria-hidden="true">
-  <div style="display:flex;justify-content:space-between;align-items:center"><h3>העגלה</h3><button class="chip" type="button" id="closeCart">סגור</button></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3 data-t="cartT">העגלה</h3><button class="chip" type="button" id="closeCart" data-t="close">סגור</button></div>
   <div class="lines" id="lines"></div>
   <form class="checkout" id="checkout">
-    <label>שם (לא חובה)<input id="oName" autocomplete="name"></label>
-    <label>הערה (לא חובה)<textarea id="oNote" rows="2" placeholder="למשל גובה הילד"></textarea></label>
-    <button class="btn wa" type="submit" id="oSend">שליחת בקשה ב-WhatsApp</button>
+    <label><span data-t="nameL">שם (לא חובה)</span><input id="oName" autocomplete="name"></label>
+    <label><span data-t="noteL">הערה (לא חובה)</span><textarea id="oNote" rows="2" placeholder="למשל גובה הילד" data-tp="noteP"></textarea></label>
+    <button class="btn wa" type="submit" id="oSend" data-t="send">שליחת בקשה ב-WhatsApp</button>
   </form>
   <div id="done" hidden style="padding-block:20px;display:grid;gap:10px">
-    <b style="font-weight:800;font-size:1.3rem">נפתח WhatsApp עם הבקשה</b>
-    <p style="margin:0">לחצו ״שלח״ ב-WhatsApp. לא נפתח? <a id="waAgain" href="#" target="_blank" rel="noopener">פתיחה מחדש</a></p>
-    <button class="btn ghost" type="button" id="doneBtn">חזרה לחנות</button>
+    <b style="font-weight:800;font-size:1.3rem" data-t="doneT">נפתח WhatsApp עם הבקשה</b>
+    <p style="margin:0"><span data-t="doneP">לחצו ״שלח״ ב-WhatsApp. לא נפתח?</span> <a id="waAgain" href="#" target="_blank" rel="noopener" data-t="again">פתיחה מחדש</a></p>
+    <button class="btn ghost" type="button" id="doneBtn" data-t="back">חזרה לחנות</button>
   </div>
 </aside>
 
 <script src="/ali-links.js"></script>
 <script>
-const CATS={"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"};
+const CATS={"latin":1,"standard":1,"shoes-latin":1,"shoes-standard":1};
 const ICON={
   "latin":'<path d="M18 10l8-5h12l8 5 10 8-6 9-6-4v34H20V23l-6 4-6-9z"/>',
   "standard":'<path d="M20 6h24l4 50H36l-4-34-4 34H16z"/>',
@@ -180,47 +188,100 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const WA="972585974771";
 const money=n=>new Intl.NumberFormat("he-IL").format(n)+" ₪";
-const priceHtml=()=>`<span class="free">חינם</span>`;
+const priceHtml=()=>`<span class="free">${t.free}</span>`;
 let products=[],cat="",sizeF="",cart=[];
+const L={
+ he:{dir:"rtl",title:"בגדי ריקודים לבנים",sub:"הכול בחינם, לילדים שצריכים",cart:"עגלה",tabShop:"הבגדים שלי · חינם",tabAli:"אליאקספרס · עד 100 ₪",whoNew:"מצטרפים חדשים",whoOld:"כבר קניתי באליאקספרס",
+  aliHint:"הקישורים פותחים חיפוש באליאקספרס ממוין מהזול ליקר. המחירים משתנים שם כל הזמן, אז כדאי לבדוק מחיר ומידות לפני שקונים.",
+  giveT:"הילד גדל מהבגדים?",giveP:"אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.",giveBtn:"לתרומה ב-WhatsApp",admin:"ניהול",
+  cartT:"העגלה",close:"סגור",nameL:"שם (לא חובה)",noteL:"הערה (לא חובה)",noteP:"למשל גובה הילד",send:"שליחת בקשה ב-WhatsApp",doneT:"נפתח WhatsApp עם הבקשה",doneP:"לחצו ״שלח״ ב-WhatsApp. לא נפתח?",again:"פתיחה מחדש",back:"חזרה לחנות",
+  cats:{"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"},items:n=>n+" פריטים",soon:"בקרוב",loading:"טוען…",back2:"↻ גב",no:"מס׳",soldOut:"אזל",free:"חינם",
+  avail:n=>n+" פריטים זמינים",both:"לטין וסטנדרט",sizes:"מידות",allSizes:"כל המידות",sizeFilter:"סינון לפי מידה",emptyCat:"בקטגוריה הזו עוד אין פריטים. שווה לשאול בוואטסאפ.",emptySize:"אין פריטים במידה הזו כרגע",
+  color:"צבע",sizeShoe:"מידה (EU)",sizeCloth:"מידה (גובה הילד בס״מ)",pick:"בחרו מידה",add:"הוספה לעגלה",freeNote:"הבגד ניתן בחינם. לא בטוחים במידה? כתבו לי בוואטסאפ ואבדוק.",added:"נוסף לעגלה",
+  size:"מידה",pcs:"יח׳",remove:"הסרה",cartEmpty:"העגלה ריקה",photo:"תמונה",
+  msgHi:"שלום אורן, אשמח לקבל את הבגדים האלה:",msgName:"שם",msgNote:"הערה",
+  groups:{boys:"בנים",girls:"בנות",all:"לכולם"},aliGo:"לחיפוש באליאקספרס ↗",
+  aliNew:"<b>חדשים באליאקספרס?</b>בהזמנה הראשונה יש מבצעי הצטרפות (Welcome Deal) וקופונים למצטרפים. נרשמים דרך הכפתור, ואז בוחרים פריטים מהרשימה למטה.",aliJoin:"להרשמה לאליאקספרס ↗",
+  aliOld:"<b>כבר קניתם באליאקספרס?</b>כל קישור כאן פותח חיפוש ממוין מהזול ליקר. כדאי לבחור מוכר עם דירוג גבוה ולבדוק את טבלת המידות של המוכר."},
+ ru:{dir:"ltr",title:"Одежда для бальных танцев для мальчиков",sub:"Всё бесплатно, для детей, которым это нужно",cart:"Корзина",tabShop:"Моя одежда · бесплатно",tabAli:"AliExpress · до 100 ₪",whoNew:"Новый покупатель",whoOld:"Уже покупал на AliExpress",
+  aliHint:"Ссылки открывают поиск на AliExpress от дешёвых к дорогим. Цены там постоянно меняются, поэтому проверяйте цену и размеры перед покупкой.",
+  giveT:"Ребёнок вырос из одежды?",giveP:"Можно отдать танцевальную одежду и обувь, которая стала мала, и она перейдёт другому ребёнку.",giveBtn:"Отдать через WhatsApp",admin:"Управление",
+  cartT:"Корзина",close:"Закрыть",nameL:"Имя (необязательно)",noteL:"Комментарий (необязательно)",noteP:"Например, рост ребёнка",send:"Отправить запрос в WhatsApp",doneT:"WhatsApp открыт с вашим запросом",doneP:"Нажмите «Отправить» в WhatsApp. Не открылся?",again:"Открыть снова",back:"Назад в магазин",
+  cats:{"latin":"Латина","standard":"Стандарт","shoes-latin":"Обувь для латины","shoes-standard":"Обувь для стандарта"},items:n=>n+" шт.",soon:"Скоро",loading:"Загрузка…",back2:"↻ спина",no:"№",soldOut:"Нет",free:"Бесплатно",
+  avail:n=>n+" вещей в наличии",both:"Латина и стандарт",sizes:"Размеры",allSizes:"Все размеры",sizeFilter:"Фильтр по размеру",emptyCat:"В этой категории пока ничего нет. Спросите в WhatsApp.",emptySize:"Сейчас нет вещей этого размера",
+  color:"Цвет",sizeShoe:"Размер (EU)",sizeCloth:"Размер (рост ребёнка, см)",pick:"Выберите размер",add:"В корзину",freeNote:"Вещь отдаётся бесплатно. Не уверены в размере? Напишите мне в WhatsApp, я проверю.",added:"Добавлено в корзину",
+  size:"размер",pcs:"шт.",remove:"Удалить",cartEmpty:"Корзина пуста",photo:"Фото",
+  msgHi:"Здравствуйте, Орен! Я бы хотел(а) получить эти вещи:",msgName:"Имя",msgNote:"Комментарий",
+  groups:{boys:"Мальчики",girls:"Девочки",all:"Для всех"},aliGo:"Искать на AliExpress ↗",
+  aliNew:"<b>Впервые на AliExpress?</b>На первый заказ действуют приветственные предложения (Welcome Deal) и купоны для новых покупателей. Зарегистрируйтесь по кнопке, а потом выбирайте вещи из списка ниже.",aliJoin:"Регистрация на AliExpress ↗",
+  aliOld:"<b>Уже покупали на AliExpress?</b>Каждая ссылка открывает поиск от дешёвых к дорогим. Выбирайте продавца с высоким рейтингом и сверяйтесь с его таблицей размеров."},
+ en:{dir:"ltr",title:"Boys' Ballroom Dancewear",sub:"All free, for kids who need it",cart:"Cart",tabShop:"My clothes · free",tabAli:"AliExpress · under 100 ₪",whoNew:"New to AliExpress",whoOld:"I've bought on AliExpress",
+  aliHint:"Links open an AliExpress search sorted from cheapest. Prices there change all the time, so check the price and sizes before buying.",
+  giveT:"Has your child outgrown their dancewear?",giveP:"You can donate dance clothes and shoes that no longer fit, and they'll go to another child who needs them.",giveBtn:"Donate via WhatsApp",admin:"Admin",
+  cartT:"Cart",close:"Close",nameL:"Name (optional)",noteL:"Note (optional)",noteP:"For example, your child's height",send:"Send request on WhatsApp",doneT:"WhatsApp opened with your request",doneP:"Tap “Send” in WhatsApp. Didn't open?",again:"Open again",back:"Back to the shop",
+  cats:{"latin":"Latin","standard":"Standard","shoes-latin":"Latin shoes","shoes-standard":"Standard shoes"},items:n=>n+" items",soon:"Coming soon",loading:"Loading…",back2:"↻ back",no:"No.",soldOut:"Gone",free:"Free",
+  avail:n=>n+" items available",both:"Latin & Standard",sizes:"Sizes",allSizes:"All sizes",sizeFilter:"Filter by size",emptyCat:"Nothing in this category yet. Ask on WhatsApp.",emptySize:"No items in this size right now",
+  color:"Colour",sizeShoe:"Size (EU)",sizeCloth:"Size (child's height, cm)",pick:"Choose a size",add:"Add to cart",freeNote:"This item is free. Not sure about the size? Message me on WhatsApp and I'll check.",added:"Added to cart",
+  size:"size",pcs:"pcs",remove:"Remove",cartEmpty:"Your cart is empty",photo:"Photo",
+  msgHi:"Hi Oren, I'd like to receive these items:",msgName:"Name",msgNote:"Note",
+  groups:{boys:"Boys",girls:"Girls",all:"For everyone"},aliGo:"Search on AliExpress ↗",
+  aliNew:"<b>New to AliExpress?</b>Your first order gets welcome deals and new-customer coupons. Sign up with the button, then pick items from the list below.",aliJoin:"Sign up to AliExpress ↗",
+  aliOld:"<b>Already shop on AliExpress?</b>Each link opens a search sorted from cheapest. Pick a highly rated seller and check the seller's size chart."}
+};
+let lang="he";
+try{lang=localStorage.getItem("ob.lang")||(/^ru/i.test(navigator.language)?"ru":"he")}catch(e){}
+if(!L[lang])lang="he";
+let t=L[lang];
+const tx=(p,f)=>(p.tr&&p.tr[lang]&&p.tr[lang][f])||p[f];
+function applyLang(){
+  t=L[lang];document.documentElement.lang=lang;document.documentElement.dir=t.dir;document.title=t.title;
+  document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t[e.dataset.t]);
+  document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t[e.dataset.tp]);
+  document.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===lang));
+  $("#sizeF").setAttribute("aria-label",t.sizeFilter);
+  try{localStorage.setItem("ob.lang",lang)}catch(e){}
+}
+document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{lang=b.dataset.l;applyLang();render();renderCart();if(!$("#v-ali").hidden)renderAli()});
+
 try{cart=JSON.parse(localStorage.getItem("ob.cart"))||[]}catch(e){}
 const saveCart=()=>{try{localStorage.setItem("ob.cart",JSON.stringify(cart))}catch(e){};renderCart()};
 function toast(t){const n=document.createElement("div");n.className="toast";n.textContent=t;document.body.appendChild(n);setTimeout(()=>n.remove(),2000)}
 
 function renderCats(){
-  $("#cats").innerHTML=Object.entries(CATS).map(([k,v])=>{
+  $("#cats").innerHTML=Object.keys(CATS).map(k=>{const v=t.cats[k];
     const items=products.filter(p=>p.category===k);const pic=items.find(p=>p.images[0]);
-    return `<button class="cat c-${k}" type="button" data-c="${k}" aria-pressed="${cat===k}">${pic?`<img class="th" src="${esc(pic.images[0])}" alt="">`:`<img class="th ic" src="${svgUrl(k)}" alt="">`}<b>${v}</b><small>${items.length?items.length+" פריטים":"בקרוב"}</small></button>`}).join("");
+    return `<button class="cat c-${k}" type="button" data-c="${k}" aria-pressed="${cat===k}">${pic?`<img class="th" src="${esc(pic.images[0])}" alt="">`:`<img class="th ic" src="${svgUrl(k)}" alt="">`}<b>${v}</b><small>${items.length?t.items(items.length):t.soon}</small></button>`}).join("");
 }
 $("#cats").addEventListener("click",e=>{const b=e.target.closest(".cat");if(!b)return;cat=cat===b.dataset.c?"":b.dataset.c;sizeF="";render()});
 $("#sizeF").addEventListener("change",e=>{sizeF=e.target.value;render()});
 
 async function load(){
-  $("#list").innerHTML=`<p class="empty">טוען…</p>`;
+  $("#list").innerHTML=`<p class="empty">${t.loading}</p>`;
   try{const r=await fetch("/api/products");products=(await r.json()).products||[]}catch(e){products=[]}
   render();
 }
 function card(p){
   const avail=p.sizes.filter(s=>s.stock>0).map(s=>s.size);
   const [a,b]=p.images;
-  return `<button class="card" type="button" data-id="${esc(p.id)}"><div class="pic" ${bg(p.category)}>${a?`<img src="${esc(a)}" alt="${esc(p.name)}" loading="lazy">`:svg(p.category)}${b?`<img class="b" src="${esc(b)}" alt="" loading="lazy"><span class="flip">↻ גב</span>`:""}<span class="tag">מס׳ ${p.num}</span></div>
-  <div class="meta"><b>${esc(p.name)}</b><div>${avail.length?avail.map(s=>`<span class="sz">${esc(s)}</span>`).join(""):'<span class="sz">אזל</span>'}</div>
+  return `<button class="card" type="button" data-id="${esc(p.id)}"><div class="pic" ${bg(p.category)}>${a?`<img src="${esc(a)}" alt="${esc(tx(p,"name"))}" loading="lazy">`:svg(p.category)}${b?`<img class="b" src="${esc(b)}" alt="" loading="lazy"><span class="flip">${t.back2}</span>`:""}<span class="tag">${t.no} ${p.num}</span></div>
+  <div class="meta"><b>${esc(tx(p,"name"))}</b><div>${avail.length?avail.map(s=>`<span class="sz">${esc(s)}</span>`).join(""):`<span class="sz">${t.soldOut}</span>`}</div>
   <div class="row">${priceHtml(p.price)}</div></div></button>`;
 }
 function renderStats(){
   const n=products.length,sz=[...new Set(products.flatMap(p=>p.sizes.map(s=>s.size)))];
   const nums=sz.flatMap(s=>String(s).split(/[^0-9]+/).map(Number)).filter(x=>x>=100);
-  $("#stats").innerHTML=n?`<span>${n} פריטים זמינים</span><span>לטין וסטנדרט</span>`+(nums.length?`<span>מידות ${Math.min(...nums)}–${Math.max(...nums)}</span>`:""):"";
+  $("#stats").innerHTML=n?`<span>${t.avail(n)}</span><span>${t.both}</span>`+(nums.length?`<span>${t.sizes} ${Math.min(...nums)}–${Math.max(...nums)}</span>`:""):"";
 }
 function render(){
   renderCats();renderStats();
   const inCat=products.filter(p=>!cat||p.category===cat);
   const sizes=[...new Set(inCat.flatMap(p=>p.sizes.filter(s=>s.stock>0).map(s=>s.size)))].sort((a,b)=>parseFloat(a)-parseFloat(b));
-  $("#sizeF").innerHTML=`<option value="">כל המידות</option>`+sizes.map(s=>`<option ${s===sizeF?"selected":""}>${esc(s)}</option>`).join("");
+  $("#sizeF").innerHTML=`<option value="">${t.allSizes}</option>`+sizes.map(s=>`<option ${s===sizeF?"selected":""}>${esc(s)}</option>`).join("");
   const list=inCat.filter(p=>!sizeF||p.sizes.some(s=>s.size===sizeF&&s.stock>0)).sort((a,b)=>a.num-b.num);
   const dots={"latin":"var(--latin-ink)","standard":"var(--standard-ink)","shoes-latin":"var(--shoes-latin-ink)","shoes-standard":"var(--shoes-standard-ink)"};
   const groups=Object.keys(CATS).filter(k=>!cat||k===cat).map(k=>[k,list.filter(p=>p.category===k)]).filter(([,ps])=>ps.length);
-  $("#list").innerHTML=groups.length?groups.map(([k,ps])=>`<section class="grp"><h2 class="gh" style="--dot:${dots[k]}">${CATS[k]} <span>${ps.length}</span></h2><div class="grid">${ps.map(card).join("")}</div></section>`).join("")
-    :`<p class="empty">${cat?"בקטגוריה הזו עוד אין פריטים. שווה לשאול בוואטסאפ.":"אין פריטים במידה הזו כרגע"}</p>`;
+  $("#list").innerHTML=groups.length?groups.map(([k,ps])=>`<section class="grp"><h2 class="gh" style="--dot:${dots[k]}">${t.cats[k]} <span>${ps.length}</span></h2><div class="grid">${ps.map(card).join("")}</div></section>`).join("")
+    :`<p class="empty">${cat?t.emptyCat:t.emptySize}</p>`;
 }
 $("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openProduct(c.dataset.id)});
 
@@ -228,38 +289,39 @@ function openProduct(id){
   const p=products.find(x=>x.id===id);if(!p)return;
   let size=null,qty=1;
   const body=$("#pdBody");
-  body.innerHTML=`<div class="pd"><div><div class="pic" id="pdPic" ${bg(p.category)}>${p.images[0]?`<img src="${esc(p.images[0])}" alt="${esc(p.name)}">`:svg(p.category)}</div>
-    ${p.images.length>1?`<div class="thumbs">${p.images.map((u,i)=>`<button type="button" data-u="${esc(u)}" aria-pressed="${i===0}" aria-label="תמונה ${i+1}"><img src="${esc(u)}" alt=""></button>`).join("")}</div>`:""}</div>
-    <div class="info"><span class="num" style="color:var(--muted);font-weight:700">מס׳ ${p.num} · ${CATS[p.category]}</span><h3>${esc(p.name)}</h3>
+  body.innerHTML=`<div class="pd"><div><div class="pic" id="pdPic" ${bg(p.category)}>${p.images[0]?`<img src="${esc(p.images[0])}" alt="${esc(tx(p,"name"))}">`:svg(p.category)}</div>
+    ${p.images.length>1?`<div class="thumbs">${p.images.map((u,i)=>`<button type="button" data-u="${esc(u)}" aria-pressed="${i===0}" aria-label="${t.photo} ${i+1}"><img src="${esc(u)}" alt=""></button>`).join("")}</div>`:""}</div>
+    <div class="info"><span class="num" style="color:var(--muted);font-weight:700">${t.no} ${p.num} · ${t.cats[p.category]}</span><h3>${esc(tx(p,"name"))}</h3>
     ${priceHtml(p.price)}
-    ${p.color?`<span>צבע: ${esc(p.color)}</span>`:""}
-    ${p.description?`<p style="margin:0;color:var(--muted)">${esc(p.description)}</p>`:""}
-    <div><p class="hint" style="margin-bottom:8px">${p.category.startsWith("shoes")?"מידה (EU)":"מידה (גובה הילד בס״מ)"}</p>
+    ${p.color?`<span>${t.color}: ${esc(tx(p,"color"))}</span>`:""}
+    ${p.description?`<p style="margin:0;color:var(--muted)">${esc(tx(p,"description"))}</p>`:""}
+    <div><p class="hint" style="margin-bottom:8px">${p.category.startsWith("shoes")?t.sizeShoe:t.sizeCloth}</p>
     <div class="chips" id="pdSizes">${p.sizes.map(s=>`<button class="chip" type="button" data-s="${esc(s.size)}" aria-pressed="false" ${s.stock>0?"":"disabled"}>${esc(s.size)}</button>`).join("")}</div></div>
     <div class="qty"><button type="button" data-q="-1" aria-label="פחות">−</button><span id="pdQty">1</span><button type="button" data-q="1" aria-label="יותר">+</button></div>
-    <button class="btn" type="button" id="pdAdd" disabled>בחרו מידה</button>
-    <p class="hint">הבגד ניתן בחינם. לא בטוחים במידה? כתבו לי בוואטסאפ ואבדוק.</p></div></div>`;
+    <button class="btn" type="button" id="pdAdd" disabled>${t.pick}</button>
+    <p class="hint">${t.freeNote}</p></div></div>`;
   body.querySelector(".thumbs")?.addEventListener("click",e=>{const t=e.target.closest("[data-u]");if(!t)return;$("#pdPic").querySelector("img").src=t.dataset.u;body.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-pressed",x===t))});
   $("#pdSizes").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b||b.disabled)return;size=b.dataset.s;
     $("#pdSizes").querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
-    $("#pdAdd").disabled=false;$("#pdAdd").textContent="הוספה לעגלה"});
+    $("#pdAdd").disabled=false;$("#pdAdd").textContent=t.add});
   if(p.sizes.filter(s=>s.stock>0).length===1)$("#pdSizes").querySelector(".chip:not([disabled])").click();
   body.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{qty=Math.min(10,Math.max(1,qty+ +b.dataset.q));$("#pdQty").textContent=qty});
   $("#pdAdd").onclick=()=>{
     const ex=cart.find(i=>i.id===p.id&&i.size===size);
     if(ex)ex.qty=Math.min(10,ex.qty+qty);else cart.push({id:p.id,num:p.num,name:p.name,size,qty,price:p.price,img:p.images[0]||"",category:p.category});
-    saveCart();$("#pdlg").close();toast("נוסף לעגלה");$("#cartBtn").classList.remove("bump");void $("#cartBtn").offsetWidth;$("#cartBtn").classList.add("bump");
+    saveCart();$("#pdlg").close();toast(t.added);$("#cartBtn").classList.remove("bump");void $("#cartBtn").offsetWidth;$("#cartBtn").classList.add("bump");
   };
   $("#pdlg").showModal();
 }
 $("#pdlg").addEventListener("click",e=>{if(e.target.matches("[data-close]")||e.target===$("#pdlg"))$("#pdlg").close()});
 
+function cartName(i){const p=products.find(x=>x.id===i.id);return p?tx(p,"name"):i.name}
 function renderCart(){
   $("#cartN").textContent=cart.reduce((s,i)=>s+i.qty,0);
   $("#lines").innerHTML=cart.length?cart.map((i,k)=>`<div class="line"><div class="t" ${bg(i.category)}>${i.img?`<img src="${esc(i.img)}" alt="">`:svg(i.category)}</div>
-    <div><b>${esc(i.name)}</b><small>מס׳ ${i.num||"?"} · מידה ${esc(i.size)} · ${i.qty} יח׳</small></div>
-    <div style="text-align:left"><button class="rm" type="button" data-k="${k}">הסרה</button></div></div>`).join("")
-    :`<p class="hint" style="padding:16px 0">העגלה ריקה</p>`;
+    <div><b>${esc(cartName(i))}</b><small>${t.no} ${i.num||"?"} · ${t.size} ${esc(i.size)} · ${i.qty} ${t.pcs}</small></div>
+    <div style="text-align:end"><button class="rm" type="button" data-k="${k}">${t.remove}</button></div></div>`).join("")
+    :`<p class="hint" style="padding:16px 0">${t.cartEmpty}</p>`;
   $("#oSend").disabled=!cart.length;
 }
 $("#lines").addEventListener("click",e=>{const b=e.target.closest(".rm");if(b){cart.splice(+b.dataset.k,1);saveCart()}});
@@ -268,9 +330,9 @@ $("#cartBtn").onclick=()=>openCart(true);$("#closeCart").onclick=()=>openCart(fa
 $("#checkout").addEventListener("submit",e=>{
   e.preventDefault();if(!cart.length)return;
   const name=$("#oName").value.trim(),note=$("#oNote").value.trim();
-  const msg=["שלום אורן, אשמח לקבל את הבגדים האלה:",""]
-    .concat(cart.map((i,k)=>`${k+1}) מס׳ ${i.num||"?"} – ${i.name} | מידה ${i.size}`+(i.qty>1?` | ${i.qty} יח׳`:"")))
-    .concat([""]).concat(name?[`שם: ${name}`]:[]).concat(note?[`הערה: ${note}`]:[]).join("\n");
+  const msg=[t.msgHi,""]
+    .concat(cart.map((i,k)=>`${k+1}) ${t.no} ${i.num||"?"} – ${cartName(i)} | ${t.size} ${i.size}`+(i.qty>1?` | ${i.qty} ${t.pcs}`:"")))
+    .concat([""]).concat(name?[`${t.msgName}: ${name}`]:[]).concat(note?[`${t.msgNote}: ${note}`]:[]).join("\n");
   const url="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
   try{fetch("/api/orders",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({name,note,items:cart})})}catch(err){}
   $("#waAgain").href=url;
@@ -278,22 +340,22 @@ $("#checkout").addEventListener("submit",e=>{
   location.href=url;
 });
 const ALI_ITEMS=[
- ["בנים","boys-latin-shirt","חולצת לטין לבנים","boys latin dance shirt","latin"],
- ["בנים","boys-turtleneck","חולצת גולף לריקוד","boys dance turtleneck shirt","latin"],
- ["בנים","boys-pants","מכנסי ריקוד לבנים","boys ballroom dance pants","standard"],
- ["בנים","boys-latin-shoes","נעלי לטין לבנים","boys latin dance shoes","shoes-latin"],
- ["בנים","boys-standard-shoes","נעלי סטנדרט לבנים","boys ballroom dance shoes","shoes-standard"],
- ["בנים","boys-practice","בגד אימון לבנים","boys dance practice wear","standard"],
- ["בנות","girls-latin-dress","שמלת לטין לבנות","girls latin dance dress","latin"],
- ["בנות","girls-practice-dress","שמלת אימון לבנות","girls ballroom practice dress","standard"],
- ["בנות","girls-latin-shoes","נעלי לטין לבנות","girls latin dance shoes","shoes-latin"],
- ["בנות","girls-standard-shoes","נעלי סטנדרט לבנות","girls ballroom dance shoes","shoes-standard"],
- ["בנות","girls-skirt","חצאית ריקוד לבנות","girls latin dance skirt","latin"],
- ["בנות","girls-hair","אביזרי שיער לתחרות","dance competition hair accessories","standard"],
- ["לכולם","heel-protectors","מגני עקב לנעלי ריקוד","dance shoe heel protectors","shoes-standard"],
- ["לכולם","suede-brush","מברשת לסוליית זמש","dance shoe suede brush","shoes-latin"],
- ["לכולם","shoe-bag","תיק לנעלי ריקוד","dance shoe bag","latin"],
- ["לכולם","number-pins","מחזיק מספר לתחרות","dance competition number holder","standard"]
+ ["boys","boys-latin-shirt",{he:"חולצת לטין לבנים",ru:"Рубашка для латины",en:"Latin shirt"},"boys latin dance shirt","latin"],
+ ["boys","boys-turtleneck",{he:"חולצת גולף לריקוד",ru:"Водолазка для танцев",en:"Dance turtleneck"},"boys dance turtleneck shirt","latin"],
+ ["boys","boys-pants",{he:"מכנסי ריקוד לבנים",ru:"Брюки для танцев",en:"Dance trousers"},"boys ballroom dance pants","standard"],
+ ["boys","boys-latin-shoes",{he:"נעלי לטין לבנים",ru:"Обувь для латины",en:"Latin shoes"},"boys latin dance shoes","shoes-latin"],
+ ["boys","boys-standard-shoes",{he:"נעלי סטנדרט לבנים",ru:"Обувь для стандарта",en:"Standard shoes"},"boys ballroom dance shoes","shoes-standard"],
+ ["boys","boys-practice",{he:"בגד אימון לבנים",ru:"Тренировочная одежда",en:"Practice wear"},"boys dance practice wear","standard"],
+ ["girls","girls-latin-dress",{he:"שמלת לטין לבנות",ru:"Платье для латины",en:"Latin dress"},"girls latin dance dress","latin"],
+ ["girls","girls-practice-dress",{he:"שמלת אימון לבנות",ru:"Тренировочное платье",en:"Practice dress"},"girls ballroom practice dress","standard"],
+ ["girls","girls-latin-shoes",{he:"נעלי לטין לבנות",ru:"Обувь для латины",en:"Latin shoes"},"girls latin dance shoes","shoes-latin"],
+ ["girls","girls-standard-shoes",{he:"נעלי סטנדרט לבנות",ru:"Обувь для стандарта",en:"Standard shoes"},"girls ballroom dance shoes","shoes-standard"],
+ ["girls","girls-skirt",{he:"חצאית ריקוד לבנות",ru:"Юбка для танцев",en:"Dance skirt"},"girls latin dance skirt","latin"],
+ ["girls","girls-hair",{he:"אביזרי שיער לתחרות",ru:"Украшения для волос",en:"Competition hair accessories"},"dance competition hair accessories","standard"],
+ ["all","heel-protectors",{he:"מגני עקב לנעלי ריקוד",ru:"Набойки-протекторы",en:"Heel protectors"},"dance shoe heel protectors","shoes-standard"],
+ ["all","suede-brush",{he:"מברשת לסוליית זמש",ru:"Щётка для замшевой подошвы",en:"Suede sole brush"},"dance shoe suede brush","shoes-latin"],
+ ["all","shoe-bag",{he:"תיק לנעלי ריקוד",ru:"Сумка для обуви",en:"Dance shoe bag"},"dance shoe bag","latin"],
+ ["all","number-pins",{he:"מחזיק מספר לתחרות",ru:"Держатель номера",en:"Competition number holder"},"dance competition number holder","standard"]
 ];
 let who="new";
 const aliUrl=(slug,q)=>(window.ALI&&ALI.links[slug])||`https://www.aliexpress.com/w/wholesale-${q.trim().replace(/\s+/g,"-")}.html?SortType=price_asc`;
@@ -301,16 +363,16 @@ function renderAli(){
   document.querySelectorAll("[data-who]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.who===who));
   const nu=(window.ALI&&ALI.newUser)||"https://www.aliexpress.com/";
   $("#aliNote").innerHTML=who==="new"
-    ?`<p><b>חדשים באליאקספרס?</b>בהזמנה הראשונה יש מבצעי הצטרפות (Welcome Deal) וקופונים למצטרפים. נרשמים דרך הכפתור, ואז בוחרים פריטים מהרשימה למטה.</p><a class="btn" href="${nu}" target="_blank" rel="noopener sponsored">להרשמה לאליאקספרס ↗</a>`
-    :`<p><b>כבר קניתם באליאקספרס?</b>כל קישור כאן פותח חיפוש ממוין מהזול ליקר. כדאי לבחור מוכר עם דירוג גבוה ולבדוק את טבלת המידות של המוכר.</p>`;
-  const groups=["בנים","בנות","לכולם"];
-  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${g}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,slug,name,q,c])=>`<a class="ai" style="background:var(--${c})" href="${esc(aliUrl(slug,q))}" target="_blank" rel="noopener sponsored"><b>${name}</b><span>לחיפוש באליאקספרס ↗</span></a>`).join("")}</div></section>`).join("");
+    ?`<p>${t.aliNew}</p><a class="btn" href="${nu}" target="_blank" rel="noopener sponsored">${t.aliJoin}</a>`
+    :`<p>${t.aliOld}</p>`;
+  const groups=["boys","girls","all"];
+  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${t.groups[g]}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,slug,name,q,c])=>`<a class="ai" style="background:var(--${c})" href="${esc(aliUrl(slug,q))}" target="_blank" rel="noopener sponsored"><b>${name[lang]}</b><span>${t.aliGo}</span></a>`).join("")}</div></section>`).join("");
 }
 document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;renderAli()});
 function showView(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));$("#v-shop").hidden=v!=="shop";$("#v-ali").hidden=v!=="ali";if(v==="ali")renderAli();try{history.replaceState(null,"",v==="ali"?"#ali":location.pathname)}catch(e){}}
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showView(t.dataset.v));
 if(location.hash==="#ali")showView("ali");
-renderCart();load();
+applyLang();renderCart();load();
 </script>
 </body>
 </html>

@@ -18,6 +18,7 @@ function clean(p) {
     sizes,
     images: (Array.isArray(p.images) ? p.images : []).filter(u => IMG.test(u)).slice(0, 4),
     hidden: !!p.hidden,
+    tr: p.tr && typeof p.tr === 'object' ? JSON.parse(JSON.stringify(p.tr).slice(0, 4000)) : undefined,
     updatedAt: Date.now()
   };
 }
