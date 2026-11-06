@@ -131,6 +131,8 @@ h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 .ai:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(80,70,60,.1)}
 .ai b{font:800 1.05rem/1.3 var(--body)}
 .ai b,.ai span{color:var(--text)}
+.aimg{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;display:block;background:#fff}
+.apr{font:800 .95rem var(--body)!important;color:var(--text)!important}
 .aico{width:100%;height:120px;background:rgba(255,255,255,.55);border-radius:14px;padding:10px}
 @media (max-width:480px){.aico{height:96px}}
 .ai small{color:var(--muted);font-weight:500}
@@ -178,7 +180,7 @@ footer a{color:var(--muted)}
   </div>
   <div class="note" id="aliNote"></div>
   <div id="aliList"></div>
-  <p class="hint" style="margin-top:18px" data-t="aliHint">כל קישור פותח מוצר אמיתי באליאקספרס. המחירים והמבצעים שם משתנים, אז כדאי לבדוק מחיר, מידות ודירוג של המוכר לפני שקונים.</p>
+  <p class="hint" style="margin-top:18px" data-t="aliHint">אלה קישורי שותפים: אם קונים דרכם, אני מקבל עמלה קטנה מאליאקספרס, בלי שום תוספת למחיר שלכם. המחירים נבדקו בנובמבר 2026 ומשתנים שם, אז כדאי לבדוק מחיר ומידות לפני שקונים.</p>
 </section>
 
 <section class="give"><div><b data-t="giveT">הילד גדל מהבגדים?</b><p data-t="giveP">אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener" data-t="giveBtn">לתרומה ב-WhatsApp</a></section>
@@ -223,7 +225,7 @@ const priceHtml=()=>`<span class="free">${t.free}</span>`;
 let products=[],cat="",sizeF="",cart=[];
 const L={
  he:{dir:"rtl",nLatin:"לטין",nStandard:"סטנדרט",nShoesL:"נעלי לטין",nShoesS:"נעלי סטנדרט",nAli:"אליאקספרס",nAbout:"מי אני",aboutT:"היי, אני אורן",aboutP:"אני רוקד ריקודים סלוניים מגיל 3, לטין וסטנדרט, וזכיתי בכמה תחרויות. הריקוד נתן לי המון, ואני רוצה שכל ילד שאוהב לרקוד יוכל להגיע לאימון ולתחרות בבגדים ובנעליים מתאימים. בגלל זה כל הבגדים כאן ניתנים בחינם.",b1:"רוקד מגיל 3",b2:"לטין וסטנדרט",b3:"זוכה בתחרויות",orenAlt:"אורן",title:"בגדי ריקודים לבנים",sub:"הכול בחינם, לילדים שצריכים",cart:"עגלה",tabShop:"הבגדים שלי · חינם",tabAli:"אליאקספרס · בזול",whoNew:"מצטרפים חדשים",whoOld:"כבר קניתי באליאקספרס",
-  aliHint:"כל קישור פותח מוצר אמיתי באליאקספרס. המחירים והמבצעים שם משתנים, אז כדאי לבדוק מחיר, מידות ודירוג של המוכר לפני שקונים.",
+  aliHint:"אלה קישורי שותפים: אם קונים דרכם, אני מקבל עמלה קטנה מאליאקספרס, בלי שום תוספת למחיר שלכם. המחירים נבדקו בנובמבר 2026 ומשתנים שם, אז כדאי לבדוק מחיר ומידות לפני שקונים.",
   giveT:"הילד גדל מהבגדים?",giveP:"אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.",giveBtn:"לתרומה ב-WhatsApp",admin:"ניהול",
   cartT:"העגלה",close:"סגור",nameL:"שם (לא חובה)",noteL:"הערה (לא חובה)",noteP:"למשל גובה הילד",send:"שליחת בקשה ב-WhatsApp",doneT:"נפתח WhatsApp עם הבקשה",doneP:"לחצו ״שלח״ ב-WhatsApp. לא נפתח?",again:"פתיחה מחדש",back:"חזרה לחנות",
   cats:{"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"},items:n=>n+" פריטים",soon:"בקרוב",loading:"טוען…",back2:"↻ גב",no:"מס׳",soldOut:"אזל",free:"חינם",
@@ -231,11 +233,11 @@ const L={
   color:"צבע",sizeShoe:"מידה (EU)",sizeCloth:"מידה (גובה הילד בס״מ)",pick:"בחרו מידה",add:"הוספה לעגלה",freeNote:"הבגד ניתן בחינם. לא בטוחים במידה? כתבו לי בוואטסאפ ואבדוק.",added:"נוסף לעגלה",
   size:"מידה",pcs:"יח׳",remove:"הסרה",cartEmpty:"העגלה ריקה",photo:"תמונה",
   msgHi:"שלום אורן, אשמח לקבל את הבגדים האלה:",msgName:"שם",msgNote:"הערה",
-  groups:{boysL:"בנים · לטין",boysS:"בנים · סטנדרט",girlsL:"בנות · לטין",shoesL:"נעלי לטין",shoesS:"נעלי סטנדרט"},aliGo:"לצפייה באליאקספרס ↗",
+  groups:{boysL:"בנים · לטין",boysS:"בנים · סטנדרט",girlsL:"בנות · לטין",girlsS:"בנות · סטנדרט",shoesL:"נעלי לטין",shoesS:"נעלי סטנדרט"},aliFrom:"מ-",aliGo:"לצפייה באליאקספרס ↗",
   aliNew:"<b>חדשים באליאקספרס?</b>בהזמנה הראשונה יש מבצעי הצטרפות (Welcome Deal) וקופונים למצטרפים. נרשמים דרך הכפתור, ואז בוחרים פריטים מהרשימה למטה.",aliJoin:"להרשמה לאליאקספרס ↗",
   aliOld:"<b>כבר קניתם באליאקספרס?</b>בחרתי פריטים פשוטים וזולים יחסית. לפני שקונים כדאי לבדוק את טבלת המידות של המוכר ואת הביקורות עם תמונות."},
  ru:{dir:"ltr",nLatin:"Латина",nStandard:"Стандарт",nShoesL:"Обувь латина",nShoesS:"Обувь стандарт",nAli:"AliExpress",nAbout:"Обо мне",aboutT:"Привет, я Орен",aboutP:"Я занимаюсь бальными танцами с 3 лет, латиной и стандартом, и побеждал на нескольких соревнованиях. Танцы дали мне очень много, и я хочу, чтобы каждый ребёнок, который любит танцевать, мог прийти на тренировку и на турнир в подходящей одежде и обуви. Поэтому все вещи здесь отдаются бесплатно.",b1:"Танцую с 3 лет",b2:"Латина и стандарт",b3:"Победитель соревнований",orenAlt:"Орен",title:"Одежда для бальных танцев для мальчиков",sub:"Всё бесплатно, для детей, которым это нужно",cart:"Корзина",tabShop:"Моя одежда · бесплатно",tabAli:"AliExpress · недорого",whoNew:"Новый покупатель",whoOld:"Уже покупал на AliExpress",
-  aliHint:"Каждая ссылка открывает настоящий товар на AliExpress. Цены и акции там меняются, поэтому проверяйте цену, размеры и рейтинг продавца перед покупкой.",
+  aliHint:"Это партнёрские ссылки: если вы покупаете по ним, я получаю небольшую комиссию от AliExpress, а цена для вас не меняется. Цены проверены в ноябре 2026 и могут меняться, поэтому проверяйте цену и размеры перед покупкой.",
   giveT:"Ребёнок вырос из одежды?",giveP:"Можно отдать танцевальную одежду и обувь, которая стала мала, и она перейдёт другому ребёнку.",giveBtn:"Отдать через WhatsApp",admin:"Управление",
   cartT:"Корзина",close:"Закрыть",nameL:"Имя (необязательно)",noteL:"Комментарий (необязательно)",noteP:"Например, рост ребёнка",send:"Отправить запрос в WhatsApp",doneT:"WhatsApp открыт с вашим запросом",doneP:"Нажмите «Отправить» в WhatsApp. Не открылся?",again:"Открыть снова",back:"Назад в магазин",
   cats:{"latin":"Латина","standard":"Стандарт","shoes-latin":"Обувь для латины","shoes-standard":"Обувь для стандарта"},items:n=>n+" шт.",soon:"Скоро",loading:"Загрузка…",back2:"↻ спина",no:"№",soldOut:"Нет",free:"Бесплатно",
@@ -243,11 +245,11 @@ const L={
   color:"Цвет",sizeShoe:"Размер (EU)",sizeCloth:"Размер (рост ребёнка, см)",pick:"Выберите размер",add:"В корзину",freeNote:"Вещь отдаётся бесплатно. Не уверены в размере? Напишите мне в WhatsApp, я проверю.",added:"Добавлено в корзину",
   size:"размер",pcs:"шт.",remove:"Удалить",cartEmpty:"Корзина пуста",photo:"Фото",
   msgHi:"Здравствуйте, Орен! Я бы хотел(а) получить эти вещи:",msgName:"Имя",msgNote:"Комментарий",
-  groups:{boysL:"Мальчики · латина",boysS:"Мальчики · стандарт",girlsL:"Девочки · латина",shoesL:"Обувь для латины",shoesS:"Обувь для стандарта"},aliGo:"Смотреть на AliExpress ↗",
+  groups:{boysL:"Мальчики · латина",boysS:"Мальчики · стандарт",girlsL:"Девочки · латина",girlsS:"Девочки · стандарт",shoesL:"Обувь для латины",shoesS:"Обувь для стандарта"},aliFrom:"от",aliGo:"Смотреть на AliExpress ↗",
   aliNew:"<b>Впервые на AliExpress?</b>На первый заказ действуют приветственные предложения (Welcome Deal) и купоны для новых покупателей. Зарегистрируйтесь по кнопке, а потом выбирайте вещи из списка ниже.",aliJoin:"Регистрация на AliExpress ↗",
   aliOld:"<b>Уже покупали на AliExpress?</b>Я выбрал простые и недорогие вещи. Перед покупкой сверьтесь с таблицей размеров продавца и отзывами с фото."},
  en:{dir:"ltr",nLatin:"Latin",nStandard:"Standard",nShoesL:"Latin shoes",nShoesS:"Standard shoes",nAli:"AliExpress",nAbout:"About me",aboutT:"Hi, I'm Oren",aboutP:"I've been a ballroom dancer since I was 3, in both Latin and Standard, and I've won several competitions. Dancing has given me a lot, and I want every kid who loves to dance to make it to practice and competitions in the right clothes and shoes. That's why everything here is free.",b1:"Dancing since age 3",b2:"Latin & Standard",b3:"Competition winner",orenAlt:"Oren",title:"Boys' Ballroom Dancewear",sub:"All free, for kids who need it",cart:"Cart",tabShop:"My clothes · free",tabAli:"AliExpress · budget",whoNew:"New to AliExpress",whoOld:"I've bought on AliExpress",
-  aliHint:"Each link opens a real AliExpress product. Prices and deals there change, so check the price, sizes and seller rating before buying.",
+  aliHint:"These are affiliate links: if you buy through them I get a small commission from AliExpress, at no extra cost to you. Prices were checked in November 2026 and change, so check the price and sizes before buying.",
   giveT:"Has your child outgrown their dancewear?",giveP:"You can donate dance clothes and shoes that no longer fit, and they'll go to another child who needs them.",giveBtn:"Donate via WhatsApp",admin:"Admin",
   cartT:"Cart",close:"Close",nameL:"Name (optional)",noteL:"Note (optional)",noteP:"For example, your child's height",send:"Send request on WhatsApp",doneT:"WhatsApp opened with your request",doneP:"Tap “Send” in WhatsApp. Didn't open?",again:"Open again",back:"Back to the shop",
   cats:{"latin":"Latin","standard":"Standard","shoes-latin":"Latin shoes","shoes-standard":"Standard shoes"},items:n=>n+" items",soon:"Coming soon",loading:"Loading…",back2:"↻ back",no:"No.",soldOut:"Gone",free:"Free",
@@ -255,7 +257,7 @@ const L={
   color:"Colour",sizeShoe:"Size (EU)",sizeCloth:"Size (child's height, cm)",pick:"Choose a size",add:"Add to cart",freeNote:"This item is free. Not sure about the size? Message me on WhatsApp and I'll check.",added:"Added to cart",
   size:"size",pcs:"pcs",remove:"Remove",cartEmpty:"Your cart is empty",photo:"Photo",
   msgHi:"Hi Oren, I'd like to receive these items:",msgName:"Name",msgNote:"Note",
-  groups:{boysL:"Boys · Latin",boysS:"Boys · Standard",girlsL:"Girls · Latin",shoesL:"Latin shoes",shoesS:"Standard shoes"},aliGo:"View on AliExpress ↗",
+  groups:{boysL:"Boys · Latin",boysS:"Boys · Standard",girlsL:"Girls · Latin",girlsS:"Girls · Standard",shoesL:"Latin shoes",shoesS:"Standard shoes"},aliFrom:"from",aliGo:"View on AliExpress ↗",
   aliNew:"<b>New to AliExpress?</b>Your first order gets welcome deals and new-customer coupons. Sign up with the button, then pick items from the list below.",aliJoin:"Sign up to AliExpress ↗",
   aliOld:"<b>Already shop on AliExpress?</b>I picked simple, fairly cheap items. Before buying, check the seller's size chart and reviews with photos."}
 };
@@ -372,19 +374,33 @@ $("#checkout").addEventListener("submit",e=>{
   location.href=url;
 });
 const ALI_ITEMS=[
- ["boysL","1005006273761974",{"he": "חולצת לטין לבנים, צווארון V", "ru": "Футболка для латины, V-вырез", "en": "Boys' Latin V-neck top"},"latin","vneck"],
- ["boysL","us:3256804544087924",{"he": "חולצת לטין מרשת לבנים", "ru": "Сетчатая рубашка для латины", "en": "Boys' mesh Latin shirt"},"latin","mesh"],
- ["boysL","us:3256807959316441",{"he": "מכנסי לטין לבנים ZYM", "ru": "Брюки для латины ZYM", "en": "ZYM boys' Latin trousers"},"latin","pants"],
- ["boysS","us:3256808502738744",{"he": "בגד גוף לבנים עם פפיון", "ru": "Боди с бабочкой для мальчиков", "en": "Boys' bodysuit shirt with bow tie"},"standard","bowtie"],
- ["boysS","us:3256808186378167",{"he": "מכנסי ריקוד סלוני לבנים", "ru": "Бальные брюки для мальчиков", "en": "Boys' ballroom trousers"},"standard","pants"],
- ["girlsL","us:3256807907371328",{"he": "שמלת לטין מבריקה, שרוול ארוך", "ru": "Блестящее платье для латины, длинный рукав", "en": "Glossy long-sleeve Latin dress"},"latin","dressL"],
- ["girlsL","us:3256811962490131",{"he": "שמלת לטין קצרה לקיץ ZYM", "ru": "Летнее платье для латины ZYM", "en": "ZYM short summer Latin dress"},"latin","dressS"],
- ["girlsL","us:3256806159886207",{"he": "שמלת לטין לבנה עם שרוולי פנס", "ru": "Белое платье для латины", "en": "White Latin dress, lantern sleeves"},"latin","dressW"],
- ["girlsL","us:3256812097726730",{"he": "שמלת לטין עם פרנזים", "ru": "Платье для латины с бахромой", "en": "Latin dress with tassels"},"latin","dressT"],
- ["shoesL","us:3256805296409037",{"he": "נעלי לטין מעור רך לבנים", "ru": "Мягкие кожаные туфли для мальчиков", "en": "Boys' soft leather Latin shoes"},"shoes-latin","oxford"],
- ["shoesL","us:3256812100441940",{"he": "נעלי לטין לבנות, עקב נמוך", "ru": "Туфли для латины для девочек, низкий каблук", "en": "Girls' low-heel Latin shoes"},"shoes-latin","heel"],
- ["shoesL","us:3256804912601866",{"he": "נעלי ריקוד לבנות, עקב נמוך", "ru": "Туфли для девочек, низкий каблук", "en": "Girls' low-heel dance shoes"},"shoes-latin","heel"],
- ["shoesS","us:3256804445464535",{"he": "נעלי סטנדרט מעור (מידות 38–45)", "ru": "Кожаные туфли для стандарта (38–45)", "en": "Leather Standard shoes (EU 38–45)"},"shoes-standard","oxford"]
+ ["boysL", "_c3rdDarz", {"he": "בגד גוף לטין לבנים", "ru": "Боди для латины", "en": "Boys' Latin bodysuit shirt"}, "latin", "S1a8ea415254543d2a1cecb7702bc85859.jpg", 28.49],
+ ["boysL", "_c3Igr8j9", {"he": "חולצת לטין עם שרוולי רשת", "ru": "Рубашка с сетчатыми рукавами", "en": "Mesh-sleeve Latin top"}, "latin", "S9f5f4f726a2c48539088343b7164cc70A.jpg", 54.06],
+ ["boysL", "_c38pww67", {"he": "בגד גוף כותנה עם פפיון", "ru": "Хлопковое боди с бабочкой", "en": "Cotton bodysuit with bow tie"}, "latin", "Saeceef930cee4ba594084ee0b9f4934fr.jpg", 21.09],
+ ["boysL", "_c4LeaSuJ", {"he": "בגד גוף עם צווארון כפתורים", "ru": "Боди с воротником на пуговицах", "en": "Bodysuit with button collar"}, "latin", "Se01c623c2de247e293468ae847b78834j.png", 48.59],
+ ["boysL", "_c4bZgg9Z", {"he": "חולצת לטין צווארון V, שרוול ארוך", "ru": "Рубашка с V-вырезом, длинный рукав", "en": "Long-sleeve V-neck Latin top"}, "latin", "S37915ab8e8f747dd87f705f547ae929aG.jpg", 41.39],
+ ["boysL", "_c2wc8BvH", {"he": "חולצת לטין V עמוק עם רשת", "ru": "Рубашка с глубоким V-вырезом и сеткой", "en": "Deep V mesh Latin top"}, "latin", "Scdfc97bf0a8d4da4a57a06fe2617dc48z.jpg", 38.9],
+ ["boysL", "_c32vmNkb", {"he": "מכנסי לטין עם פס", "ru": "Брюки для латины с лампасом", "en": "Latin trousers with stripe"}, "latin", "Sdd4294ff851447569ac807347d550ce2J.jpg", 57.39],
+ ["boysS", "_c3UWny6x", {"he": "מכנסי סאטן לסטנדרט", "ru": "Атласные брюки для стандарта", "en": "Satin ballroom trousers"}, "standard", "HTB1vGqAD.R1BeNjy0Fmq6z0wVXaF.jpg", 40.88],
+ ["boysS", "_c3wZmv31", {"he": "סט חולצה עם פפיון ומכנסיים", "ru": "Комплект: рубашка с бабочкой и брюки", "en": "Bow-tie shirt and trousers set"}, "standard", "Sdd143bad80fb45e2a2506e6e6cc799fcW.png", 59.39],
+ ["boysS", "_c3QmN31z", {"he": "בגד גוף מקצועי לריקוד", "ru": "Профессиональное боди", "en": "Professional dance bodysuit"}, "standard", "S169e86da382d4d14bcc390a980a41f3bJ.jpg", 42.66],
+ ["girlsL", "_c2z8AKPV", {"he": "שמלת תחרות לטין מבריקה", "ru": "Блестящее конкурсное платье", "en": "Glossy Latin competition dress"}, "latin", "S182d171494f441d8829ade3aee644917k.jpg", 49.71],
+ ["girlsL", "_c3WZOoTV", {"he": "שמלת לטין עם פאייטים", "ru": "Платье для латины с пайетками", "en": "Sequined Latin dress"}, "latin", "Sfcb13a4624d44b91adc3e4225b15725eD.jpg", 19.79],
+ ["girlsL", "_c3FCdxEf", {"he": "חצאית לטין, 10 צבעים", "ru": "Юбка для латины, 10 цветов", "en": "Latin skirt, 10 colours"}, "latin", "S9ef78b5b26fc4ae0aad90c7735dccb6eb.jpg", 33.16],
+ ["girlsL", "_c4qjKV2f", {"he": "שמלת לטין עם פרנזים", "ru": "Платье для латины с бахромой", "en": "Fringe Latin dress"}, "latin", "Sb6d5bcfa86ec4dbba058e4910dd6903eu.png", 40.19],
+ ["girlsL", "_c40swWvZ", {"he": "שמלת לטין שרוול קצר", "ru": "Платье для латины, короткий рукав", "en": "Short-sleeve Latin dress"}, "latin", "Sa47954f7c3e248d48df3e53c08888689B.jpg", 32.59],
+ ["girlsL", "_c4sAVTGT", {"he": "שמלת לטין לאימונים", "ru": "Тренировочное платье для латины", "en": "Latin practice dress"}, "latin", "S99fadd592c1b4bf4b9f99dd6804dfe4f2.jpeg", 26.1],
+ ["girlsL", "_c4NcZ0J5", {"he": "שמלת לטין מקצועית", "ru": "Профессиональное платье для латины", "en": "Professional Latin dress"}, "latin", "Sd8cb23b5fdf94ae39248c9df2b335e5d0.jpg", 52.0],
+ ["girlsS", "_c4bn4Fgb", {"he": "שמלת ואלס לסטנדרט", "ru": "Платье для стандарта (вальс)", "en": "Waltz ballroom dress"}, "standard", "Sf53ae486ba484e6c8dc88ff31a56bd3b0.jpg", 96.39],
+ ["shoesL", "_c45HIler", {"he": "נעלי לטין לבנים, סוליה רכה", "ru": "Туфли для латины для мальчиков, мягкая подошва", "en": "Boys' soft-sole Latin shoes"}, "shoes-latin", "S864a2d25310d4dcb98e78f7653d5b244Q.jpg", 36.69],
+ ["shoesL", "_c3CSvk0J", {"he": "נעלי לטין לילדים", "ru": "Туфли для латины для детей", "en": "Kids' Latin shoes"}, "shoes-latin", "S1d5fedc54f4e40668a61d18f677a027fA.jpg", 43.59],
+ ["shoesL", "_c4sBJ00B", {"he": "נעלי לטין לבנים", "ru": "Туфли для латины для мальчиков", "en": "Boys' Latin shoes"}, "shoes-latin", "S21bfb6515e4a45c4831fda9067b24ee5I.jpg", 29.19],
+ ["shoesL", "_c3CeX3Xt", {"he": "נעלי לטין לבנות, צבע לבן", "ru": "Белые туфли для латины для девочек", "en": "Girls' white Latin shoes"}, "shoes-latin", "S9f0fd057bc6d432ebcb4e5fc2f12460az.jpg", 37.82],
+ ["shoesL", "_c4ctbGkn", {"he": "נעלי לטין לבנות, סוליה רכה", "ru": "Туфли для девочек, мягкая подошва", "en": "Girls' soft-sole Latin shoes"}, "shoes-latin", "S6bd8f168861b4272ae4a9b48cd6e56dfa.jpg", 41.19],
+ ["shoesL", "_c3KYLWfN", {"he": "נעלי לטין לבנות, עקב נמוך", "ru": "Туфли для девочек, низкий каблук", "en": "Girls' low-heel Latin shoes"}, "shoes-latin", "S793c2e42afa24488aa7a1cb071a31e3eY.jpeg", 27.09],
+ ["shoesL", "_c433TQ5v", {"he": "נעלי לטין למתחילות", "ru": "Туфли для латины для начинающих", "en": "Beginner girls' Latin shoes"}, "shoes-latin", "Sc983fbb96b5643ceb42d2dff09a337b74.jpg", 21.29],
+ ["shoesS", "_c3PUIYt1", {"he": "נעלי סטנדרט מעור רך לבנים", "ru": "Мягкие кожаные туфли для стандарта", "en": "Boys' soft leather ballroom shoes"}, "shoes-standard", "S066926484efa4cd9b11ece44d48f95b0X.jpg", 29.39],
+ ["shoesS", "_c2yvxFN5", {"he": "נעלי סטנדרט מעור לבנים", "ru": "Кожаные туфли для стандарта для мальчиков", "en": "Boys' leather ballroom shoes"}, "shoes-standard", "S437a76abbf584e9689fb30836cbae0e4c.jpg", 28.9]
 ];
 const ICO={
  vneck:'<path d="M38 22 L24 28 L14 46 L24 52 L28 44 L28 100 L72 100 L72 44 L76 52 L86 46 L76 28 L62 22 L50 44 Z"/>',
@@ -400,15 +416,16 @@ const ICO={
 };
 const icoSvg=k=>`<svg class="aico" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${ICO[k]||""}</svg>`;
 let who="new";
-const aliUrl=id=>(window.ALI&&ALI.links[id])||(id.startsWith("us:")?`https://www.aliexpress.us/item/${id.slice(3)}.html`:`https://www.aliexpress.com/item/${id}.html`);
+const aliUrl=k=>`https://s.click.aliexpress.com/e/${k}`;
+const aliImg=f=>`https://ae-pic-a1.aliexpress-media.com/kf/${f}_350x350.jpg`;
 function renderAli(){
   document.querySelectorAll("[data-who]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.who===who));
   const nu=(window.ALI&&ALI.newUser)||"https://www.aliexpress.com/";
   $("#aliNote").innerHTML=who==="new"
     ?`<p>${t.aliNew}</p><a class="btn" href="${nu}" target="_blank" rel="noopener sponsored">${t.aliJoin}</a>`
     :`<p>${t.aliOld}</p>`;
-  const groups=["boysL","boysS","girlsL","shoesL","shoesS"];
-  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${t.groups[g]}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,id,name,c,ic])=>`<a class="ai" style="background:var(--${c});color:var(--${c}-ink)" href="${esc(aliUrl(id))}" target="_blank" rel="noopener sponsored">${icoSvg(ic)}<b>${name[lang]}</b><span>${t.aliGo}</span></a>`).join("")}</div></section>`).join("");
+  const groups=["boysL","boysS","girlsL","girlsS","shoesL","shoesS"];
+  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${t.groups[g]}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,k,name,c,im,pr])=>`<a class="ai" style="background:var(--${c})" href="${esc(aliUrl(k))}" target="_blank" rel="noopener sponsored"><img class="aimg" src="${aliImg(im)}" alt="" loading="lazy" referrerpolicy="no-referrer"><b>${name[lang]}</b><small class="apr">${t.aliFrom} ₪${Math.round(pr)}</small><span>${t.aliGo}</span></a>`).join("")}</div></section>`).join("");
 }
 document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;renderAli()});
 function showView(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));$("#v-shop").hidden=v!=="shop";$("#v-ali").hidden=v!=="ali";if(v==="ali")renderAli();try{history.replaceState(null,"",v==="ali"?"#ali":location.pathname)}catch(e){}}
