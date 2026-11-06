@@ -1,6 +1,7 @@
-// AliExpress links. Paste your affiliate (s.click) links here once the AliExpress Portals account is open.
-// Empty = a plain AliExpress search link sorted by lowest price.
+// AliExpress affiliate links (from Portals > Link generator), keyed by product ID in index.html.
 window.ALI = {
-  newUser: '',   // affiliate link for new users (Welcome Deal)
-  links: {}      // e.g. { 'boys-latin-shirt': 'https://s.click.aliexpress.com/e/...' }
+  newUser: '',
+  links: {
+    '1005006273761974': 'https://s.click.aliexpress.com/e/_c4CaNH8x' // 1 boys Latin V-neck top
+  }
 };
