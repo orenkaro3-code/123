@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>recv</title>
+<body style="font:20px sans-serif;padding:40px">ממתין לקובץ…
+<script>
+window.addEventListener('message',e=>{
+  if(!/^https:\/\/oren-ballroom-shop\.vercel\.app$/.test(e.origin))return;
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([e.data.text],{type:'application/json'}));a.download=e.data.name;document.body.appendChild(a);a.click();
+  document.body.firstChild.textContent='הקובץ נשמר: '+e.data.name;
+});
+if(window.opener)window.opener.postMessage('ready','https://oren-ballroom-shop.vercel.app');
+</script>
