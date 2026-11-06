@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ניהול · בגדי ריקודים לבנים</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/style.css">
+<style>
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:20px}
+.top b{font:800 1.3rem var(--body)}
+.login{max-width:420px;margin:12vh auto;padding:28px;display:grid;gap:14px}
+.login h1{font:800 1.6rem var(--body);margin:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+h2{font:800 1.4rem var(--body);margin:0}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 14px}
+.list{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px}
+.row .t{width:64px;height:80px;border-radius:10px;overflow:hidden;background:var(--bg);display:grid;place-items:center;color:var(--muted);font-size:.75rem}
+.row .t img{width:100%;height:100%;object-fit:cover}
+.row b{font:700 1rem var(--body)}
+.row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.form{padding:20px;display:grid;gap:14px}
+.two{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.two{grid-template-columns:1fr}.row{grid-template-columns:56px minmax(0,1fr)}.row .acts{grid-column:1/-1;justify-content:flex-start}}
+.sizes{display:grid;gap:8px}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:center}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.imgs{display:flex;gap:10px;flex-wrap:wrap}
+.imgs figure{margin:0;position:relative;width:96px;height:120px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.imgs figure img{width:100%;height:100%;object-fit:cover}
+.imgs figure button{position:absolute;top:4px;left:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.7);color:#fff;cursor:pointer}
+.drop{width:96px;height:120px;border:1px dashed var(--accent);border-radius:12px;display:grid;place-items:center;text-align:center;font-size:.85rem;color:var(--accent);background:#fff;cursor:pointer;padding:6px}
+.check{display:flex;gap:8px;align-items:center;color:var(--text)}
+.check input{width:auto}
+.order{padding:16px;display:grid;gap:8px}
+.order .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.order ul{margin:0;padding-inline-start:20px}
+.st-new{border-color:var(--accent)}
+.err{color:var(--bad);margin:0}
+.confirm{display:flex;gap:6px;align-items:center;font-size:.9rem;color:var(--bad)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <form class="login glass" id="loginForm">
+    <b>בגדי ריקודים לבנים</b>
+    <h1>כניסת מנהל</h1>
+    <label>סיסמה<input id="pw" type="password" autocomplete="current-password" required></label>
+    <p class="err" id="loginErr" hidden></p>
+    <button class="btn" type="submit">כניסה</button>
+    <a href="/" class="hint">חזרה לחנות</a>
+  </form>
+
+  <div id="app" hidden>
+    <div class="top"><b>בגדי ריקודים לבנים · ניהול</b>
+      <div class="tabs"><button class="chip" data-tab="products" aria-pressed="true">מוצרים</button><button class="chip" data-tab="orders" aria-pressed="false" id="ordTab">הזמנות</button><a class="chip" href="/" target="_blank" rel="noopener" style="text-decoration:none">לחנות ↗</a><button class="chip" id="logout">יציאה</button></div>
+    </div>
+
+    <section id="products">
+      <div class="head"><h2>מוצרים</h2><button class="btn" id="newBtn">+ מוצר חדש</button></div>
+      <form class="form glass" id="pform" hidden>
+        <h2 id="formTitle">מוצר חדש</h2>
+        <div class="two">
+          <label>שם המוצר<input id="fName" required maxlength="80" placeholder="למשל: חולצת לטין שחורה"></label>
+          <label>קטגוריה<select id="fCat">
+            <option value="latin">לטין – בגדים</option><option value="standard">סטנדרט – בגדים</option>
+            <option value="shoes-latin">נעלי לטין</option><option value="shoes-standard">נעלי סטנדרט</option></select></label>
+          <label>מחיר (₪)<input id="fPrice" type="number" min="0" step="1" required inputmode="numeric"></label>
+        </div>
+        <div class="two">
+          <label>צבע<input id="fColor" maxlength="40" placeholder="שחור, לבן, זהב…"></label>
+          <label style="grid-column:span 2">תיאור<textarea id="fDesc" rows="2" maxlength="600" placeholder="בד, גזרה, למה זה טוב לתחרות"></textarea></label>
+        </div>
+        <div class="sizes">
+          <p class="hint" id="sizeHint">מידות ומלאי לכל מידה. מלאי 0 מוצג להורים כ״אזל״.</p>
+          <div class="presets" id="presets"></div>
+          <div id="srows" class="sizes"></div>
+          <button class="chip" type="button" id="addSize" style="justify-self:start">+ הוספת מידה</button>
+        </div>
+        <div><p class="hint" style="margin-bottom:8px">תמונות (עד 4)</p>
+          <div class="imgs" id="imgs"></div>
+          <input type="file" id="file" accept="image/*" multiple hidden></div>
+        <label class="check"><input type="checkbox" id="fHidden"> להסתיר מהחנות (טיוטה)</label>
+        <p class="err" id="formErr" hidden></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit" id="saveBtn">שמירה</button><button class="btn ghost" type="button" id="cancelBtn">ביטול</button></div>
+      </form>
+      <div class="list" id="plist"></div>
+    </section>
+
+    <section id="orders" hidden>
+      <div class="head"><h2>הזמנות</h2><button class="chip" id="refreshOrders">רענון</button></div>
+      <div class="list" id="olist"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const CATS={"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"};
+const PRESETS={clothes:["116","122","128","134","140","146","152","158","164"],shoes:["28","29","30","31","32","33","34","35","36","37","38"]};
+const STATUS={new:"חדשה",contacted:"דיברתי איתם",done:"הושלמה",cancelled:"בוטלה"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money=n=>new Intl.NumberFormat("he-IL").format(n)+" ₪";
+let key="",products=[],orders=[],edit=null;
+try{key=sessionStorage.getItem("ob.key")||""}catch(e){}
+
+function toast(t){const n=document.createElement("div");n.className="toast";n.textContent=t;document.body.appendChild(n);setTimeout(()=>n.remove(),2200)}
+async function api(path,method="GET",body){
+  const r=await fetch(path,{method,headers:{"Content-Type":"application/json","x-admin-key":key},body:body?JSON.stringify(body):undefined});
+  const j=await r.json().catch(()=>({}));
+  if(r.status===401){logout();throw new Error("הסיסמה לא נכונה")}
+  if(!r.ok)throw new Error(j.error||"משהו השתבש");
+  return j;
+}
+async function enter(){
+  try{const j=await api("/api/orders");orders=j.orders;
+    $("#loginForm").hidden=true;$("#app").hidden=false;await loadProducts();renderOrders();
+  }catch(e){$("#loginErr").textContent=e.message;$("#loginErr").hidden=false;$("#loginForm").hidden=false}
+}
+function logout(){key="";try{sessionStorage.removeItem("ob.key")}catch(e){};$("#app").hidden=true;$("#loginForm").hidden=false}
+$("#loginForm").addEventListener("submit",e=>{e.preventDefault();key=$("#pw").value.trim();try{sessionStorage.setItem("ob.key",key)}catch(e){};enter()});
+$("#logout").onclick=logout;
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-tab]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("#products").hidden=b.dataset.tab!=="products";$("#orders").hidden=b.dataset.tab!=="orders";
+});
+
+async function loadProducts(){const j=await api("/api/products?all=1");products=j.products;renderProducts()}
+function renderProducts(){
+  $("#plist").innerHTML=products.length?products.map(p=>{
+    const stock=p.sizes.reduce((s,x)=>s+x.stock,0);
+    return `<div class="row glass"><div class="t">${p.images[0]?`<img src="${esc(p.images[0])}" alt="">`:"אין תמונה"}</div>
+    <div><b><span class="badge">מס׳ ${p.num}</span> ${esc(p.name)}</b> ${p.example?'<span class="badge soft">דוגמה</span>':""} ${p.hidden?'<span class="badge soft">מוסתר</span>':""}
+    <div class="hint">${CATS[p.category]} · ${money(p.price)} · ${stock} יחידות במלאי</div>
+    <div class="hint">מידות: ${p.sizes.map(s=>`${esc(s.size)} (${s.stock})`).join(", ")}</div></div>
+    <div class="acts" data-id="${esc(p.id)}"><button class="chip" data-a="edit">עריכה</button><button class="chip" data-a="del">מחיקה</button></div></div>`}).join("")
+    :`<div class="glass" style="padding:24px"><b>אין מוצרים עדיין.</b><p class="hint">לחץ ״מוצר חדש״ כדי להוסיף את הראשון.</p></div>`;
+}
+$("#plist").addEventListener("click",async e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;const box=b.parentElement,id=box.dataset.id,p=products.find(x=>x.id===id);
+  if(b.dataset.a==="edit")openForm(p);
+  if(b.dataset.a==="del"){box.innerHTML=`<span class="confirm">למחוק את "${esc(p.name)}"?</span><button class="chip" data-a="yes">כן, למחוק</button><button class="chip" data-a="no">לא</button>`}
+  if(b.dataset.a==="no")renderProducts();
+  if(b.dataset.a==="yes"){try{await api("/api/products","DELETE",{id});toast("המוצר נמחק");await loadProducts()}catch(err){toast(err.message)}}
+});
+
+function openForm(p){
+  edit=p?JSON.parse(JSON.stringify(p)):{name:"",category:"latin",price:"",color:"",description:"",sizes:[],images:[],hidden:false};
+  $("#formTitle").textContent=p?"עריכת מוצר":"מוצר חדש";
+  $("#fName").value=edit.name;$("#fCat").value=edit.category;$("#fPrice").value=edit.price;$("#fColor").value=edit.color;$("#fDesc").value=edit.description;$("#fHidden").checked=edit.hidden;
+  $("#formErr").hidden=true;$("#pform").hidden=false;renderSizes();renderImgs();$("#pform").scrollIntoView({behavior:"smooth",block:"start"});$("#fName").focus();
+}
+$("#newBtn").onclick=()=>openForm(null);
+$("#cancelBtn").onclick=()=>{$("#pform").hidden=true;edit=null};
+$("#fCat").onchange=()=>{edit.category=$("#fCat").value;renderSizes()};
+
+function renderSizes(){
+  const shoes=edit.category.startsWith("shoes");
+  $("#sizeHint").textContent=shoes?"מידות נעליים (EU) ומלאי לכל מידה. מלאי 0 מוצג להורים כ״אזל״.":"מידות לפי גובה הילד בס״מ ומלאי לכל מידה. מלאי 0 מוצג להורים כ״אזל״.";
+  const have=new Set(edit.sizes.map(s=>s.size));
+  $("#presets").innerHTML=`<span class="hint" style="align-self:center">הוספה מהירה:</span>`+(shoes?PRESETS.shoes:PRESETS.clothes).map(s=>`<button class="chip" type="button" data-p="${s}" aria-pressed="${have.has(s)}">${s}</button>`).join("");
+  $("#srows").innerHTML=edit.sizes.map((s,i)=>`<div class="srow"><input aria-label="מידה" data-i="${i}" data-f="size" value="${esc(s.size)}" placeholder="מידה"><input aria-label="מלאי" type="number" min="0" inputmode="numeric" data-i="${i}" data-f="stock" value="${s.stock}" placeholder="מלאי"><button class="chip" type="button" data-rm="${i}" aria-label="הסר מידה">✕</button></div>`).join("")||`<p class="hint">עוד אין מידות. בחר מהרשימה למעלה או הוסף ידנית.</p>`;
+}
+$("#presets").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;const s=b.dataset.p;
+  const i=edit.sizes.findIndex(x=>x.size===s);if(i>=0)edit.sizes.splice(i,1);else{edit.sizes.push({size:s,stock:1});edit.sizes.sort((a,b)=>parseFloat(a.size)-parseFloat(b.size))}renderSizes()});
+$("#srows").addEventListener("input",e=>{const t=e.target;if(t.dataset.i==null)return;const s=edit.sizes[+t.dataset.i];if(t.dataset.f==="size")s.size=t.value;else s.stock=Math.max(0,parseInt(t.value,10)||0)});
+$("#srows").addEventListener("click",e=>{const b=e.target.closest("[data-rm]");if(b){edit.sizes.splice(+b.dataset.rm,1);renderSizes()}});
+$("#addSize").onclick=()=>{edit.sizes.push({size:"",stock:1});renderSizes();const ins=$("#srows").querySelectorAll('[data-f="size"]');ins[ins.length-1]?.focus()};
+
+function renderImgs(){
+  $("#imgs").innerHTML=edit.images.map((u,i)=>`<figure><img src="${esc(u)}" alt=""><button type="button" data-ri="${i}" aria-label="הסר תמונה">✕</button></figure>`).join("")+(edit.images.length<4?`<button class="drop" type="button" id="pick">+ הוספת תמונה</button>`:"");
+}
+$("#imgs").addEventListener("click",e=>{if(e.target.closest("#pick"))$("#file").click();const r=e.target.closest("[data-ri]");if(r){edit.images.splice(+r.dataset.ri,1);renderImgs()}});
+function shrink(file){return new Promise((ok,bad)=>{const img=new Image();img.onload=()=>{const m=1000,k=Math.min(1,m/Math.max(img.width,img.height));
+  const c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.8))};
+  img.onerror=()=>bad(new Error("לא הצלחתי לקרוא את התמונה"));img.src=URL.createObjectURL(file)})}
+$("#file").addEventListener("change",async e=>{
+  const files=[...e.target.files].slice(0,4-edit.images.length);e.target.value="";
+  for(const f of files){
+    const d=$("#pick");if(d)d.textContent="מעלה…";
+    try{const data=await shrink(f);const j=await api("/api/upload","POST",{data});edit.images.push(j.url);renderImgs()}catch(err){toast(err.message);renderImgs()}
+  }
+});
+
+$("#pform").addEventListener("submit",async e=>{
+  e.preventDefault();$("#formErr").hidden=true;
+  Object.assign(edit,{name:$("#fName").value.trim(),category:$("#fCat").value,price:+$("#fPrice").value,color:$("#fColor").value.trim(),description:$("#fDesc").value.trim(),hidden:$("#fHidden").checked});
+  edit.sizes=edit.sizes.filter(s=>String(s.size).trim());
+  if(!edit.sizes.length){$("#formErr").textContent="צריך להוסיף לפחות מידה אחת.";$("#formErr").hidden=false;return}
+  delete edit.example;
+  $("#saveBtn").disabled=true;$("#saveBtn").textContent="שומר…";
+  try{await api("/api/products","POST",{product:edit});toast("המוצר נשמר ומופיע בחנות");$("#pform").hidden=true;edit=null;await loadProducts()}
+  catch(err){$("#formErr").textContent=err.message;$("#formErr").hidden=false}
+  $("#saveBtn").disabled=false;$("#saveBtn").textContent="שמירה";
+});
+
+function renderOrders(){
+  const n=orders.filter(o=>o.status==="new").length;$("#ordTab").textContent=n?`הזמנות (${n} חדשות)`:"הזמנות";
+  $("#olist").innerHTML=orders.length?orders.map(o=>`<div class="order glass ${o.status==="new"?"st-new":""}">
+    <div class="h"><b style="font-weight:600">${esc(o.name)}</b>
+      <select data-o="${esc(o.id)}" aria-label="סטטוס" style="width:auto">${Object.entries(STATUS).map(([k,v])=>`<option value="${k}" ${k===o.status?"selected":""}>${v}</option>`).join("")}</select></div>
+    ${o.phone?`<div><a href="tel:${esc(o.phone)}" dir="ltr">${esc(o.phone)}</a> · <button class="chip" type="button" data-copy="${esc(o.phone)}">העתק טלפון</button></div>`:`<div class="hint">${o.channel==="whatsapp"?"נשלחה כהודעה ב-WhatsApp. הטלפון של ההורה מופיע אצלך בצ׳אט.":""}</div>`}
+    <div class="hint">${new Date(o.createdAt).toLocaleString("he-IL")}${o.childAge?" · גיל הילד: "+esc(o.childAge):""}</div>
+    <ul>${o.items.map(i=>`<li>${i.num?"מס׳ "+i.num+" – ":""}${esc(i.name)} · מידה ${esc(i.size)} · ×${i.qty} · ${money(i.price*i.qty)}</li>`).join("")}</ul>
+    ${o.note?`<div>הערה: ${esc(o.note)}</div>`:""}<b>סה״כ: ${money(o.total)}</b></div>`).join("")
+    :`<div class="glass" style="padding:24px"><b>אין הזמנות עדיין.</b><p class="hint">כשהורה ישלח הזמנה מהחנות, היא תופיע כאן עם השם והטלפון.</p></div>`;
+}
+$("#olist").addEventListener("change",async e=>{const s=e.target.closest("[data-o]");if(!s)return;
+  try{await api("/api/orders","PATCH",{id:s.dataset.o,status:s.value});orders.find(o=>o.id===s.dataset.o).status=s.value;renderOrders();toast("הסטטוס עודכן")}catch(err){toast(err.message)}});
+$("#olist").addEventListener("click",async e=>{const b=e.target.closest("[data-copy]");if(!b)return;
+  try{await navigator.clipboard.writeText(b.dataset.copy);toast("הטלפון הועתק")}catch(err){toast(b.dataset.copy)}});
+$("#refreshOrders").onclick=async()=>{try{orders=(await api("/api/orders")).orders;renderOrders();toast("עודכן")}catch(err){toast(err.message)}};
+
+if(key)enter();
+</script>
+</body>
+</html>

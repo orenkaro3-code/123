@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>בגדי ריקודים לבנים</title>
+<meta name="description" content="בגדי ונעלי ריקודים סלוניים לבנים – לטין וסטנדרט.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
+<link rel="stylesheet" href="/style.css">
+<style>
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:32px 22px}
+h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
+.cartbtn{position:relative;background:#fff;color:var(--text);border:1px solid var(--line);font-weight:700;box-shadow:0 2px 8px rgba(80,70,60,.06)}
+.cartbtn .n{min-width:22px;height:22px;border-radius:11px;background:var(--accent);color:#fff;font-size:.8rem;display:inline-grid;place-items:center;padding:0 6px}
+.cartbtn.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.08)}}
+
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:28px}
+@media (max-width:760px){.cats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cat{position:relative;overflow:hidden;border:2px solid transparent;border-radius:20px;padding:18px 16px;min-height:118px;cursor:pointer;color:var(--text);text-align:start;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;transition:border-color .15s,transform .2s}
+.cat:hover{transform:translateY(-2px)}
+.cat b{font:800 1.25rem var(--body);position:relative;z-index:1}
+.cat small{font-weight:500;color:var(--muted);position:relative;z-index:1}
+.cat .th{position:absolute;top:-10px;left:-14px;width:96px;height:120px;border-radius:16px;object-fit:cover;transform:rotate(-8deg);box-shadow:0 6px 16px rgba(60,50,40,.18);border:3px solid #fff}
+.cat .th.ic{object-fit:contain;padding:18px;background:rgba(255,255,255,.55);box-shadow:none;border:0}
+@media (max-width:420px){.cat .th{width:72px;height:92px}}
+.cat[aria-pressed="true"]{border-color:currentColor}
+.c-latin{background:var(--latin)} .c-latin[aria-pressed="true"]{color:var(--latin-ink)}
+.c-standard{background:var(--standard)} .c-standard[aria-pressed="true"]{color:var(--standard-ink)}
+.c-shoes-latin{background:var(--shoes-latin)} .c-shoes-latin[aria-pressed="true"]{color:var(--shoes-latin-ink)}
+.c-shoes-standard{background:var(--shoes-standard)} .c-shoes-standard[aria-pressed="true"]{color:var(--shoes-standard-ink)}
+
+.bar{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-bottom:6px}
+.bar select{width:auto}
+.grp{margin-top:22px}
+.gh{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font:800 1.5rem var(--body)}
+.gh::before{content:"";width:14px;height:14px;border-radius:5px;background:var(--dot);align-self:center}
+.gh span{font:700 .9rem var(--body);color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.card{padding:0;overflow:hidden;cursor:pointer;text-align:start;color:var(--text);font:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 2px 10px rgba(80,70,60,.05);display:grid;grid-template-rows:auto 1fr;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 12px 28px rgba(80,70,60,.13);transform:translateY(-3px)}
+.pic{aspect-ratio:4/5;max-width:100%;display:grid;place-items:center;position:relative;overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s,transform .5s}
+.pic img.b{opacity:0}
+.card:hover .pic img.b{opacity:1}
+.card:hover .pic img{transform:scale(1.03)}
+.pic svg{width:38%;height:auto}
+.tag{position:absolute;top:10px;right:10px;z-index:1;font:800 .78rem var(--body);background:#fff;color:var(--text);border-radius:999px;padding:3px 10px;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.flip{position:absolute;bottom:10px;left:10px;z-index:1;font:700 .72rem var(--body);background:rgba(255,255,255,.9);border-radius:999px;padding:2px 9px;color:var(--muted)}
+.meta{padding:12px 14px 14px;display:grid;gap:4px;align-content:start}
+.meta b{font-weight:700;font-size:1.02rem;line-height:1.3}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.price{font-weight:800;font-size:1.05rem}
+.price.ask{font-size:.85rem;color:var(--accent)}
+.sz{display:inline-block;font:700 .78rem var(--body);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:1px 7px;margin-inline-end:3px}
+.empty{grid-column:1/-1;padding:36px 20px;text-align:center;color:var(--muted)}
+
+.pd{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+@media (max-width:680px){.pd{grid-template-columns:1fr}}
+.pd .pic{aspect-ratio:4/5}
+.thumbs{display:flex;gap:8px;padding:10px;flex-wrap:wrap}
+.thumbs button{padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:none}
+.thumbs button[aria-pressed="true"]{border-color:var(--accent)}
+.thumbs img{display:block;width:56px;height:70px;object-fit:cover}
+.info{padding:26px 22px;display:grid;gap:12px;align-content:start}
+.info h3{font:800 1.5rem/1.25 var(--body);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--text);font-size:1.1rem;cursor:pointer}
+
+.drawer{position:fixed;inset:0 0 0 auto;width:min(420px,100vw);z-index:50;background:#fff;
+  display:grid;grid-template-rows:auto 1fr auto;padding:calc(18px + env(safe-area-inset-top,0px)) 20px calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(100%);transition:transform .25s}
+.drawer.open{transform:none;box-shadow:0 0 40px rgba(60,55,50,.15)}
+.shade{position:fixed;inset:0;background:rgba(60,55,50,.3);z-index:45}
+.drawer h3{font:800 1.4rem var(--body);margin:0}
+.lines{overflow:auto;display:grid;gap:10px;align-content:start;padding-block:14px}
+.line{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:12px;background:var(--bg)}
+.line .t{width:52px;height:64px;border-radius:8px;overflow:hidden;display:grid;place-items:center}
+.line .t img{width:100%;height:100%;object-fit:cover}.line .t svg{width:55%}
+.line b{font-weight:700;display:block;line-height:1.3}
+.line small{color:var(--muted)}
+.line .rm{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.85rem;padding:0}
+.checkout{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem}
+.btn.wa{background:#4fb57c}
+footer{padding-block:32px;margin-top:48px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>בגדי ריקודים לבנים</h1>
+  <button class="btn cartbtn" id="cartBtn" type="button">עגלה <span class="n" id="cartN">0</span></button>
+</header>
+
+<main>
+  <div class="cats" id="cats"></div>
+  <div class="bar">
+    <select id="sizeF" aria-label="סינון לפי מידה"><option value="">כל המידות</option></select>
+  </div>
+  <div id="list"></div>
+</main>
+
+<footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html">ניהול</a></footer>
+</div>
+
+<dialog id="pdlg"><button class="x" type="button" data-close aria-label="סגור">✕</button><div id="pdBody"></div></dialog>
+
+<div class="shade" id="shade" hidden></div>
+<aside class="drawer" id="drawer" aria-label="עגלה" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3>העגלה</h3><button class="chip" type="button" id="closeCart">סגור</button></div>
+  <div class="lines" id="lines"></div>
+  <form class="checkout" id="checkout">
+    <div class="total"><span>סה״כ</span><span id="total">0 ₪</span></div>
+    <label>שם (לא חובה)<input id="oName" autocomplete="name"></label>
+    <label>הערה (לא חובה)<textarea id="oNote" rows="2" placeholder="למשל גובה הילד"></textarea></label>
+    <button class="btn wa" type="submit" id="oSend">שליחת העגלה ב-WhatsApp</button>
+  </form>
+  <div id="done" hidden style="padding-block:20px;display:grid;gap:10px">
+    <b style="font-weight:800;font-size:1.3rem">נפתח WhatsApp עם ההזמנה</b>
+    <p style="margin:0">לחצו ״שלח״ ב-WhatsApp. לא נפתח? <a id="waAgain" href="#" target="_blank" rel="noopener">פתיחה מחדש</a></p>
+    <button class="btn ghost" type="button" id="doneBtn">חזרה לחנות</button>
+  </div>
+</aside>
+
+<script>
+const CATS={"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"};
+const ICON={
+  "latin":'<path d="M18 10l8-5h12l8 5 10 8-6 9-6-4v34H20V23l-6 4-6-9z"/>',
+  "standard":'<path d="M20 6h24l4 50H36l-4-34-4 34H16z"/>',
+  "shoes-latin":'<path d="M6 40c10 0 20-2 28-8l8-8c4 0 8 4 10 10l4 12H44l-4-6c-6 4-18 6-34 6z"/>',
+  "shoes-standard":'<path d="M6 42c8-2 18-4 26-10l10-6c6 0 12 6 14 14v8H8c-2 0-3-3-2-6z"/>'
+};
+const svg=c=>`<svg viewBox="0 0 64 64" fill="none" stroke="var(--${c}-ink)" stroke-width="2" stroke-linejoin="round">${ICON[c]||ICON.latin}</svg>`;
+const svgUrl=c=>"data:image/svg+xml,"+encodeURIComponent(svg(c).replace(`var(--${c}-ink)`,{"latin":"#b86f77","standard":"#6787ad","shoes-latin":"#b8885a","shoes-standard":"#68937a"}[c]).replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" '));
+const bg=c=>`style="background:var(--${c})"`;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const WA="972585974771";
+const money=n=>new Intl.NumberFormat("he-IL").format(n)+" ₪";
+const priceHtml=p=>p>0?`<span class="price">${money(p)}</span>`:`<span class="price ask">מחיר בוואטסאפ</span>`;
+let products=[],cat="",sizeF="",cart=[];
+try{cart=JSON.parse(localStorage.getItem("ob.cart"))||[]}catch(e){}
+const saveCart=()=>{try{localStorage.setItem("ob.cart",JSON.stringify(cart))}catch(e){};renderCart()};
+function toast(t){const n=document.createElement("div");n.className="toast";n.textContent=t;document.body.appendChild(n);setTimeout(()=>n.remove(),2000)}
+
+function renderCats(){
+  $("#cats").innerHTML=Object.entries(CATS).map(([k,v])=>{
+    const items=products.filter(p=>p.category===k);const pic=items.find(p=>p.images[0]);
+    return `<button class="cat c-${k}" type="button" data-c="${k}" aria-pressed="${cat===k}">${pic?`<img class="th" src="${esc(pic.images[0])}" alt="">`:`<img class="th ic" src="${svgUrl(k)}" alt="">`}<b>${v}</b><small>${items.length?items.length+" פריטים":"בקרוב"}</small></button>`}).join("");
+}
+$("#cats").addEventListener("click",e=>{const b=e.target.closest(".cat");if(!b)return;cat=cat===b.dataset.c?"":b.dataset.c;sizeF="";render()});
+$("#sizeF").addEventListener("change",e=>{sizeF=e.target.value;render()});
+
+async function load(){
+  $("#list").innerHTML=`<p class="empty">טוען…</p>`;
+  try{const r=await fetch("/api/products");products=(await r.json()).products||[]}catch(e){products=[]}
+  render();
+}
+function card(p){
+  const avail=p.sizes.filter(s=>s.stock>0).map(s=>s.size);
+  const [a,b]=p.images;
+  return `<button class="card" type="button" data-id="${esc(p.id)}"><div class="pic" ${bg(p.category)}>${a?`<img src="${esc(a)}" alt="${esc(p.name)}" loading="lazy">`:svg(p.category)}${b?`<img class="b" src="${esc(b)}" alt="" loading="lazy"><span class="flip">↻ גב</span>`:""}<span class="tag">מס׳ ${p.num}</span></div>
+  <div class="meta"><b>${esc(p.name)}</b><div>${avail.length?avail.map(s=>`<span class="sz">${esc(s)}</span>`).join(""):'<span class="sz">אזל</span>'}</div>
+  <div class="row">${priceHtml(p.price)}</div></div></button>`;
+}
+function render(){
+  renderCats();
+  const inCat=products.filter(p=>!cat||p.category===cat);
+  const sizes=[...new Set(inCat.flatMap(p=>p.sizes.filter(s=>s.stock>0).map(s=>s.size)))].sort((a,b)=>parseFloat(a)-parseFloat(b));
+  $("#sizeF").innerHTML=`<option value="">כל המידות</option>`+sizes.map(s=>`<option ${s===sizeF?"selected":""}>${esc(s)}</option>`).join("");
+  const list=inCat.filter(p=>!sizeF||p.sizes.some(s=>s.size===sizeF&&s.stock>0)).sort((a,b)=>a.num-b.num);
+  const dots={"latin":"var(--latin-ink)","standard":"var(--standard-ink)","shoes-latin":"var(--shoes-latin-ink)","shoes-standard":"var(--shoes-standard-ink)"};
+  const groups=Object.keys(CATS).filter(k=>!cat||k===cat).map(k=>[k,list.filter(p=>p.category===k)]).filter(([,ps])=>ps.length);
+  $("#list").innerHTML=groups.length?groups.map(([k,ps])=>`<section class="grp"><h2 class="gh" style="--dot:${dots[k]}">${CATS[k]} <span>${ps.length}</span></h2><div class="grid">${ps.map(card).join("")}</div></section>`).join("")
+    :`<p class="empty">${cat?"בקטגוריה הזו עוד אין פריטים. שווה לשאול בוואטסאפ.":"אין פריטים במידה הזו כרגע"}</p>`;
+}
+$("#list").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openProduct(c.dataset.id)});
+
+function openProduct(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  let size=null,qty=1;
+  const body=$("#pdBody");
+  body.innerHTML=`<div class="pd"><div><div class="pic" id="pdPic" ${bg(p.category)}>${p.images[0]?`<img src="${esc(p.images[0])}" alt="${esc(p.name)}">`:svg(p.category)}</div>
+    ${p.images.length>1?`<div class="thumbs">${p.images.map((u,i)=>`<button type="button" data-u="${esc(u)}" aria-pressed="${i===0}" aria-label="תמונה ${i+1}"><img src="${esc(u)}" alt=""></button>`).join("")}</div>`:""}</div>
+    <div class="info"><span class="num" style="color:var(--muted);font-weight:700">מס׳ ${p.num} · ${CATS[p.category]}</span><h3>${esc(p.name)}</h3>
+    ${priceHtml(p.price)}
+    ${p.color?`<span>צבע: ${esc(p.color)}</span>`:""}
+    ${p.description?`<p style="margin:0;color:var(--muted)">${esc(p.description)}</p>`:""}
+    <div><p class="hint" style="margin-bottom:8px">${p.category.startsWith("shoes")?"מידה (EU)":"מידה (גובה הילד בס״מ)"}</p>
+    <div class="chips" id="pdSizes">${p.sizes.map(s=>`<button class="chip" type="button" data-s="${esc(s.size)}" aria-pressed="false" ${s.stock>0?"":"disabled"}>${esc(s.size)}</button>`).join("")}</div></div>
+    <div class="qty"><button type="button" data-q="-1" aria-label="פחות">−</button><span id="pdQty">1</span><button type="button" data-q="1" aria-label="יותר">+</button></div>
+    <button class="btn" type="button" id="pdAdd" disabled>בחרו מידה</button>
+    <p class="hint">לא בטוחים במידה? כתבו לי בוואטסאפ ואבדוק.</p></div></div>`;
+  body.querySelector(".thumbs")?.addEventListener("click",e=>{const t=e.target.closest("[data-u]");if(!t)return;$("#pdPic").querySelector("img").src=t.dataset.u;body.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-pressed",x===t))});
+  $("#pdSizes").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b||b.disabled)return;size=b.dataset.s;
+    $("#pdSizes").querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    $("#pdAdd").disabled=false;$("#pdAdd").textContent="הוספה לעגלה"});
+  if(p.sizes.filter(s=>s.stock>0).length===1)$("#pdSizes").querySelector(".chip:not([disabled])").click();
+  body.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{qty=Math.min(10,Math.max(1,qty+ +b.dataset.q));$("#pdQty").textContent=qty});
+  $("#pdAdd").onclick=()=>{
+    const ex=cart.find(i=>i.id===p.id&&i.size===size);
+    if(ex)ex.qty=Math.min(10,ex.qty+qty);else cart.push({id:p.id,num:p.num,name:p.name,size,qty,price:p.price,img:p.images[0]||"",category:p.category});
+    saveCart();$("#pdlg").close();toast("נוסף לעגלה");$("#cartBtn").classList.remove("bump");void $("#cartBtn").offsetWidth;$("#cartBtn").classList.add("bump");
+  };
+  $("#pdlg").showModal();
+}
+$("#pdlg").addEventListener("click",e=>{if(e.target.matches("[data-close]")||e.target===$("#pdlg"))$("#pdlg").close()});
+
+function renderCart(){
+  $("#cartN").textContent=cart.reduce((s,i)=>s+i.qty,0);
+  $("#lines").innerHTML=cart.length?cart.map((i,k)=>`<div class="line"><div class="t" ${bg(i.category)}>${i.img?`<img src="${esc(i.img)}" alt="">`:svg(i.category)}</div>
+    <div><b>${esc(i.name)}</b><small>מס׳ ${i.num||"?"} · מידה ${esc(i.size)} · ${i.qty} יח׳</small></div>
+    <div style="text-align:left"><div>${i.price>0?money(i.price*i.qty):""}</div><button class="rm" type="button" data-k="${k}">הסרה</button></div></div>`).join("")
+    :`<p class="hint" style="padding:16px 0">העגלה ריקה</p>`;
+  const t=cart.reduce((s,i)=>s+i.price*i.qty,0),unknown=cart.some(i=>!(i.price>0));
+  $("#total").textContent=unknown?(t?money(t)+" + פריטים במחיר בוואטסאפ":"יאושר בוואטסאפ"):money(t);
+  $("#oSend").disabled=!cart.length;
+}
+$("#lines").addEventListener("click",e=>{const b=e.target.closest(".rm");if(b){cart.splice(+b.dataset.k,1);saveCart()}});
+function openCart(on){$("#drawer").classList.toggle("open",on);$("#drawer").setAttribute("aria-hidden",!on);$("#shade").hidden=!on;if(on){$("#checkout").hidden=false;$("#done").hidden=true}}
+$("#cartBtn").onclick=()=>openCart(true);$("#closeCart").onclick=()=>openCart(false);$("#shade").onclick=()=>openCart(false);$("#doneBtn").onclick=()=>openCart(false);
+$("#checkout").addEventListener("submit",e=>{
+  e.preventDefault();if(!cart.length)return;
+  const name=$("#oName").value.trim(),note=$("#oNote").value.trim();
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const msg=["שלום, אני רוצה להזמין:",""]
+    .concat(cart.map((i,k)=>`${k+1}) מס׳ ${i.num||"?"} – ${i.name} | מידה ${i.size} | כמות ${i.qty}`+(i.price>0?` | ${money(i.price*i.qty)}`:"")))
+    .concat(total?["",`סה״כ: ${money(total)}`]:[]).concat(name?[`שם: ${name}`]:[]).concat(note?[`הערה: ${note}`]:[]).join("\n");
+  const url="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
+  try{fetch("/api/orders",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({name,note,items:cart})})}catch(err){}
+  $("#waAgain").href=url;
+  cart=[];saveCart();$("#checkout").hidden=true;$("#done").hidden=false;$("#checkout").reset();
+  location.href=url;
+});
+renderCart();load();
+</script>
+</body>
+</html>
