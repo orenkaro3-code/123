@@ -8,6 +8,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap">
 <link rel="stylesheet" href="/style.css">
 <style>
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(38vw 38vw at 102% -4%,var(--latin) 0,transparent 62%),radial-gradient(34vw 34vw at -6% 34%,var(--standard) 0,transparent 62%),radial-gradient(40vw 30vw at 70% 104%,var(--shoes-latin) 0,transparent 62%),var(--bg)}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:58px;height:58px;flex:none;background:#fff;border-radius:18px;padding:8px;box-shadow:0 4px 14px rgba(80,70,60,.08)}
+.stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.stats span{font:700 .8rem var(--body);background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;color:var(--muted)}
+.give{margin-top:44px;border-radius:24px;background:var(--shoes-standard);padding:22px 24px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.give b{display:block;font:800 1.2rem var(--body)}
+.give p{margin:4px 0 0;color:var(--muted);max-width:52ch}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:32px 22px}
 .sub{margin:6px 0 0;font:700 1.05rem var(--body);color:var(--accent)}
 h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
@@ -108,7 +117,7 @@ footer a{color:var(--muted)}
 <body>
 <div class="wrap">
 <header>
-  <div><h1>בגדי ריקודים לבנים</h1><p class="sub">הכול בחינם, לילדים שצריכים</p></div>
+  <div class="brand"><svg viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="12" r="5"/><circle cx="42" cy="14" r="5"/><path d="M22 17v18l-6 20M22 35l7 18"/><path d="M42 19l2 14-4 22M44 33l8 20"/><path d="M22 23l10-4 10 4M22 25l-10-6"/><path d="M44 25l9-8"/></svg><div><h1>בגדי ריקודים לבנים</h1><p class="sub">הכול בחינם, לילדים שצריכים</p><div class="stats" id="stats"></div></div></div>
   <button class="btn cartbtn" id="cartBtn" type="button">עגלה <span class="n" id="cartN">0</span></button>
 </header>
 
@@ -133,6 +142,7 @@ footer a{color:var(--muted)}
   <p class="hint" style="margin-top:18px">הקישורים פותחים חיפוש באליאקספרס ממוין מהזול ליקר. המחירים משתנים שם כל הזמן, אז כדאי לבדוק מחיר ומידות לפני שקונים.</p>
 </section>
 
+<section class="give"><div><b>הילד גדל מהבגדים?</b><p>אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener">לתרומה ב-WhatsApp</a></section>
 <footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html">ניהול</a></footer>
 </div>
 
@@ -196,8 +206,13 @@ function card(p){
   <div class="meta"><b>${esc(p.name)}</b><div>${avail.length?avail.map(s=>`<span class="sz">${esc(s)}</span>`).join(""):'<span class="sz">אזל</span>'}</div>
   <div class="row">${priceHtml(p.price)}</div></div></button>`;
 }
+function renderStats(){
+  const n=products.length,sz=[...new Set(products.flatMap(p=>p.sizes.map(s=>s.size)))];
+  const nums=sz.flatMap(s=>String(s).split(/[^0-9]+/).map(Number)).filter(x=>x>=100);
+  $("#stats").innerHTML=n?`<span>${n} פריטים זמינים</span><span>לטין וסטנדרט</span>`+(nums.length?`<span>מידות ${Math.min(...nums)}–${Math.max(...nums)}</span>`:""):"";
+}
 function render(){
-  renderCats();
+  renderCats();renderStats();
   const inCat=products.filter(p=>!cat||p.category===cat);
   const sizes=[...new Set(inCat.flatMap(p=>p.sizes.filter(s=>s.stock>0).map(s=>s.size)))].sort((a,b)=>parseFloat(a)-parseFloat(b));
   $("#sizeF").innerHTML=`<option value="">כל המידות</option>`+sizes.map(s=>`<option ${s===sizeF?"selected":""}>${esc(s)}</option>`).join("");
