@@ -130,6 +130,9 @@ h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 .ai{display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-height:120px;padding:16px;border-radius:18px;text-decoration:none;color:var(--text);transition:transform .2s,box-shadow .2s}
 .ai:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(80,70,60,.1)}
 .ai b{font:800 1.05rem/1.3 var(--body)}
+.ai b,.ai span{color:var(--text)}
+.aico{width:100%;height:120px;background:rgba(255,255,255,.55);border-radius:14px;padding:10px}
+@media (max-width:480px){.aico{height:96px}}
 .ai small{color:var(--muted);font-weight:500}
 .ai span{font:700 .82rem var(--body);color:var(--text);opacity:.7}
 footer{padding-block:32px;margin-top:48px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -369,20 +372,33 @@ $("#checkout").addEventListener("submit",e=>{
   location.href=url;
 });
 const ALI_ITEMS=[
- ["boysL","1005006273761974",{"he": "חולצת לטין לבנים, צווארון V", "ru": "Футболка для латины, V-вырез", "en": "Boys' Latin V-neck top"},"latin"],
- ["boysL","us:3256804544087924",{"he": "חולצת לטין מרשת לבנים", "ru": "Сетчатая рубашка для латины", "en": "Boys' mesh Latin shirt"},"latin"],
- ["boysL","us:3256807959316441",{"he": "מכנסי לטין לבנים ZYM", "ru": "Брюки для латины ZYM", "en": "ZYM boys' Latin trousers"},"latin"],
- ["boysS","us:3256808502738744",{"he": "בגד גוף לבנים עם פפיון", "ru": "Боди с бабочкой для мальчиков", "en": "Boys' bodysuit shirt with bow tie"},"standard"],
- ["boysS","us:3256808186378167",{"he": "מכנסי ריקוד סלוני לבנים", "ru": "Бальные брюки для мальчиков", "en": "Boys' ballroom trousers"},"standard"],
- ["girlsL","us:3256807907371328",{"he": "שמלת לטין מבריקה, שרוול ארוך", "ru": "Блестящее платье для латины, длинный рукав", "en": "Glossy long-sleeve Latin dress"},"latin"],
- ["girlsL","us:3256811962490131",{"he": "שמלת לטין קצרה לקיץ ZYM", "ru": "Летнее платье для латины ZYM", "en": "ZYM short summer Latin dress"},"latin"],
- ["girlsL","us:3256806159886207",{"he": "שמלת לטין לבנה עם שרוולי פנס", "ru": "Белое платье для латины", "en": "White Latin dress, lantern sleeves"},"latin"],
- ["girlsL","us:3256812097726730",{"he": "שמלת לטין עם פרנזים", "ru": "Платье для латины с бахромой", "en": "Latin dress with tassels"},"latin"],
- ["shoesL","us:3256805296409037",{"he": "נעלי לטין מעור רך לבנים", "ru": "Мягкие кожаные туфли для мальчиков", "en": "Boys' soft leather Latin shoes"},"shoes-latin"],
- ["shoesL","us:3256812100441940",{"he": "נעלי לטין לבנות, עקב נמוך", "ru": "Туфли для латины для девочек, низкий каблук", "en": "Girls' low-heel Latin shoes"},"shoes-latin"],
- ["shoesL","us:3256804912601866",{"he": "נעלי ריקוד לבנות, עקב נמוך", "ru": "Туфли для девочек, низкий каблук", "en": "Girls' low-heel dance shoes"},"shoes-latin"],
- ["shoesS","us:3256804445464535",{"he": "נעלי סטנדרט מעור (מידות 38–45)", "ru": "Кожаные туфли для стандарта (38–45)", "en": "Leather Standard shoes (EU 38–45)"},"shoes-standard"]
+ ["boysL","1005006273761974",{"he": "חולצת לטין לבנים, צווארון V", "ru": "Футболка для латины, V-вырез", "en": "Boys' Latin V-neck top"},"latin","vneck"],
+ ["boysL","us:3256804544087924",{"he": "חולצת לטין מרשת לבנים", "ru": "Сетчатая рубашка для латины", "en": "Boys' mesh Latin shirt"},"latin","mesh"],
+ ["boysL","us:3256807959316441",{"he": "מכנסי לטין לבנים ZYM", "ru": "Брюки для латины ZYM", "en": "ZYM boys' Latin trousers"},"latin","pants"],
+ ["boysS","us:3256808502738744",{"he": "בגד גוף לבנים עם פפיון", "ru": "Боди с бабочкой для мальчиков", "en": "Boys' bodysuit shirt with bow tie"},"standard","bowtie"],
+ ["boysS","us:3256808186378167",{"he": "מכנסי ריקוד סלוני לבנים", "ru": "Бальные брюки для мальчиков", "en": "Boys' ballroom trousers"},"standard","pants"],
+ ["girlsL","us:3256807907371328",{"he": "שמלת לטין מבריקה, שרוול ארוך", "ru": "Блестящее платье для латины, длинный рукав", "en": "Glossy long-sleeve Latin dress"},"latin","dressL"],
+ ["girlsL","us:3256811962490131",{"he": "שמלת לטין קצרה לקיץ ZYM", "ru": "Летнее платье для латины ZYM", "en": "ZYM short summer Latin dress"},"latin","dressS"],
+ ["girlsL","us:3256806159886207",{"he": "שמלת לטין לבנה עם שרוולי פנס", "ru": "Белое платье для латины", "en": "White Latin dress, lantern sleeves"},"latin","dressW"],
+ ["girlsL","us:3256812097726730",{"he": "שמלת לטין עם פרנזים", "ru": "Платье для латины с бахромой", "en": "Latin dress with tassels"},"latin","dressT"],
+ ["shoesL","us:3256805296409037",{"he": "נעלי לטין מעור רך לבנים", "ru": "Мягкие кожаные туфли для мальчиков", "en": "Boys' soft leather Latin shoes"},"shoes-latin","oxford"],
+ ["shoesL","us:3256812100441940",{"he": "נעלי לטין לבנות, עקב נמוך", "ru": "Туфли для латины для девочек, низкий каблук", "en": "Girls' low-heel Latin shoes"},"shoes-latin","heel"],
+ ["shoesL","us:3256804912601866",{"he": "נעלי ריקוד לבנות, עקב נמוך", "ru": "Туфли для девочек, низкий каблук", "en": "Girls' low-heel dance shoes"},"shoes-latin","heel"],
+ ["shoesS","us:3256804445464535",{"he": "נעלי סטנדרט מעור (מידות 38–45)", "ru": "Кожаные туфли для стандарта (38–45)", "en": "Leather Standard shoes (EU 38–45)"},"shoes-standard","oxford"]
 ];
+const ICO={
+ vneck:'<path d="M38 22 L24 28 L14 46 L24 52 L28 44 L28 100 L72 100 L72 44 L76 52 L86 46 L76 28 L62 22 L50 44 Z"/>',
+ mesh:'<path d="M38 22 L24 28 L14 70 L24 72 L28 44 L28 100 L72 100 L72 44 L76 72 L86 70 L76 28 L62 22 L56 30 L44 30 Z"/><path d="M28 50 L72 50 M28 62 L72 62 M28 74 L72 74 M28 86 L72 86 M40 44 L40 100 M60 44 L60 100" opacity=".35"/>',
+ pants:'<path d="M30 18 L70 18 L76 104 L56 104 L50 46 L44 104 L24 104 Z"/><path d="M30 26 L70 26" />',
+ bowtie:'<path d="M38 22 L24 28 L14 70 L24 72 L28 44 L28 100 L72 100 L72 44 L76 72 L86 70 L76 28 L62 22 L50 30 Z"/><path d="M50 30 L50 100" opacity=".5"/><path d="M40 26 L50 32 L40 38 Z M60 26 L50 32 L60 38 Z" fill="currentColor"/>',
+ dressL:'<path d="M40 16 L36 34 L22 40 L18 70 L28 72 L32 50 L28 104 L72 104 L68 50 L72 72 L82 70 L78 40 L64 34 L60 16 L50 26 Z"/>',
+ dressS:'<path d="M42 14 L42 26 L36 40 L38 56 L22 104 L78 104 L62 56 L64 40 L58 26 L58 14"/><path d="M38 56 L62 56"/>',
+ dressW:'<path d="M42 18 L36 34 L20 30 L14 42 L34 50 L32 60 L20 104 L80 104 L68 60 L66 50 L86 42 L80 30 L64 34 L58 18 L50 26 Z"/>',
+ dressT:'<path d="M42 16 L38 34 L38 58 L62 58 L62 34 L58 16 L50 24 Z"/><path d="M36 58 L64 58 L70 92 L30 92 Z"/><path d="M33 92 L31 106 M39 92 L38 106 M45 92 L45 106 M51 92 L51 106 M57 92 L58 106 M63 92 L65 106 M68 92 L70 104"/>',
+ oxford:'<path d="M14 70 L14 82 L88 82 Q94 80 92 72 Q88 64 70 60 L52 50 L30 50 L22 62 Z"/><path d="M38 56 L50 52 M40 61 L54 56 M42 66 L58 60" opacity=".6"/><path d="M14 82 L14 86 L90 86"/>',
+ heel:'<path d="M14 60 Q16 50 28 54 L52 72 L82 74 Q92 76 90 84 L44 84 Q36 84 30 74 L26 92 L20 92 L22 70 Q16 68 14 60 Z"/><path d="M40 70 L46 62 M52 72 L58 62" />'
+};
+const icoSvg=k=>`<svg class="aico" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${ICO[k]||""}</svg>`;
 let who="new";
 const aliUrl=id=>(window.ALI&&ALI.links[id])||(id.startsWith("us:")?`https://www.aliexpress.us/item/${id.slice(3)}.html`:`https://www.aliexpress.com/item/${id}.html`);
 function renderAli(){
@@ -392,7 +408,7 @@ function renderAli(){
     ?`<p>${t.aliNew}</p><a class="btn" href="${nu}" target="_blank" rel="noopener sponsored">${t.aliJoin}</a>`
     :`<p>${t.aliOld}</p>`;
   const groups=["boysL","boysS","girlsL","shoesL","shoesS"];
-  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${t.groups[g]}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,id,name,c])=>`<a class="ai" style="background:var(--${c})" href="${esc(aliUrl(id))}" target="_blank" rel="noopener sponsored"><b>${name[lang]}</b><span>${t.aliGo}</span></a>`).join("")}</div></section>`).join("");
+  $("#aliList").innerHTML=groups.map(g=>`<section class="grp"><h2 class="gh" style="--dot:var(--accent)">${t.groups[g]}</h2><div class="ali">${ALI_ITEMS.filter(i=>i[0]===g).map(([,id,name,c,ic])=>`<a class="ai" style="background:var(--${c});color:var(--${c}-ink)" href="${esc(aliUrl(id))}" target="_blank" rel="noopener sponsored">${icoSvg(ic)}<b>${name[lang]}</b><span>${t.aliGo}</span></a>`).join("")}</div></section>`).join("");
 }
 document.querySelectorAll("[data-who]").forEach(b=>b.onclick=()=>{who=b.dataset.who;renderAli()});
 function showView(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.v===v));$("#v-shop").hidden=v!=="shop";$("#v-ali").hidden=v!=="ali";if(v==="ali")renderAli();try{history.replaceState(null,"",v==="ali"?"#ali":location.pathname)}catch(e){}}
