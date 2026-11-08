@@ -137,6 +137,32 @@ h1{font:900 clamp(2rem,6vw,3rem)/1.1 var(--body);margin:0;letter-spacing:-.01em}
 @media (max-width:480px){.aico{height:96px}}
 .ai small{color:var(--muted);font-weight:500}
 .ai span{font:700 .82rem var(--body);color:var(--text);opacity:.7}
+.vcard{margin-top:44px;border-radius:24px;background:#fff;border:1px solid var(--line);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:26px;align-items:center;scroll-margin-top:70px}
+@media (max-width:760px){.vcard{grid-template-columns:minmax(0,1fr);padding:20px}}
+.vcard h2{font:900 1.6rem/1.15 var(--body);margin:0 0 8px}
+.vcard p{margin:0 0 16px;color:var(--muted);max-width:44ch}
+.vbtns{display:flex;gap:10px;flex-wrap:wrap}
+.vstage{position:relative;display:grid;justify-items:center;gap:12px;padding-block:6px 4px}
+.biz{width:min(100%,400px);aspect-ratio:1.75;border-radius:20px;padding:18px 20px;display:flex;gap:16px;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,var(--latin),var(--standard) 55%,var(--shoes-standard));box-shadow:0 14px 34px rgba(80,70,60,.14),0 2px 6px rgba(80,70,60,.08);
+  transform:rotate(-2deg);transition:transform .4s}
+.biz:hover{transform:rotate(0) scale(1.02)}
+.bl{display:grid;gap:3px;min-width:0}
+.bk{font:700 .72rem var(--body);color:var(--accent);letter-spacing:.02em}
+.bn{font:900 clamp(1.25rem,4.4vw,1.6rem)/1.1 var(--body)}
+.br{font:700 .85rem var(--body);color:var(--muted)}
+.bp{font:800 .95rem var(--body);margin-top:6px}
+.bu{font:500 .68rem var(--body);color:var(--muted);overflow-wrap:anywhere}
+html[dir="rtl"] .bp,html[dir="rtl"] .bu{text-align:right}
+.bq{position:relative;flex:none;width:38%;max-width:132px;background:#fff;border-radius:14px;padding:7px;box-shadow:0 2px 8px rgba(80,70,60,.1)}
+.bq img{display:block;width:100%;height:auto;border-radius:6px}
+.ring{position:absolute;inset:-6px;border-radius:18px;border:2px solid var(--accent);opacity:0;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{opacity:.8;transform:scale(.92)}70%,100%{opacity:0;transform:scale(1.12)}}
+.phone{position:absolute;width:42px;color:var(--text);top:-14px;inset-inline-end:max(4px,calc(50% - 205px));filter:drop-shadow(0 6px 10px rgba(80,70,60,.18));animation:tap 2.4s ease-in-out infinite}
+@keyframes tap{0%,100%{transform:translate(0,0) rotate(-12deg)}45%,60%{transform:translate(-14px,22px) rotate(-4deg)}}
+html[dir="ltr"] .phone{animation-name:tapl}
+@keyframes tapl{0%,100%{transform:translate(0,0) rotate(12deg)}45%,60%{transform:translate(14px,22px) rotate(4deg)}}
+.vhint{font:700 .85rem var(--body);color:var(--muted)}
 footer{padding-block:32px;margin-top:48px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer a{color:var(--muted)}
 </style>
@@ -149,6 +175,7 @@ footer a{color:var(--muted)}
   <a href="#shoes-standard" data-go="shoes-standard" style="--c:var(--shoes-standard)" data-t="nShoesS">נעלי סטנדרט</a>
   <a href="#ali" data-go="ali" data-t="nAli">אליאקספרס</a>
   <a href="#about" data-go="about" data-t="nAbout">מי אני</a>
+  <a href="#card" data-go="card" data-t="nCard">כרטיס ביקור</a>
 </div></nav>
 <div class="wrap">
 <header>
@@ -183,6 +210,27 @@ footer a{color:var(--muted)}
   <p class="hint" style="margin-top:18px" data-t="aliHint">אלה קישורי שותפים: אם קונים דרכם, אני מקבל עמלה קטנה מאליאקספרס, בלי שום תוספת למחיר שלכם. המחירים נבדקו בנובמבר 2026 ומשתנים שם, אז כדאי לבדוק מחיר ומידות לפני שקונים.</p>
 </section>
 
+<section class="vcard" id="card" aria-labelledby="cardT">
+  <div class="vtext">
+    <h2 id="cardT" data-t="cardT">כרטיס ביקור</h2>
+    <p data-t="cardP">מצלמים את הקוד שעל הכרטיס עם הטלפון, והאתר נפתח אצלכם בטלפון. אפשר גם לשתף אותו עם הורים אחרים.</p>
+    <div class="vbtns"><button class="btn" type="button" id="shareBtn" data-t="share">שיתוף האתר</button><a class="btn ghost" href="https://wa.me/972585974771" target="_blank" rel="noopener" data-t="cardWa">לכתוב לי ב-WhatsApp</a></div>
+  </div>
+  <div class="vstage">
+    <div class="biz">
+      <div class="bl">
+        <span class="bk" data-t="cardKicker">בגדי ריקודים לבנים · בחינם</span>
+        <b class="bn" data-t="cardName">אורן קארו</b>
+        <span class="br" data-t="b2">לטין וסטנדרט</span>
+        <span class="bp" dir="ltr">058-5974771</span>
+        <span class="bu" dir="ltr">oren-ballroom-shop.vercel.app</span>
+      </div>
+      <div class="bq"><img src="/img/qr.png" alt="QR" data-ta="qrAlt" width="804" height="804"><span class="ring" aria-hidden="true"></span></div>
+    </div>
+    <svg class="phone" viewBox="0 0 40 70" aria-hidden="true"><rect x="2" y="2" width="36" height="66" rx="8" fill="#fff" stroke="currentColor" stroke-width="2.5"/><circle cx="20" cy="10" r="3" fill="currentColor"/><path d="M10 34h20M10 40h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".35"/></svg>
+    <span class="vhint" data-t="cardHint">כוונו את המצלמה לקוד</span>
+  </div>
+</section>
 <section class="give"><div><b data-t="giveT">הילד גדל מהבגדים?</b><p data-t="giveP">אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener" data-t="giveBtn">לתרומה ב-WhatsApp</a></section>
 <footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html" data-t="admin">ניהול</a></footer>
 </div>
@@ -224,7 +272,7 @@ const money=n=>new Intl.NumberFormat("he-IL").format(n)+" ₪";
 const priceHtml=()=>`<span class="free">${t.free}</span>`;
 let products=[],cat="",sizeF="",cart=[];
 const L={
- he:{dir:"rtl",nLatin:"לטין",nStandard:"סטנדרט",nShoesL:"נעלי לטין",nShoesS:"נעלי סטנדרט",nAli:"אליאקספרס",nAbout:"מי אני",aboutT:"היי, אני אורן",aboutP:"אני רוקד ריקודים סלוניים מגיל 3, לטין וסטנדרט, וזכיתי בכמה תחרויות. הריקוד נתן לי המון, ואני רוצה שכל ילד שאוהב לרקוד יוכל להגיע לאימון ולתחרות בבגדים ובנעליים מתאימים. בגלל זה כל הבגדים כאן ניתנים בחינם.",b1:"רוקד מגיל 3",b2:"לטין וסטנדרט",b3:"זוכה בתחרויות",orenAlt:"אורן",title:"בגדי ריקודים לבנים",sub:"הכול בחינם, לילדים שצריכים",cart:"עגלה",tabShop:"הבגדים שלי · חינם",tabAli:"אליאקספרס · בזול",whoNew:"מצטרפים חדשים",whoOld:"כבר קניתי באליאקספרס",
+ he:{dir:"rtl",nLatin:"לטין",nStandard:"סטנדרט",nShoesL:"נעלי לטין",nShoesS:"נעלי סטנדרט",nAli:"אליאקספרס",nAbout:"מי אני",nCard:"כרטיס ביקור",cardT:"כרטיס ביקור",cardP:"מצלמים את הקוד שעל הכרטיס עם הטלפון, והאתר נפתח אצלכם בטלפון. אפשר גם לשתף אותו עם הורים אחרים.",share:"שיתוף האתר",cardWa:"לכתוב לי ב-WhatsApp",cardKicker:"בגדי ריקודים לבנים · בחינם",cardName:"אורן קארו",cardHint:"כוונו את המצלמה לקוד",qrAlt:"קוד QR לאתר",copied:"הקישור הועתק",shareTxt:"בגדי ריקודים לבנים, בחינם לילדים שצריכים",aboutT:"היי, אני אורן",aboutP:"אני רוקד ריקודים סלוניים מגיל 3, לטין וסטנדרט, וזכיתי בכמה תחרויות. הריקוד נתן לי המון, ואני רוצה שכל ילד שאוהב לרקוד יוכל להגיע לאימון ולתחרות בבגדים ובנעליים מתאימים. בגלל זה כל הבגדים כאן ניתנים בחינם.",b1:"רוקד מגיל 3",b2:"לטין וסטנדרט",b3:"זוכה בתחרויות",orenAlt:"אורן",title:"בגדי ריקודים לבנים",sub:"הכול בחינם, לילדים שצריכים",cart:"עגלה",tabShop:"הבגדים שלי · חינם",tabAli:"אליאקספרס · בזול",whoNew:"מצטרפים חדשים",whoOld:"כבר קניתי באליאקספרס",
   aliHint:"אלה קישורי שותפים: אם קונים דרכם, אני מקבל עמלה קטנה מאליאקספרס, בלי שום תוספת למחיר שלכם. המחירים נבדקו בנובמבר 2026 ומשתנים שם, אז כדאי לבדוק מחיר ומידות לפני שקונים.",
   giveT:"הילד גדל מהבגדים?",giveP:"אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.",giveBtn:"לתרומה ב-WhatsApp",admin:"ניהול",
   cartT:"העגלה",close:"סגור",nameL:"שם (לא חובה)",noteL:"הערה (לא חובה)",noteP:"למשל גובה הילד",send:"שליחת בקשה ב-WhatsApp",doneT:"נפתח WhatsApp עם הבקשה",doneP:"לחצו ״שלח״ ב-WhatsApp. לא נפתח?",again:"פתיחה מחדש",back:"חזרה לחנות",
@@ -236,7 +284,7 @@ const L={
   groups:{boysL:"בנים · לטין",boysS:"בנים · סטנדרט",girlsL:"בנות · לטין",girlsS:"בנות · סטנדרט",shoesL:"נעלי לטין",shoesS:"נעלי סטנדרט"},aliFrom:"מ-",aliGo:"לצפייה באליאקספרס ↗",
   aliNew:"<b>חדשים באליאקספרס?</b>בהזמנה הראשונה יש מבצעי הצטרפות (Welcome Deal) וקופונים למצטרפים. נרשמים דרך הכפתור, ואז בוחרים פריטים מהרשימה למטה.",aliJoin:"להרשמה לאליאקספרס ↗",
   aliOld:"<b>כבר קניתם באליאקספרס?</b>בחרתי פריטים פשוטים וזולים יחסית. לפני שקונים כדאי לבדוק את טבלת המידות של המוכר ואת הביקורות עם תמונות."},
- ru:{dir:"ltr",nLatin:"Латина",nStandard:"Стандарт",nShoesL:"Обувь латина",nShoesS:"Обувь стандарт",nAli:"AliExpress",nAbout:"Обо мне",aboutT:"Привет, я Орен",aboutP:"Я занимаюсь бальными танцами с 3 лет, латиной и стандартом, и побеждал на нескольких соревнованиях. Танцы дали мне очень много, и я хочу, чтобы каждый ребёнок, который любит танцевать, мог прийти на тренировку и на турнир в подходящей одежде и обуви. Поэтому все вещи здесь отдаются бесплатно.",b1:"Танцую с 3 лет",b2:"Латина и стандарт",b3:"Победитель соревнований",orenAlt:"Орен",title:"Одежда для бальных танцев для мальчиков",sub:"Всё бесплатно, для детей, которым это нужно",cart:"Корзина",tabShop:"Моя одежда · бесплатно",tabAli:"AliExpress · недорого",whoNew:"Новый покупатель",whoOld:"Уже покупал на AliExpress",
+ ru:{dir:"ltr",nLatin:"Латина",nStandard:"Стандарт",nShoesL:"Обувь латина",nShoesS:"Обувь стандарт",nAli:"AliExpress",nAbout:"Обо мне",nCard:"Визитка",cardT:"Визитка",cardP:"Наведите камеру телефона на код на визитке, и сайт откроется у вас в телефоне. Им можно поделиться с другими родителями.",share:"Поделиться сайтом",cardWa:"Написать мне в WhatsApp",cardKicker:"Бальная одежда для мальчиков · бесплатно",cardName:"Орен Каро",cardHint:"Наведите камеру на код",qrAlt:"QR-код сайта",copied:"Ссылка скопирована",shareTxt:"Одежда для бальных танцев для мальчиков, бесплатно",aboutT:"Привет, я Орен",aboutP:"Я занимаюсь бальными танцами с 3 лет, латиной и стандартом, и побеждал на нескольких соревнованиях. Танцы дали мне очень много, и я хочу, чтобы каждый ребёнок, который любит танцевать, мог прийти на тренировку и на турнир в подходящей одежде и обуви. Поэтому все вещи здесь отдаются бесплатно.",b1:"Танцую с 3 лет",b2:"Латина и стандарт",b3:"Победитель соревнований",orenAlt:"Орен",title:"Одежда для бальных танцев для мальчиков",sub:"Всё бесплатно, для детей, которым это нужно",cart:"Корзина",tabShop:"Моя одежда · бесплатно",tabAli:"AliExpress · недорого",whoNew:"Новый покупатель",whoOld:"Уже покупал на AliExpress",
   aliHint:"Это партнёрские ссылки: если вы покупаете по ним, я получаю небольшую комиссию от AliExpress, а цена для вас не меняется. Цены проверены в ноябре 2026 и могут меняться, поэтому проверяйте цену и размеры перед покупкой.",
   giveT:"Ребёнок вырос из одежды?",giveP:"Можно отдать танцевальную одежду и обувь, которая стала мала, и она перейдёт другому ребёнку.",giveBtn:"Отдать через WhatsApp",admin:"Управление",
   cartT:"Корзина",close:"Закрыть",nameL:"Имя (необязательно)",noteL:"Комментарий (необязательно)",noteP:"Например, рост ребёнка",send:"Отправить запрос в WhatsApp",doneT:"WhatsApp открыт с вашим запросом",doneP:"Нажмите «Отправить» в WhatsApp. Не открылся?",again:"Открыть снова",back:"Назад в магазин",
@@ -248,7 +296,7 @@ const L={
   groups:{boysL:"Мальчики · латина",boysS:"Мальчики · стандарт",girlsL:"Девочки · латина",girlsS:"Девочки · стандарт",shoesL:"Обувь для латины",shoesS:"Обувь для стандарта"},aliFrom:"от",aliGo:"Смотреть на AliExpress ↗",
   aliNew:"<b>Впервые на AliExpress?</b>На первый заказ действуют приветственные предложения (Welcome Deal) и купоны для новых покупателей. Зарегистрируйтесь по кнопке, а потом выбирайте вещи из списка ниже.",aliJoin:"Регистрация на AliExpress ↗",
   aliOld:"<b>Уже покупали на AliExpress?</b>Я выбрал простые и недорогие вещи. Перед покупкой сверьтесь с таблицей размеров продавца и отзывами с фото."},
- en:{dir:"ltr",nLatin:"Latin",nStandard:"Standard",nShoesL:"Latin shoes",nShoesS:"Standard shoes",nAli:"AliExpress",nAbout:"About me",aboutT:"Hi, I'm Oren",aboutP:"I've been a ballroom dancer since I was 3, in both Latin and Standard, and I've won several competitions. Dancing has given me a lot, and I want every kid who loves to dance to make it to practice and competitions in the right clothes and shoes. That's why everything here is free.",b1:"Dancing since age 3",b2:"Latin & Standard",b3:"Competition winner",orenAlt:"Oren",title:"Boys' Ballroom Dancewear",sub:"All free, for kids who need it",cart:"Cart",tabShop:"My clothes · free",tabAli:"AliExpress · budget",whoNew:"New to AliExpress",whoOld:"I've bought on AliExpress",
+ en:{dir:"ltr",nLatin:"Latin",nStandard:"Standard",nShoesL:"Latin shoes",nShoesS:"Standard shoes",nAli:"AliExpress",nAbout:"About me",nCard:"Business card",cardT:"Business card",cardP:"Point your phone camera at the code on the card and the site opens on your phone. You can also share it with other parents.",share:"Share the site",cardWa:"Message me on WhatsApp",cardKicker:"Boys' dancewear · free",cardName:"Oren Karo",cardHint:"Point your camera at the code",qrAlt:"QR code for the site",copied:"Link copied",shareTxt:"Boys' ballroom dancewear, free for kids who need it",aboutT:"Hi, I'm Oren",aboutP:"I've been a ballroom dancer since I was 3, in both Latin and Standard, and I've won several competitions. Dancing has given me a lot, and I want every kid who loves to dance to make it to practice and competitions in the right clothes and shoes. That's why everything here is free.",b1:"Dancing since age 3",b2:"Latin & Standard",b3:"Competition winner",orenAlt:"Oren",title:"Boys' Ballroom Dancewear",sub:"All free, for kids who need it",cart:"Cart",tabShop:"My clothes · free",tabAli:"AliExpress · budget",whoNew:"New to AliExpress",whoOld:"I've bought on AliExpress",
   aliHint:"These are affiliate links: if you buy through them I get a small commission from AliExpress, at no extra cost to you. Prices were checked in November 2026 and change, so check the price and sizes before buying.",
   giveT:"Has your child outgrown their dancewear?",giveP:"You can donate dance clothes and shoes that no longer fit, and they'll go to another child who needs them.",giveBtn:"Donate via WhatsApp",admin:"Admin",
   cartT:"Cart",close:"Close",nameL:"Name (optional)",noteL:"Note (optional)",noteP:"For example, your child's height",send:"Send request on WhatsApp",doneT:"WhatsApp opened with your request",doneP:"Tap “Send” in WhatsApp. Didn't open?",again:"Open again",back:"Back to the shop",
@@ -530,11 +578,16 @@ function showView(v){document.querySelectorAll(".tab").forEach(t=>t.setAttribute
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showView(t.dataset.v));
 function go(k){
   if(k==="about"){$("#about").scrollIntoView({behavior:"smooth"});return}
+  if(k==="card"){$("#card").scrollIntoView({behavior:"smooth"});return}
   if(k==="ali"){showView("ali");$("#v-ali").scrollIntoView({behavior:"smooth"});return}
   showView("shop");cat=k;sizeF="";render();$("#v-shop").scrollIntoView({behavior:"smooth"});
 }
 document.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();go(a.dataset.go)});
+$("#shareBtn").onclick=async()=>{const url="https://oren-ballroom-shop.vercel.app";
+  if(navigator.share){try{await navigator.share({title:t.title,text:t.shareTxt,url})}catch(e){}return}
+  try{await navigator.clipboard.writeText(url);toast(t.copied)}catch(e){prompt(t.share,url)}};
 if(location.hash==="#ali")showView("ali");
+if(location.hash==="#card")setTimeout(()=>$("#card").scrollIntoView(),300);
 applyLang();renderCart();load();
 </script>
 </body>
