@@ -262,7 +262,7 @@ footer a{color:var(--muted)}
   </div>
 </section>
 <section class="give"><div><b data-t="giveT">הילד גדל מהבגדים?</b><p data-t="giveP">אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.</p></div><a class="btn wa" href="https://wa.me/972585974771?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%95%D7%A8%D7%9F%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%91%D7%92%D7%93%D7%99%20%D7%A8%D7%99%D7%A7%D7%95%D7%93%20%D7%9C%D7%AA%D7%A8%D7%95%D7%9D" id="giveBtn" target="_blank" rel="noopener" data-t="giveBtn">לתרומה ב-WhatsApp</a></section>
-<footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span><a href="/admin.html" data-t="admin">ניהול</a></footer>
+<footer><span>WhatsApp: <a href="https://wa.me/972585974771" target="_blank" rel="noopener" dir="ltr">058-5974771</a></span></footer>
 </div>
 
 <dialog id="sheet" class="sheet" aria-labelledby="shT">
@@ -282,12 +282,20 @@ footer a{color:var(--muted)}
   <div class="lines" id="lines"></div>
   <form class="checkout" id="checkout">
     <label><span data-t="nameL">שם (לא חובה)</span><input id="oName" autocomplete="name"></label>
+    <label><span data-t="phoneL">טלפון (חובה בשליחה דרך האתר)</span><input id="oPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-0000000"></label>
     <label><span data-t="noteL">הערה (לא חובה)</span><textarea id="oNote" rows="2" placeholder="למשל גובה הילד" data-tp="noteP"></textarea></label>
-    <button class="btn wa" type="submit" id="oSend" data-t="send">שליחת בקשה ב-WhatsApp</button>
+    <p class="howsend" data-t="howSend">איך לשלוח את הבקשה?</p>
+    <div class="sendbtns">
+      <button class="btn wa" type="submit" id="oSend" value="wa" data-t="send">שליחה ב-WhatsApp</button>
+      <button class="btn ghost" type="submit" id="oSite" value="site" data-t="sendSite">שליחה דרך האתר</button>
+    </div>
+    <p class="err" id="oErr" role="alert" hidden></p>
   </form>
   <div id="done" hidden style="padding-block:20px;display:grid;gap:10px">
-    <b style="font-weight:800;font-size:1.3rem" data-t="doneT">נפתח WhatsApp עם הבקשה</b>
-    <p style="margin:0"><span data-t="doneP">לחצו ״שלח״ ב-WhatsApp. לא נפתח?</span> <a id="waAgain" href="#" target="_blank" rel="noopener" data-t="again">פתיחה מחדש</a></p>
+    <div id="doneWa"><b style="font-weight:800;font-size:1.3rem" data-t="doneT">נפתח WhatsApp עם הבקשה</b>
+    <p style="margin:0"><span data-t="doneP">לחצו ״שלח״ ב-WhatsApp. לא נפתח?</span> <a id="waAgain" href="#" target="_blank" rel="noopener" data-t="again">פתיחה מחדש</a></p></div>
+    <div id="doneSite" hidden><b style="font-weight:800;font-size:1.3rem" data-t="siteDoneT">הבקשה נשלחה לאורן ✓</b>
+    <p style="margin:0" data-t="siteDoneP">אורן יחזור אליכם בטלפון או ב-WhatsApp.</p></div>
     <button class="btn ghost" type="button" id="doneBtn" data-t="back">חזרה לחנות</button>
   </div>
 </aside>
@@ -318,7 +326,7 @@ const L={
  he:{dir:"rtl",nLatin:"לטין",nStandard:"סטנדרט",nShoesL:"נעלי לטין",nShoesS:"נעלי סטנדרט",nAli:"אליאקספרס",nAbout:"מי אני",nCard:"כרטיס ביקור",heroW1:"אורן",heroW2:"קארו",railT:"המתלה",allCats:"כל הקטגוריות",aliPick:"בחרו קטגוריה",aliPickP:"כל קטגוריה נפתחת עם כל הפריטים שלה.",aliOpen:"לכל הפריטים",aliCatsT:"אליאקספרס · קטגוריות",aliItems:n=>n+" פריטים",railP:"עוברים על הבגדים ולוחצים על בגד כדי לראות אותו מקרוב.",fOpen:"לבחירת מידה",prev:"הקודם",next:"הבא",tick:"חינם לילדים שצריכים · לטין · סטנדרט · נעליים · כל בגד עובר הלאה",heroWord:"אורן",heroCta:"לבגדים",cardT:"כרטיס ביקור",cardP:"מצלמים את הקוד שעל הכרטיס עם הטלפון, והאתר נפתח אצלכם בטלפון. אפשר גם לשתף אותו עם הורים אחרים.",share:"שיתוף האתר",cardWa:"לכתוב לי ב-WhatsApp",cardKicker:"בגדי ריקודים לבנים · בחינם",cardName:"אורן קארו",cardHint:"כוונו את המצלמה לקוד",qrAlt:"קוד QR לאתר",copied:"הקישור הועתק",shareTxt:"בגדי ריקודים לבנים, בחינם לילדים שצריכים",aboutT:"היי, אני אורן",aboutP:"אני רוקד ריקודים סלוניים מגיל 3, לטין וסטנדרט, וזכיתי בכמה תחרויות. הריקוד נתן לי המון, ואני רוצה שכל ילד שאוהב לרקוד יוכל להגיע לאימון ולתחרות בבגדים ובנעליים מתאימים. בגלל זה כל הבגדים כאן ניתנים בחינם.",b1:"רוקד מגיל 3",b2:"לטין וסטנדרט",b3:"זוכה בתחרויות",orenAlt:"אורן",title:"בגדי ריקודים לבנים",sub:"הכול בחינם, לילדים שצריכים",cart:"עגלה",tabShop:"הבגדים שלי · חינם",tabAli:"אליאקספרס · בזול",whoNew:"מצטרפים חדשים",whoOld:"כבר קניתי באליאקספרס",
   aliHint:"אלה קישורי שותפים: אם קונים דרכם, אני מקבל עמלה קטנה מאליאקספרס, בלי שום תוספת למחיר שלכם. המחירים נבדקו בנובמבר 2026 ומשתנים שם, אז כדאי לבדוק מחיר ומידות לפני שקונים.",
   giveT:"הילד גדל מהבגדים?",giveP:"אפשר לתרום בגדי ונעלי ריקוד שכבר לא עולים עליו, והם יעברו לילד אחר שצריך אותם.",giveBtn:"לתרומה ב-WhatsApp",admin:"ניהול",
-  cartT:"העגלה",close:"סגור",nameL:"שם (לא חובה)",noteL:"הערה (לא חובה)",noteP:"למשל גובה הילד",send:"שליחת בקשה ב-WhatsApp",doneT:"נפתח WhatsApp עם הבקשה",doneP:"לחצו ״שלח״ ב-WhatsApp. לא נפתח?",again:"פתיחה מחדש",back:"חזרה לחנות",
+  cartT:"העגלה",phoneL:"טלפון (חובה בשליחה דרך האתר)",howSend:"איך לשלוח את הבקשה?",sendSite:"שליחה דרך האתר",sending:"שולח…",needPhone:"כדי לשלוח דרך האתר צריך מספר טלפון, כדי שאורן יוכל לחזור אליכם.",siteFail:"השליחה דרך האתר לא עבדה כרגע. אפשר לשלוח ב-WhatsApp.",siteDoneT:"הבקשה נשלחה לאורן ✓",siteDoneP:"אורן יחזור אליכם בטלפון או ב-WhatsApp.",close:"סגור",nameL:"שם (לא חובה)",noteL:"הערה (לא חובה)",noteP:"למשל גובה הילד",send:"שליחה ב-WhatsApp",doneT:"נפתח WhatsApp עם הבקשה",doneP:"לחצו ״שלח״ ב-WhatsApp. לא נפתח?",again:"פתיחה מחדש",back:"חזרה לחנות",
   cats:{"latin":"לטין","standard":"סטנדרט","shoes-latin":"נעלי לטין","shoes-standard":"נעלי סטנדרט"},items:n=>n+" פריטים",soon:"בקרוב",loading:"טוען…",back2:"↻ גב",no:"מס׳",soldOut:"אזל",free:"חינם",
   avail:n=>n+" פריטים זמינים",both:"לטין וסטנדרט",sizes:"מידות",allSizes:"כל המידות",sizeFilter:"סינון לפי מידה",emptyCat:"בקטגוריה הזו עוד אין פריטים. שווה לשאול בוואטסאפ.",emptySize:"אין פריטים במידה הזו כרגע",
   color:"צבע",sizeShoe:"מידה (EU)",sizeCloth:"מידה (גובה הילד בס״מ)",pick:"בחרו מידה",add:"הוספה לעגלה",freeNote:"הבגד ניתן בחינם. לא בטוחים במידה? כתבו לי בוואטסאפ ואבדוק.",added:"נוסף לעגלה",
@@ -330,7 +338,7 @@ const L={
  ru:{dir:"ltr",nLatin:"Латина",nStandard:"Стандарт",nShoesL:"Обувь латина",nShoesS:"Обувь стандарт",nAli:"AliExpress",nAbout:"Обо мне",nCard:"Визитка",heroW1:"Орен",heroW2:"Каро",railT:"Вешалка",allCats:"Все категории",aliPick:"Выберите категорию",aliPickP:"Каждая категория открывается со всеми своими товарами.",aliOpen:"Смотреть все",aliCatsT:"AliExpress · категории",aliItems:n=>n+" товаров",railP:"Наведите на вещь и нажмите на неё, чтобы рассмотреть поближе.",fOpen:"Выбрать размер",prev:"Назад",next:"Вперёд",tick:"Бесплатно для детей · Латина · Стандарт · Обувь · Каждая вещь переходит дальше",heroWord:"Орен",heroCta:"К одежде",cardT:"Визитка",cardP:"Наведите камеру телефона на код на визитке, и сайт откроется у вас в телефоне. Им можно поделиться с другими родителями.",share:"Поделиться сайтом",cardWa:"Написать мне в WhatsApp",cardKicker:"Бальная одежда для мальчиков · бесплатно",cardName:"Орен Каро",cardHint:"Наведите камеру на код",qrAlt:"QR-код сайта",copied:"Ссылка скопирована",shareTxt:"Одежда для бальных танцев для мальчиков, бесплатно",aboutT:"Привет, я Орен",aboutP:"Я занимаюсь бальными танцами с 3 лет, латиной и стандартом, и побеждал на нескольких соревнованиях. Танцы дали мне очень много, и я хочу, чтобы каждый ребёнок, который любит танцевать, мог прийти на тренировку и на турнир в подходящей одежде и обуви. Поэтому все вещи здесь отдаются бесплатно.",b1:"Танцую с 3 лет",b2:"Латина и стандарт",b3:"Победитель соревнований",orenAlt:"Орен",title:"Одежда для бальных танцев для мальчиков",sub:"Всё бесплатно, для детей, которым это нужно",cart:"Корзина",tabShop:"Моя одежда · бесплатно",tabAli:"AliExpress · недорого",whoNew:"Новый покупатель",whoOld:"Уже покупал на AliExpress",
   aliHint:"Это партнёрские ссылки: если вы покупаете по ним, я получаю небольшую комиссию от AliExpress, а цена для вас не меняется. Цены проверены в ноябре 2026 и могут меняться, поэтому проверяйте цену и размеры перед покупкой.",
   giveT:"Ребёнок вырос из одежды?",giveP:"Можно отдать танцевальную одежду и обувь, которая стала мала, и она перейдёт другому ребёнку.",giveBtn:"Отдать через WhatsApp",admin:"Управление",
-  cartT:"Корзина",close:"Закрыть",nameL:"Имя (необязательно)",noteL:"Комментарий (необязательно)",noteP:"Например, рост ребёнка",send:"Отправить запрос в WhatsApp",doneT:"WhatsApp открыт с вашим запросом",doneP:"Нажмите «Отправить» в WhatsApp. Не открылся?",again:"Открыть снова",back:"Назад в магазин",
+  cartT:"Корзина",phoneL:"Телефон (обязательно при отправке через сайт)",howSend:"Как отправить запрос?",sendSite:"Отправить через сайт",sending:"Отправка…",needPhone:"Чтобы отправить через сайт, нужен номер телефона, чтобы Орен мог с вами связаться.",siteFail:"Отправка через сайт сейчас не сработала. Можно отправить в WhatsApp.",siteDoneT:"Запрос отправлен Орену ✓",siteDoneP:"Орен свяжется с вами по телефону или в WhatsApp.",close:"Закрыть",nameL:"Имя (необязательно)",noteL:"Комментарий (необязательно)",noteP:"Например, рост ребёнка",send:"Отправить в WhatsApp",doneT:"WhatsApp открыт с вашим запросом",doneP:"Нажмите «Отправить» в WhatsApp. Не открылся?",again:"Открыть снова",back:"Назад в магазин",
   cats:{"latin":"Латина","standard":"Стандарт","shoes-latin":"Обувь для латины","shoes-standard":"Обувь для стандарта"},items:n=>n+" шт.",soon:"Скоро",loading:"Загрузка…",back2:"↻ спина",no:"№",soldOut:"Нет",free:"Бесплатно",
   avail:n=>n+" вещей в наличии",both:"Латина и стандарт",sizes:"Размеры",allSizes:"Все размеры",sizeFilter:"Фильтр по размеру",emptyCat:"В этой категории пока ничего нет. Спросите в WhatsApp.",emptySize:"Сейчас нет вещей этого размера",
   color:"Цвет",sizeShoe:"Размер (EU)",sizeCloth:"Размер (рост ребёнка, см)",pick:"Выберите размер",add:"В корзину",freeNote:"Вещь отдаётся бесплатно. Не уверены в размере? Напишите мне в WhatsApp, я проверю.",added:"Добавлено в корзину",
@@ -342,7 +350,7 @@ const L={
  en:{dir:"ltr",nLatin:"Latin",nStandard:"Standard",nShoesL:"Latin shoes",nShoesS:"Standard shoes",nAli:"AliExpress",nAbout:"About me",nCard:"Business card",heroW1:"Oren",heroW2:"Karo",railT:"The rail",allCats:"All categories",aliPick:"Choose a category",aliPickP:"Each category opens with all of its items.",aliOpen:"See all items",aliCatsT:"AliExpress · categories",aliItems:n=>n+" items",railP:"Hover over the clothes and tap one to see it up close.",fOpen:"Choose a size",prev:"Previous",next:"Next",tick:"Free for kids who need it · Latin · Standard · Shoes · Every piece gets passed on",heroWord:"Oren",heroCta:"See the clothes",cardT:"Business card",cardP:"Point your phone camera at the code on the card and the site opens on your phone. You can also share it with other parents.",share:"Share the site",cardWa:"Message me on WhatsApp",cardKicker:"Boys' dancewear · free",cardName:"Oren Karo",cardHint:"Point your camera at the code",qrAlt:"QR code for the site",copied:"Link copied",shareTxt:"Boys' ballroom dancewear, free for kids who need it",aboutT:"Hi, I'm Oren",aboutP:"I've been a ballroom dancer since I was 3, in both Latin and Standard, and I've won several competitions. Dancing has given me a lot, and I want every kid who loves to dance to make it to practice and competitions in the right clothes and shoes. That's why everything here is free.",b1:"Dancing since age 3",b2:"Latin & Standard",b3:"Competition winner",orenAlt:"Oren",title:"Boys' Ballroom Dancewear",sub:"All free, for kids who need it",cart:"Cart",tabShop:"My clothes · free",tabAli:"AliExpress · budget",whoNew:"New to AliExpress",whoOld:"I've bought on AliExpress",
   aliHint:"These are affiliate links: if you buy through them I get a small commission from AliExpress, at no extra cost to you. Prices were checked in November 2026 and change, so check the price and sizes before buying.",
   giveT:"Has your child outgrown their dancewear?",giveP:"You can donate dance clothes and shoes that no longer fit, and they'll go to another child who needs them.",giveBtn:"Donate via WhatsApp",admin:"Admin",
-  cartT:"Cart",close:"Close",nameL:"Name (optional)",noteL:"Note (optional)",noteP:"For example, your child's height",send:"Send request on WhatsApp",doneT:"WhatsApp opened with your request",doneP:"Tap “Send” in WhatsApp. Didn't open?",again:"Open again",back:"Back to the shop",
+  cartT:"Cart",phoneL:"Phone (required to send through the site)",howSend:"How would you like to send it?",sendSite:"Send through the site",sending:"Sending…",needPhone:"To send through the site we need a phone number so Oren can get back to you.",siteFail:"Sending through the site didn't work right now. You can send it on WhatsApp.",siteDoneT:"Your request was sent to Oren ✓",siteDoneP:"Oren will get back to you by phone or WhatsApp.",close:"Close",nameL:"Name (optional)",noteL:"Note (optional)",noteP:"For example, your child's height",send:"Send on WhatsApp",doneT:"WhatsApp opened with your request",doneP:"Tap “Send” in WhatsApp. Didn't open?",again:"Open again",back:"Back to the shop",
   cats:{"latin":"Latin","standard":"Standard","shoes-latin":"Latin shoes","shoes-standard":"Standard shoes"},items:n=>n+" items",soon:"Coming soon",loading:"Loading…",back2:"↻ back",no:"No.",soldOut:"Gone",free:"Free",
   avail:n=>n+" items available",both:"Latin & Standard",sizes:"Sizes",allSizes:"All sizes",sizeFilter:"Filter by size",emptyCat:"Nothing in this category yet. Ask on WhatsApp.",emptySize:"No items in this size right now",
   color:"Colour",sizeShoe:"Size (EU)",sizeCloth:"Size (child's height, cm)",pick:"Choose a size",add:"Add to cart",freeNote:"This item is free. Not sure about the size? Message me on WhatsApp and I'll check.",added:"Added to cart",
@@ -510,21 +518,32 @@ function renderCart(){
     <div><b>${esc(cartName(i))}</b><small>${t.no} ${i.num||"?"} · ${t.size} ${esc(i.size)} · ${i.qty} ${t.pcs}</small></div>
     <div style="text-align:end"><button class="rm" type="button" data-k="${k}">${t.remove}</button></div></div>`).join("")
     :`<p class="hint" style="padding:16px 0">${t.cartEmpty}</p>`;
-  $("#oSend").disabled=!cart.length;
+  $("#oSend").disabled=!cart.length;$("#oSite").disabled=!cart.length;
 }
 $("#lines").addEventListener("click",e=>{const b=e.target.closest(".rm");if(b){cart.splice(+b.dataset.k,1);saveCart()}});
 function openCart(on){$("#drawer").classList.toggle("open",on);$("#drawer").setAttribute("aria-hidden",!on);$("#shade").hidden=!on;if(on){$("#checkout").hidden=false;$("#done").hidden=true}}
 $("#cartBtn").onclick=()=>openCart(true);$("#closeCart").onclick=()=>openCart(false);$("#shade").onclick=()=>openCart(false);$("#doneBtn").onclick=()=>openCart(false);
-$("#checkout").addEventListener("submit",e=>{
+$("#checkout").addEventListener("submit",async e=>{
   e.preventDefault();if(!cart.length)return;
-  const name=$("#oName").value.trim(),note=$("#oNote").value.trim();
+  const how=(e.submitter&&e.submitter.value)||"wa";
+  const name=$("#oName").value.trim(),note=$("#oNote").value.trim(),phone=$("#oPhone").value.trim();
+  const err=m=>{$("#oErr").textContent=m;$("#oErr").hidden=!m};err("");
+  const items=cart.map(i=>({...i,name:cartName(i)}));
+  const finish=site=>{$("#doneWa").hidden=site;$("#doneSite").hidden=!site;cart=[];saveCart();$("#checkout").hidden=true;$("#done").hidden=false;$("#checkout").reset()};
+  if(how==="site"){
+    if(phone.replace(/\D/g,"").length<9){err(t.needPhone);$("#oPhone").focus();return}
+    const b=$("#oSite"),lbl=b.textContent;b.disabled=true;b.textContent=t.sending;
+    try{const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({channel:"site",name,phone,note,lang,items})});
+      if(!r.ok)throw new Error();finish(true);
+    }catch(x){err(t.siteFail)}
+    b.disabled=false;b.textContent=lbl;return;
+  }
   const msg=[t.msgHi,""]
     .concat(cart.map((i,k)=>`${k+1}) ${t.no} ${i.num||"?"} – ${cartName(i)} | ${t.size} ${i.size}`+(i.qty>1?` | ${i.qty} ${t.pcs}`:"")))
-    .concat([""]).concat(name?[`${t.msgName}: ${name}`]:[]).concat(note?[`${t.msgNote}: ${note}`]:[]).join("\n");
+    .concat([""]).concat(name?[`${t.msgName}: ${name}`]:[]).concat(phone?[`${t.phoneL.split(" (")[0]}: ${phone}`]:[]).concat(note?[`${t.msgNote}: ${note}`]:[]).join("\n");
   const url="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
-  try{fetch("/api/orders",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({name,note,items:cart})})}catch(err){}
-  $("#waAgain").href=url;
-  cart=[];saveCart();$("#checkout").hidden=true;$("#done").hidden=false;$("#checkout").reset();
+  try{fetch("/api/orders",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({channel:"whatsapp",name,phone,note,lang,items})})}catch(x){}
+  $("#waAgain").href=url;finish(false);
   location.href=url;
 });
 const ALI_ITEMS=[

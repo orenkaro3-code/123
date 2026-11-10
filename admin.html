@@ -38,6 +38,12 @@ h2{font:800 1.4rem var(--body);margin:0}
 .order .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
 .order ul{margin:0;padding-inline-start:20px}
 .st-new{border-color:var(--accent)}
+.ch{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:700;background:#efe9e2}
+.ch.site{background:#171513;color:#fff}
+.oacts{display:flex;flex-wrap:wrap;gap:8px}
+.oacts a{text-decoration:none}
+.setup{padding:16px 18px;display:grid;gap:6px;margin-bottom:12px;border-color:#c9a227}
+.setup ol{margin:0;padding-inline-start:20px;display:grid;gap:4px}
 .err{color:var(--bad);margin:0}
 .confirm{display:flex;gap:6px;align-items:center;font-size:.9rem;color:var(--bad)}
 </style>
@@ -91,6 +97,7 @@ h2{font:800 1.4rem var(--body);margin:0}
 
     <section id="orders" hidden>
       <div class="head"><h2>הזמנות</h2><button class="chip" id="refreshOrders">רענון</button></div>
+      <div id="setup"></div>
       <div class="list" id="olist"></div>
     </section>
   </div>
@@ -115,7 +122,7 @@ async function api(path,method="GET",body){
   return j;
 }
 async function enter(){
-  try{const j=await api("/api/orders");orders=j.orders;
+  try{const j=await api("/api/orders");orders=j.orders;setupInfo=j.setup||null;lastSeen=orders[0]&&orders[0].id;
     $("#loginForm").hidden=true;$("#app").hidden=false;await loadProducts();renderOrders();
   }catch(e){$("#loginErr").textContent=e.message;$("#loginErr").hidden=false;$("#loginForm").hidden=false}
 }
@@ -196,22 +203,55 @@ $("#pform").addEventListener("submit",async e=>{
   $("#saveBtn").disabled=false;$("#saveBtn").textContent="שמירה";
 });
 
+const OWNER="972585974771";
+const waNum=p=>{let d=String(p).replace(/\D/g,"");if(d.startsWith("0"))d="972"+d.slice(1);return d};
+const orderText=o=>["הזמנה "+(o.channel==="site"?"מהאתר":"ב-WhatsApp")+" · "+new Date(o.createdAt).toLocaleString("he-IL"),"שם: "+o.name].concat(o.phone?["טלפון: "+o.phone]:[])
+  .concat(o.items.map((i,k)=>`${k+1}) ${i.num?"מס׳ "+i.num+" – ":""}${i.name} | מידה ${i.size}${i.qty>1?" | ×"+i.qty:""}`)).concat(o.note?["הערה: "+o.note]:[]).join("\n");
+let setupInfo=null;
+function renderSetup(){
+  const s=setupInfo;if(!s){$("#setup").innerHTML="";return}
+  let h="";
+  if(!s.db)h+=`<div class="glass setup"><b>⚠️ ההזמנות עוד לא נשמרות – צריך לחבר מסד נתונים (פעם אחת)</b><ol>
+    <li>נכנסים ל-vercel.com ← הפרויקט <b>oren-ballroom-shop</b> ← לשונית <b>Storage</b>.</li>
+    <li>לוחצים <b>Create Database</b> ← בוחרים <b>Upstash for Redis</b> ← <b>Continue</b> ← <b>Create</b>.</li>
+    <li>מוודאים שהוא מחובר לפרויקט oren-ballroom-shop ← <b>Connect</b>.</li>
+    <li>לשונית Deployments ← על העדכון האחרון ⋯ ← <b>Redeploy</b>.</li></ol></div>`;
+  if(!s.whatsapp)h+=`<div class="glass setup"><b>📲 כדי שכל הזמנה מהאתר תגיע לוואטסאפ שלך אוטומטית (פעם אחת)</b><ol>
+    <li>בודקים באתר <b>callmebot.com</b> מה המספר העדכני של הבוט לוואטסאפ, ושומרים אותו באנשי הקשר.</li>
+    <li>שולחים לו בוואטסאפ: <b dir="ltr">I allow callmebot to send me messages</b></li>
+    <li>הוא עונה עם <b>APIKEY</b> (מספר). שולחים לי אותו בצ׳אט ואני אחבר.</li></ol>
+    <span class="hint">עד אז: בכל הזמנה יש כפתור "העבר לוואטסאפ שלי".</span></div>`;
+  $("#setup").innerHTML=h;
+}
+let lastSeen=null;
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=880;g.gain.value=.15;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.25)}catch(e){}}
+async function pollOrders(){
+  if(!key||$("#app").hidden)return;
+  try{const j=await api("/api/orders");setupInfo=j.setup||null;
+    const top=j.orders[0]&&j.orders[0].id;if(lastSeen&&top&&top!==lastSeen){beep();toast("הזמנה חדשה!");document.title="(!) הזמנה חדשה"}
+    lastSeen=top||lastSeen;orders=j.orders;renderOrders();
+  }catch(e){}
+}
+setInterval(pollOrders,30000);
+const T0=document.title;addEventListener("focus",()=>{document.title=T0});
 function renderOrders(){
+  renderSetup();
   const n=orders.filter(o=>o.status==="new").length;$("#ordTab").textContent=n?`הזמנות (${n} חדשות)`:"הזמנות";
   $("#olist").innerHTML=orders.length?orders.map(o=>`<div class="order glass ${o.status==="new"?"st-new":""}">
-    <div class="h"><b style="font-weight:600">${esc(o.name)}</b>
+    <div class="h"><b style="font-weight:600">${esc(o.name)} <span class="ch ${o.channel==="site"?"site":""}">${o.channel==="site"?"נשלחה דרך האתר":"WhatsApp"}</span></b>
       <select data-o="${esc(o.id)}" aria-label="סטטוס" style="width:auto">${Object.entries(STATUS).map(([k,v])=>`<option value="${k}" ${k===o.status?"selected":""}>${v}</option>`).join("")}</select></div>
     ${o.phone?`<div><a href="tel:${esc(o.phone)}" dir="ltr">${esc(o.phone)}</a> · <button class="chip" type="button" data-copy="${esc(o.phone)}">העתק טלפון</button></div>`:`<div class="hint">${o.channel==="whatsapp"?"נשלחה כהודעה ב-WhatsApp. הטלפון של ההורה מופיע אצלך בצ׳אט.":""}</div>`}
     <div class="hint">${new Date(o.createdAt).toLocaleString("he-IL")}${o.childAge?" · גיל הילד: "+esc(o.childAge):""}</div>
     <ul>${o.items.map(i=>`<li>${i.num?"מס׳ "+i.num+" – ":""}${esc(i.name)} · מידה ${esc(i.size)} · ×${i.qty} · ${money(i.price*i.qty)}</li>`).join("")}</ul>
-    ${o.note?`<div>הערה: ${esc(o.note)}</div>`:""}<b>סה״כ: ${money(o.total)}</b></div>`).join("")
+    ${o.note?`<div>הערה: ${esc(o.note)}</div>`:""}
+    <div class="oacts"><a class="chip" href="https://wa.me/${OWNER}?text=${encodeURIComponent(orderText(o))}" target="_blank" rel="noopener">העבר לוואטסאפ שלי</a>${o.phone?`<a class="chip" href="https://wa.me/${waNum(o.phone)}?text=${encodeURIComponent("שלום"+(o.name&&o.name!=="לא צוין שם"?" "+o.name:"")+", כאן אורן לגבי הבקשה לבגדי הריקוד 🙂")}" target="_blank" rel="noopener">WhatsApp להורה</a>`:""}</div></div>`).join("")
     :`<div class="glass" style="padding:24px"><b>אין הזמנות עדיין.</b><p class="hint">כשהורה ישלח הזמנה מהחנות, היא תופיע כאן עם השם והטלפון.</p></div>`;
 }
 $("#olist").addEventListener("change",async e=>{const s=e.target.closest("[data-o]");if(!s)return;
   try{await api("/api/orders","PATCH",{id:s.dataset.o,status:s.value});orders.find(o=>o.id===s.dataset.o).status=s.value;renderOrders();toast("הסטטוס עודכן")}catch(err){toast(err.message)}});
 $("#olist").addEventListener("click",async e=>{const b=e.target.closest("[data-copy]");if(!b)return;
   try{await navigator.clipboard.writeText(b.dataset.copy);toast("הטלפון הועתק")}catch(err){toast(b.dataset.copy)}});
-$("#refreshOrders").onclick=async()=>{try{orders=(await api("/api/orders")).orders;renderOrders();toast("עודכן")}catch(err){toast(err.message)}};
+$("#refreshOrders").onclick=async()=>{await pollOrders();toast("עודכן")};
 
 if(key)enter();
 </script>
