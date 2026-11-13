@@ -584,6 +584,8 @@ header.top{backdrop-filter:saturate(1.4) blur(14px);background:color-mix(in srgb
 .cprev{aspect-ratio:1;border-radius:10px;background:var(--panel2);padding:6px;color:var(--ink);display:grid;grid-template-rows:1fr auto;gap:2px;font-size:11px;font-weight:600}
 .cprev:hover{box-shadow:inset 0 0 0 2px var(--accent)}
 .cprev{min-width:0;overflow:hidden}.cprev svg{width:100%;height:100%;min-height:0;overflow:visible}.sgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+html.embed #present .pctl{opacity:.0;transition:opacity .3s}html.embed #present:hover .pctl{opacity:1}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="cpdefs"></defs></svg>
@@ -1332,6 +1334,16 @@ const mu=mk('select','vin');[['off','בלי מוזיקה'],['auto','🎵 מוז�
 const pv=mk('button','vbtn','▶ להשמיע');pv.onclick=()=>{const md=MOODS[doc.music]?doc.music:(MOTIFS[doc.motif]?.mood||'happy');moPreview(md)};const row=mk('div','vrow');row.append(mu,pv);box.append(ms,row);d.appendChild(box)}
 
 /* ===== site stats for the owner's admin page (/admin) ===== */
+/* ===== Claude connector: open a deck/design that Claude made (?mcp=id, &embed=1 plays it inside the chat) ===== */
+async function deckFromSpec(spec,save){spec.slides=(spec.slides||[]).slice(0,20);if(!(spec.theme==='poster'||spec.theme==='classic'||DTH[spec.theme]))spec.theme='poster';for(const k of['palette','font','coverStyle'])spec[k]=Math.max(0,Math.round(+spec[k]||0));
+try{await Promise.race([Promise.all(['700 100px Karantina','900 100px Rubik','700 100px Rubik'].map(f=>document.fonts.load(f,'אבגד'))),new Promise(r=>setTimeout(r,3000))])}catch(_){}
+const urls=await deckPhotos(spec.slides,spec);createBlank(CAT.pres);doc.name=String(spec.title||'מצגת מ-Claude').slice(0,60);doc.aiSpec=spec;doc.motif=MOTIFS[spec.anim]?spec.anim:moDetect((spec.title||'')+' '+spec.slides.map(s=>s.title||'').join(' '));doc.music='off';doc.pages=spec.slides.map((sl,i)=>deckSlide(sl,i,spec,doc.W,doc.H,urls[i]));doc.aiUrls=urls;pi=0;try{$('#fname').value=doc.name}catch(_){}render();renderPages();commit();if(save)saveDocs&&saveDocs()}
+async function mcpOpen(id,embed){const html=document.documentElement;if(embed)html.classList.add('embed');let j=null;
+try{const r=await fetch('/api/gemini?op=mcp&get='+encodeURIComponent(id),{cache:'no-store'});j=await r.json();if(!r.ok||!j.spec)throw 0}catch(e){toast('לא מצאתי את העיצוב שנוצר ב-Claude');return}
+const S=j.spec;try{if(j.kind==='deck')await deckFromSpec(S,!embed);
+else{const c=CAT[S.format]&&S.format!=='pres'?CAT[S.format]:CAT.ig;createBlank(c);doc.name=String(S.title||'עיצוב מ-Claude').replace(/\n/g,' ').slice(0,60);try{$('#fname').value=doc.name}catch(_){}render();await sleep(300);await aiLayout(Object.assign({},S,{op:'layout',style:S.style||'poster'}));try{aiPolish()}catch(_){}render();commit();if(!embed)saveDocs&&saveDocs()}}catch(e){toast('לא הצלחתי לבנות את העיצוב');return}
+if(!embed){toast(j.kind==='deck'?'המצגת מ-Claude נפתחה. אפשר לערוך הכול':'העיצוב מ-Claude נפתח. אפשר לערוך הכול');try{history.replaceState(null,'',location.pathname)}catch(_){}return}
+openPresent();const n=doc.pages.length;if(n>1)setInterval(()=>{if($('#present').hidden)return;pres=(pres+1)%n;drawPresent()},4200)}
 let STAT=null;const statInit=(()=>{const rid=()=>(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/[^a-z0-9]/g,'').slice(0,20);let vid=String(LS.get('paleta-vid','')||'');if(!/^[a-z0-9]{8,40}$/.test(vid)){vid=rid();LS.set('paleta-vid',vid)}let sid='',views=1,first=Date.now();try{sid=sessionStorage.getItem('pal-sid')||'';views=(+sessionStorage.getItem('pal-v')||0)+1;first=+sessionStorage.getItem('pal-f')||first;if(!sid){sid=rid();sessionStorage.setItem('pal-sid',sid);sessionStorage.setItem('pal-f',String(first))}sessionStorage.setItem('pal-v',String(views))}catch(_){sid=rid()}return{vid,sid,views,first}});
 function statSend(){if(!WEB)return;try{STAT=STAT||statInit();fetch('/api/stats',{method:'POST',keepalive:true,headers:Object.assign({'Content-Type':'application/json'},GTOKEN?{Authorization:'Bearer '+GTOKEN}:{}),body:JSON.stringify({sid:STAT.sid,vid:STAT.vid,views:STAT.views,first:STAT.first,path:location.pathname,ref:document.referrer})}).catch(()=>{})}catch(_){}}
 setTimeout(statSend,2500);
@@ -2726,7 +2738,7 @@ cp.onclick=async()=>{try{const blob=await new Promise(r=>first.toBlob(r,'image/p
 $('#exportBtn').innerHTML=ico('download',18)+'<span>ייצוא</span>';$('#exportBtn').onclick=openExport;
 let pres=0;
 function openPresent(){stopEdit(true);select(null);pres=pi;$('#present').hidden=false;drawPresent();try{$('#present').requestFullscreen?.().catch(()=>{})}catch(e){}}
-function drawPresent(){const ov=$('#present');ov.innerHTML='';const k=Math.min(window.innerWidth/doc.W,window.innerHeight/doc.H),m=pageNode(doc.pages[pres],doc.W,doc.H);m.className='pst';m.style.transform=`translate(${(window.innerWidth-doc.W*k)/2}px,${(window.innerHeight-doc.H*k)/2}px) scale(${k})`;ov.appendChild(m);presMotif(ov,k,(window.innerWidth-doc.W*k)/2,(window.innerHeight-doc.H*k)/2);try{m.animate([{opacity:0},{opacity:1}],{duration:380,easing:'ease-out'})}catch(e){}playAnims(m,doc.pages[pres].els);
+function drawPresent(){const ov=$('#present');ov.innerHTML='';const k=Math.min(window.innerWidth/doc.W,window.innerHeight/doc.H),m=pageNode(doc.pages[pres],doc.W,doc.H);m.className='pst';m.style.transform=`translate(${(window.innerWidth-doc.W*k)/2}px,${(window.innerHeight-doc.H*k)/2}px) scale(${k})`;m.style.overflow='hidden';ov.appendChild(m);presMotif(ov,k,(window.innerWidth-doc.W*k)/2,(window.innerHeight-doc.H*k)/2);try{m.animate([{opacity:0},{opacity:1}],{duration:380,easing:'ease-out'})}catch(e){}playAnims(m,doc.pages[pres].els);
 const c=mk('div','pctl'),pr=mk('button','',ico('right',22)),nx=mk('button','',ico('left',22)),x=mk('button','',ico('close',20));pr.setAttribute('aria-label','הקודם');nx.setAttribute('aria-label','הבא');x.setAttribute('aria-label','יציאה');
 pr.onclick=ev=>{ev.stopPropagation();presGo(-1)};nx.onclick=ev=>{ev.stopPropagation();presGo(1)};x.onclick=ev=>{ev.stopPropagation();closePresent()};const mb=mk('button',PMUS?'on':'','🎵');mb.title='מוזיקה';mb.onclick=ev=>{ev.stopPropagation();presMusicToggle(mb)};c.append(pr,mk('span','',`${pres+1} / ${doc.pages.length}`),nx,mb,x);ov.appendChild(c);ov.onclick=ev=>{const n=ev.target.closest&&ev.target.closest('[data-id]'),e=n&&doc.pages[pres].els.find(q=>q.id===n.dataset.id);if(e&&e.wh){spinOverlay(e.wh);return}presGo(1)}}
 function presGo(d){const n=pres+d;if(n<0)return;if(n>=doc.pages.length){toast('סוף המצגת. Esc ליציאה');return}pres=n;drawPresent()}
@@ -2758,7 +2770,7 @@ $('#presentBtn').before(themeBtn());try{const t=localStorage.getItem('paleta-the
 $('#homeBtn').innerHTML=lockupHTML({size:32});$('#homeBtn').onclick=showHome;$('#fname').addEventListener('change',persist);
 window.addEventListener('beforeunload',()=>{if(doc&&!studio.hidden)persist()});
 CUSTOM=LS.get('paleta-anims',{});if(!CUSTOM||typeof CUSTOM!=='object')CUSTOM={};animCSS();$('#cpdefs').innerHTML=FRAMESI.filter(f=>PATHS[f[0]]).map(([k])=>`<clipPath id="cp-${k}" clipPathUnits="objectBoundingBox"><path transform="scale(.01)" d="${PATHS[k]}"/></clipPath>`).join('');
-renderHome();initAuth();document.fonts.ready.then(()=>{if(doc&&!studio.hidden){measure();drawSel();fit()}});
+renderHome();initAuth();try{const q=new URLSearchParams(location.search),mid=q.get('mcp');if(mid&&WEB)setTimeout(()=>mcpOpen(mid,q.get('embed')==='1'),400)}catch(_){}document.fonts.ready.then(()=>{if(doc&&!studio.hidden){measure();drawSel();fit()}});
 })();
 </script>
 </body></html>
