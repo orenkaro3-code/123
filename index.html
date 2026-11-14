@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מרכז התחנות – מועצת תלמידים תשפ"ז · צמח א׳ אשדוד</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+:root{--g:#1f7a4d;--g2:#e8f3ec;--gold:#e3a21a;--gold2:#fff4d6;--ink:#17181f;--mut:#5b6070;--line:#e4e6ec;--red:#d0283a;--blue:#1d55cc;--bg:#f6f7f4}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Heebo,Arial,sans-serif}
+button{font:inherit;cursor:pointer}
+a{color:var(--g)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px 60px}
+header.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.topin{max-width:1100px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
+.emb{width:52px;height:52px;border-radius:50%;background:var(--g);display:grid;place-items:center;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--gold);flex:none}
+.emb svg{width:30px;height:30px}
+.brand b{display:block;font-size:19px;font-weight:900;color:var(--g);line-height:1.15}
+.brand span{font-size:13.5px;font-weight:700;color:#8a5a00}
+.topin .sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#c9cdd8;background:#fafafa}
+.btn.pri{background:var(--g);border-color:var(--g);color:#fff}
+.btn.pri:hover{background:#196640}
+.btn.gold{background:var(--gold2);border-color:#f0d58c;color:#6d4700}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:10px}
+.tabs{display:flex;gap:8px;margin:22px 0 4px;flex-wrap:wrap}
+.tab{border:2px solid var(--line);background:#fff;border-radius:999px;padding:10px 20px;font-weight:800;font-size:16px;color:var(--mut)}
+.tab.on{border-color:var(--g);background:var(--g);color:#fff}
+.hero{margin-top:18px;border-radius:22px;padding:26px 28px;color:#fff;position:relative;overflow:hidden}
+.hero h1{margin:0 0 6px;font-family:'Frank Ruhl Libre',serif;font-size:40px;line-height:1.1}
+.hero p{margin:0;font-size:16.5px;line-height:1.6;max-width:720px;opacity:.95}
+.hero ul{margin:12px 0 0;padding:0 20px 0 0;font-size:15.5px;line-height:1.75}
+.sec{margin-top:28px}
+.sec h2{font-size:22px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.sec h2 .c{font-size:13px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.prep{display:flex;flex-direction:column;gap:8px}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--g);flex:none}
+.chk b{display:block;font-size:15.5px}
+.chk small{color:var(--mut);font-size:13.5px;line-height:1.5}
+.chk.done{background:var(--g2);border-color:#bfe0cc}
+.chk.done b{text-decoration:line-through;color:#4b6b58}
+.who{display:inline-block;font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--gold2);color:#6d4700;margin-inline-start:6px;vertical-align:1px}
+.games{display:flex;flex-direction:column;gap:12px}
+details.game{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+details.game summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px}
+details.game summary::-webkit-details-marker{display:none}
+.gic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:none;font-size:24px}
+.gt b{display:block;font-size:18px}
+.gt small{color:var(--mut);font-size:13.5px}
+.chev{margin-inline-start:auto;font-size:20px;color:var(--mut);transition:.2s}
+details[open] .chev{transform:rotate(180deg)}
+.gbody{padding:0 20px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gbox{background:#fafbf9;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.gbox h4{margin:0 0 6px;font-size:14px;color:var(--g)}
+.gbox ul,.gbox ol{margin:0;padding:0 18px 0 0;font-size:14.5px;line-height:1.65}
+.gbox.wide{grid-column:1/-1}
+.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.pg{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.pg b{font-size:15.5px}
+.pg .meta{font-size:12.5px;color:var(--mut)}
+.todo{font-size:13px;font-weight:700;color:#6d4700;background:var(--gold2);border-radius:10px;padding:6px 9px;line-height:1.45}
+.pg .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.note{font-size:13.5px;color:var(--mut);line-height:1.6;margin-top:10px}
+.qrcard{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.qrbox{width:170px;height:170px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;flex:none}
+.qrbox svg{width:100%;height:100%;display:block}
+footer.ft{margin-top:40px;display:flex;justify-content:center;align-items:center;gap:12px;color:var(--mut);font-size:13px}
+/* viewer */
+.vbg{position:fixed;inset:0;background:rgba(15,18,24,.6);z-index:50;display:flex;flex-direction:column;align-items:center;padding:14px;gap:10px;overflow:auto}
+.vbar{display:flex;gap:8px;align-items:center;background:#fff;border-radius:14px;padding:8px 10px;position:sticky;top:0;z-index:2;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.vbar b{font-size:15px;padding:0 8px}
+.vpages{display:flex;flex-direction:column;gap:14px;align-items:center;transform-origin:top center}
+.sheet{width:794px;height:1123px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.35);overflow:hidden;flex:none}
+@media (max-width:760px){.gbody{grid-template-columns:1fr}.hero h1{font-size:30px}.topin .hide-m{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+  <div class="emb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/><path d="M8 21h8"/></svg></div>
+  <div class="brand"><b>מועצת תלמידים תשפ"ז</b><span>בית ספר צמח א׳ · אשדוד</span></div>
+  <div class="sp"></div>
+  <a class="btn hide-m" href="#share">📱 ברקוד לשיתוף</a>
+</div></header>
+
+<main class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="week"></div>
+
+  <section class="sec" id="share">
+    <h2>📱 ברקוד לאתר</h2>
+    <div class="card qrcard">
+      <div class="qrbox" id="qr"></div>
+      <div style="flex:1;min-width:240px">
+        <b style="font-size:17px">סורקים ומגיעים לכל התחנות</b>
+        <p class="note" style="margin-top:6px">מראים את הברקוד למורה או לחבר במועצה – הם סורקים במצלמה ונכנסים לאתר.</p>
+        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn sm" id="copyUrl">העתקת קישור</button>
+          <button class="btn sm" id="printQr">הדפסת הברקוד</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ft">
+    <div class="emb" style="width:34px;height:34px" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></div>
+    מועצת תלמידים תשפ"ז · בית ספר צמח א׳, אשדוד
+  </footer>
+</main>
+
+<script>
+(() => {
+const SITE_URL = 'https://tahanot-tzemach.vercel.app/';
+const A = id => 'https://claude.ai/artifact/' + id;
+const CANVAS = A('9pkFPrH3PgnTts5XdH8ihj');
+
+/* ---------- Hanukkah story ---------- */
+const STORY = [
+  'היוונים שולטים בארץ ואוסרים לשמור שבת וללמוד תורה',
+  'היוונים נכנסים לבית המקדש ומטמאים את כדי השמן',
+  'מתתיהו הכהן קורא בקול: "מי לה\' – אליי!"',
+  'יהודה המכבי ואחיו יוצאים להילחם ביוונים',
+  'המכבים מנצחים במלחמה – מעטים מול רבים!',
+  'המכבים חוזרים לירושלים ומנקים את בית המקדש',
+  'מוצאים פך שמן קטן אחד – מספיק רק ליום אחד',
+  'נס! המנורה דולקת שמונה ימים'
+];
+const CARD_ORDER = [5, 2, 8, 3, 7, 1, 6, 4];
+const RED = ['חנוכייה','סופגנייה','לביבה','סביבון','שמש','נר','שמן','פך השמן','המכבים','יהודה המכבי','בית המקדש','נס','דמי חנוכה','"נס גדול היה פה"','מתתיהו'];
+const BLUE = ['מצה','שופר','סוכה','מגילת אסתר','רעשן','תחפושת','חרוסת','לולב','אוזני המן','עץ אשוח','ביצת שוקולד','דלעת','חלה עגולה','תפוח בדבש','ט"ו בשבט'];
+
+/* ---------- Hanukkah word search (seeded, so blank and solution match) ---------- */
+const WS_WORDS = ['חנוכייה','סביבון','סופגנייה','לביבה','מכבים','מקדש','מתתיהו','יהודה','שמן','נרות','שמש','נס'];
+const WS = (() => {
+  const N = 12; let seed = 5771;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let attempt = 0; attempt < 200; attempt++) {
+    const g = Array.from({ length: N }, () => Array(N).fill(''));
+    const place = [];
+    let ok = true;
+    for (const w of [...WS_WORDS].sort((a, b) => b.length - a.length)) {
+      let done = false;
+      for (let t = 0; t < 300 && !done; t++) {
+        const dir = rnd() < 0.5 ? [0, -1] : [1, 0]; // right-to-left across, or top-down
+        const r = Math.floor(rnd() * N), c = Math.floor(rnd() * N);
+        const cells = [];
+        for (let i = 0; i < w.length; i++) {
+          const rr = r + dir[0] * i, cc = c + dir[1] * i;
+          if (rr < 0 || rr >= N || cc < 0 || cc >= N) { cells.length = 0; break; }
+          if (g[rr][cc] && g[rr][cc] !== w[i]) { cells.length = 0; break; }
+          cells.push([rr, cc]);
+        }
+        if (cells.length === w.length) { cells.forEach(([rr, cc], i) => g[rr][cc] = w[i]); place.push({ w, cells }); done = true; }
+      }
+      if (!done) { ok = false; break; }
+    }
+    if (!ok) continue;
+    const fill = 'אבגדהוזחטיכלמנסעפצקרשת';
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (!g[r][c]) g[r][c] = fill[Math.floor(rnd() * fill.length)];
+    return { N, g, place };
+  }
+})();
+
+/* ---------- printable pages built here ---------- */
+const head = `<style>@page{size:A4;margin:0}html,body{margin:0}body{font-family:Heebo,Arial,sans-serif;color:#17181f}
+.p{width:794px;height:1123px;box-sizing:border-box;padding:40px 46px;position:relative;overflow:hidden;page-break-after:always;break-after:page;background:#fff;display:flex;flex-direction:column}
+.p:last-child{page-break-after:auto}
+.ft{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;border-top:2px solid #ece6d6;padding-top:12px;font-weight:800;color:#1f7a4d;font-size:16px}
+.ft i{width:34px;height:34px;border-radius:50%;background:#1f7a4d;display:inline-block;box-shadow:0 0 0 3px #fff,0 0 0 5px #e3a21a}
+.ft small{color:#8a5a00;font-size:13px;margin-inline-start:6px}
+</style><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800;900&family=Frank+Ruhl+Libre:wght@900&display=swap" rel="stylesheet">`;
+const FT = `<div class="ft"><i></i>מועצת תלמידים תשפ"ז<small>בית ספר צמח א׳ · אשדוד</small></div>`;
+
+function wsPage(sol, grade) {
+  const hl = new Map();
+  if (sol) WS.place.forEach((p, k) => p.cells.forEach(([r, c]) => hl.set(r + ',' + c, k)));
+  const cols = ['#ffd6a5','#caffbf','#9bf6ff','#bdb2ff','#ffc6ff','#fdffb6','#a0c4ff','#ffadad','#d0f4de','#fcf6bd','#e4c1f9','#b9fbc0'];
+  let rows = '';
+  for (let r = 0; r < WS.N; r++) {
+    rows += '<tr>' + WS.g[r].map((ch, c) => { const k = hl.get(r + ',' + c); return `<td style="${k !== undefined ? 'background:' + cols[k % cols.length] + ';font-weight:900' : ''}">${ch}</td>`; }).join('') + '</tr>';
+  }
+  const words = WS_WORDS.map(w => `<span>${w}</span>`).join('');
+  return `<div class="p">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:4px solid #e3a21a;padding-bottom:10px">
+      <div><div style="display:inline-block;background:#e3a21a;color:#fff;font-weight:800;border-radius:999px;padding:3px 14px;font-size:14px">חנוכה · ${grade}</div>
+      <h1 style="margin:4px 0 0;font-family:'Frank Ruhl Libre',serif;font-size:46px">תפזורת חנוכה${sol ? ' – פתרון' : ''}</h1></div>
+      <div style="font-size:16px">שם: <span style="display:inline-block;width:170px;border-bottom:2px solid #aaa"></span></div>
+    </div>
+    <p style="font-size:17px;margin:14px 0 10px">מצאו את ${WS_WORDS.length} המילים. המילים כתובות <b>מימין לשמאל</b> או <b>מלמעלה למטה</b>. סמנו כל מילה שמצאתם ✓</p>
+    <table style="border-collapse:collapse;margin:6px auto 16px;direction:rtl">${rows}</table>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:center">${words}</div>
+    ${FT}
+    <style>td{width:50px;height:50px;border:2px solid #2b2d38;text-align:center;font-size:27px;font-weight:700}
+    .p span{border:2px solid #e3a21a;border-radius:999px;padding:4px 14px;font-size:18px;font-weight:700}</style>
+  </div>`;
+}
+function cardsPages(base) {
+  const card = n => `<div style="position:relative;width:702px;height:500px;border-radius:22px;overflow:hidden;border:3px solid #17181f">
+      <img src="${base}img/s${n}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);background:rgba(12,12,22,.66);padding:22px 34px;text-align:center;color:#fff;font-size:35px;font-weight:900;line-height:1.3">${STORY[n - 1]}</div></div>`;
+  let out = '';
+  for (let i = 0; i < 8; i += 2) out += `<div class="p" style="padding:40px 46px;align-items:center;justify-content:space-between">${card(CARD_ORDER[i])}<div style="width:100%;border-top:2px dashed #9a9ca6"></div>${card(CARD_ORDER[i + 1])}</div>`;
+  return out;
+}
+function storyPage(base, sol) {
+  const paras = sol
+    ? STORY.map((s, i) => `<div style="display:flex;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="width:44px;height:44px;border-radius:50%;background:#e3a21a;display:grid;place-items:center;font-weight:900;font-size:22px;flex:none">${i + 1}</span><img src="${base}img/s${i + 1}.jpg" style="width:78px;height:78px;border-radius:12px;object-fit:cover"><b style="font-size:19px">${s}</b></div>`).join('')
+    : `<div style="font-size:17.5px;line-height:1.68;display:flex;flex-direction:column;gap:12px">
+      <p style="margin:0">לפני הרבה מאוד שנים שלטו היוונים בארץ ישראל. הם רצו שכולם יחיו כמוהם, ולכן אסרו על היהודים לשמור שבת וללמוד תורה. הם אפילו נכנסו לבית המקדש בירושלים, הציבו בו פסלים וטימאו את כל כדי השמן שבהם הדליקו את המנורה.</p>
+      <p style="margin:0">בכפר קטן בשם מודיעין גר כהן זקן ואמיץ בשם <b>מתתיהו</b>. כשהחיילים היוונים ציוו עליו להשתחוות לפסל, הוא סירב, הרים את ידו וקרא בקול: "מי לה' – אליי!" ואנשים רבים נאספו סביבו.</p>
+      <p style="margin:0">בניו של מתתיהו, ובראשם <b>יהודה המכבי</b>, יצאו להילחם ביוונים. הם היו קבוצה קטנה מול צבא ענק וחזק, אבל היה להם אומץ, הם הכירו כל שביל בהרים והאמינו בדרכם. וכך, למרות הכול, המכבים ניצחו – הרבים נמסרו ביד המעטים.</p>
+      <p style="margin:0">אחרי הניצחון חזרו המכבים לירושלים. הם ניקו את בית המקדש, הוציאו ממנו את הפסלים ורצו להדליק שוב את המנורה. אבל איפה ימצאו שמן טהור? הם חיפשו וחיפשו, ובסוף מצאו <b>פך שמן קטן אחד</b> – שמן שמספיק ליום אחד בלבד.</p>
+      <p style="margin:0">הם הדליקו את המנורה, וקרה נס: השמן הקטן דלק לא יום אחד, אלא <b>שמונה ימים שלמים</b>! לזכר הנס הזה אנחנו מדליקים חנוכייה שמונה ימים, ואומרים יחד: <b>"נס גדול היה שם"</b>.</p></div>`;
+  return `<div class="p">
+    ${sol ? '' : `<img src="${base}img/s8.jpg" style="width:100%;height:200px;object-fit:cover;object-position:center 40%;border-radius:20px;border:3px solid #e3a21a;margin-bottom:14px">`}
+    <div style="font-size:15px;font-weight:800;color:#8a5a00">סיפור חנוכה</div>
+    <h1 style="margin:2px 0 14px;font-family:'Frank Ruhl Libre',serif;font-size:46px">${sol ? 'הנס של פך השמן – הסדר הנכון' : 'הנס של פך השמן'}</h1>
+    ${paras}${FT}</div>`;
+}
+function listsPage() {
+  const col = (t, c, arr) => `<div style="flex:1;border:4px solid ${c};border-radius:20px;padding:16px 18px"><h2 style="margin:0 0 10px;color:${c};font-size:28px">${t}</h2><ol style="margin:0;padding-right:24px;font-size:20px;line-height:1.75">${arr.map(w => `<li>${w}</li>`).join('')}</ol></div>`;
+  return `<div class="p"><div style="font-size:15px;font-weight:800;color:#8a5a00">גב דף החוקים · למדריך</div>
+    <h1 style="margin:2px 0 16px;font-family:'Frank Ruhl Libre',serif;font-size:42px">אדומים נגד כחולים – הפתקים</h1>
+    <div style="display:flex;gap:16px">${col('🔴 אדומים – קשור לחנוכה', '#d0283a', RED)}${col('🔵 כחולים – לא קשור', '#1d55cc', BLUE)}</div>
+    <p style="font-size:16px;margin-top:14px">בסוף בודקים את הסלסלות: פתק בסלסלה הלא נכונה חוזר לשטח.</p>${FT}</div>`;
+}
+function notesPage() {
+  const all = [...RED, ...BLUE].sort(() => 0).map((w, i) => i);
+  const mixed = [5,17,8,22,0,29,12,19,3,25,10,15,27,1,21,6,24,13,18,9,26,2,16,11,28,4,20,14,23,7].map(i => [...RED, ...BLUE][i]);
+  return `<div class="p" style="padding:30px"><div style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;height:100%;border:2px dashed #9a9ca6">${mixed.map(w => `<div style="border:2px dashed #9a9ca6;display:grid;place-items:center;font-size:26px;font-weight:900;text-align:center;padding:6px">${w}</div>`).join('')}</div></div>`;
+}
+
+/* ---------- weeks ---------- */
+const WEEKS = [
+  {
+    id: 'hanukkah', tab: '🕎 שבוע חנוכה', color: 'linear-gradient(120deg,#8a5a00,#e3a21a)',
+    title: 'שבוע חנוכה', intro: 'תחנות חנוכה לכל הכיתות: משחק קבוצתי, סיפור עם תמונות, תפזורת, סביבון לגזירה ודפי עבודה.',
+    what: ['תחנה 1 – אדומים נגד כחולים: מיון פתקים לשתי סלסלות', 'תחנה 2 – הנס של פך השמן: מקריאים סיפור ומסדרים 8 תמונות', 'תחנה 3 – תפזורת חנוכה על בריסטול', 'תחנה 4 – בונים סביבון (גזירה והדבקה)', 'דפי עבודה לכיתות א׳–ג׳ ו-ד׳–ו׳ + מרוץ המכבים'],
+    prep: [
+      ['ללמנן את כל תמונות הסיפור', 'את 8 כרטיסי התמונה (2 סטים – אדום וכחול) מלמנים אצל אורנה באולם.', 'אורנה – אולם'],
+      ['להדביק את התפזורת על בריסטול', 'מדביקים כל דף תפזורת על בריסטול כדי שלא יראו מאחור, ואז ללמנן אצל אורנה.', 'אורנה – אולם'],
+      ['להדפיס ולגזור 30 פתקים', 'מדפיסים את דף הפתקים, גוזרים ומקפלים. צריך סט לכל כיתה.', ''],
+      ['להכין שתי סלסלות', 'סלסלה אדומה וסלסלה כחולה (אפשר לסמן בסרט צבעוני).', ''],
+      ['להדפיס את דף החוקים עם גב', 'בצד אחד החוקים, ובגב רשימת האדומים והכחולים לבדיקה.', ''],
+      ['להדפיס ולגזור סביבונים', 'דף הסביבון לגזירה – עותק לכל ילד, מספריים ודבק.', ''],
+      ['להדפיס דפי עבודה', 'דפי חנוכה לפי שכבה: א׳–ג׳ ו-ד׳–ו׳.', '']
+    ],
+    games: [
+      { ic: '🔴🔵', bg: '#fde8ea', name: 'אדומים נגד כחולים', sub: 'מיון 30 פתקים לשתי סלסלות',
+        goal: 'כל קבוצה אוספת את הפתקים שלה: האדומים – מה שקשור לחנוכה, הכחולים – מה שלא קשור.',
+        need: ['30 פתקים מקופלים (15 קשורים, 15 לא)', 'סלסלה אדומה וסלסלה כחולה', 'דף חוקים + גב עם הרשימות'],
+        how: ['מקפלים את הפתקים ומפזרים בשטח', 'מחלקים את הכיתה לאדומים וכחולים', 'ב"התחילו!" פותחים פתקים: שייך לקבוצה שלך – לסלסלה; לא שייך – מקפלים ומחזירים', 'בסוף המדריך בודק מול הגב של דף החוקים'],
+        win: 'הקבוצה הראשונה שאוספת את כל 15 הפתקים הנכונים שלה – מנצחת.' },
+      { ic: '🕯️', bg: '#fff4d6', name: 'הנס של פך השמן', sub: 'מקריאים סיפור ומסדרים 8 תמונות',
+        goal: 'הילדים שומעים את סיפור חנוכה ומסדרים את 8 הרגעים לפי הסדר.',
+        need: ['דף הסיפור (בלי מספרים)', '2 סטים של 8 כרטיסי תמונה מלומנים – אדום וכחול', 'טוש מחיק לכל קבוצה'],
+        how: ['מקריאים לילדים את הסיפור "הנס של פך השמן"', 'נותנים לכל קבוצה (אדומה/כחולה) סט תמונות מעורבב', 'הילדים ממספרים את הכרטיסים מ-1 עד 8 (בטוש מחיק) או מסדרים בשורה', 'בודקים מול דף הפתרון'],
+        win: 'הקבוצה שמסדרת נכון ראשונה – מנצחת.' },
+      { ic: '🔎', bg: '#e8f3ec', name: 'תפזורת חנוכה', sub: '12 מילים, על בריסטול מלומן',
+        goal: 'למצוא את 12 מילות החנוכה בתפזורת.',
+        need: ['תפזורת מודבקת על בריסטול ומלומנת', 'טושים מחיקים', 'דף פתרון למדריך'],
+        how: ['שמים את התפזורת על השולחן', 'הילדים מקיפים בטוש מחיק כל מילה שמצאו', 'בסוף מוחקים לקבוצה הבאה'],
+        win: 'מי שמוצא את כל 12 המילים ראשון.' },
+      { ic: '🌀', bg: '#e9efff', name: 'בונים סביבון', sub: 'גזירה, קיפול והדבקה',
+        goal: 'כל ילד בונה סביבון נייר ומסובב אותו.',
+        need: ['דף סביבון לגזירה לכל ילד', 'מספריים, דבק, צבעים'],
+        how: ['צובעים את האותיות נ-ג-ה-ש', 'גוזרים לפי הקווים', 'מקפלים ומדביקים', 'משחקים בסביבון'],
+        win: 'אין מנצחים – כל אחד לוקח סביבון הביתה.' }
+    ],
+    pages: [
+      { name: 'דף חוקים – אדומים נגד כחולים', meta: 'A4 · לתחנה', todo: 'להדפיס. בגב – רשימת הפתקים', blank: CANVAS, sol: 'lists' },
+      { name: '30 פתקים לגזירה', meta: 'A4 · סט לכל כיתה', todo: 'להדפיס, לגזור ולקפל', blankLocal: 'notes', sol: 'lists' },
+      { name: 'הנס של פך השמן – סיפור', meta: 'A4 · להקראה', todo: 'להדפיס ולהקריא לילדים', blankLocal: 'story', sol: 'storySol' },
+      { name: 'כרטיסי תמונה (8 תמונות)', meta: '4 דפי A4 · 2 סטים', todo: 'להדפיס פעמיים וללמנן אצל אורנה באולם', blankLocal: 'cards', sol: 'storySol' },
+      { name: 'תפזורת חנוכה – א׳–ג׳', meta: 'A4', todo: 'להדביק על בריסטול וללמנן אצל אורנה', blankLocal: 'ws13', sol: 'ws13s' },
+      { name: 'תפזורת חנוכה – ד׳–ו׳', meta: 'A4', todo: 'להדביק על בריסטול וללמנן אצל אורנה', blankLocal: 'ws46', sol: 'ws46s' },
+      { name: 'בונים סביבון', meta: 'דף גזירה', todo: 'להדפיס עותק לכל ילד ולגזור', blank: A('2aA92ZPA3raPZEPcHyPkC8') },
+      { name: 'מרוץ המכבים', meta: 'משחק', todo: 'להדפיס את לוח המשחק', blank: A('21Z5Prq6nJnwVn7x97Na3U') },
+      { name: 'דפי עבודה חנוכה א׳–ג׳ / ד׳–ו׳', meta: 'קנבס דפי העבודה', todo: 'להדפיס לפי שכבה', blank: A('JEDWxK9GxFhmZBnXPNtUDY') }
+    ]
+  },
+  {
+    id: 'space', tab: '🚀 שבוע החלל', color: 'linear-gradient(120deg,#23246b,#3a86ff)',
+    title: 'שבוע החלל', intro: 'משימות חלל לכל הכיתות – א׳–ג׳ ו-ד׳–ו׳, עם דפי פתרון, חללית לגזירה ומרוץ הגלקסיה.',
+    what: ['דפי משימות חלל לכיתות א׳–ג׳', 'דפי משימות חלל לכיתות ד׳–ו׳', 'בונים חללית – גזירה והדבקה', 'מרוץ הגלקסיה – משחק'],
+    prep: [
+      ['להדפיס דפי משימות לפי שכבה', 'א׳–ג׳ ו-ד׳–ו׳, עותק לכל ילד.', ''],
+      ['להדפיס דפי פתרון למדריכים', 'דף פתרון לכל מדריך תחנה.', ''],
+      ['להדפיס ולגזור חלליות', 'דף החללית לגזירה – עותק לכל ילד, מספריים ודבק.', ''],
+      ['להכין את מרוץ הגלקסיה', 'להדפיס את לוח המשחק, קובייה וכלי משחק.', '']
+    ],
+    games: [
+      { ic: '🛰️', bg: '#e9efff', name: 'משימות חלל', sub: 'דפי פעילות לפי שכבה',
+        goal: 'הילדים פותרים משימות על מערכת השמש, כוכבי לכת וחשבון בחלל.',
+        need: ['דפי פעילות א׳–ג׳ / ד׳–ו׳', 'עפרונות וצבעים', 'דף פתרון למדריך'],
+        how: ['מחלקים דף לפי שכבה', 'הילדים פותרים לבד או בזוגות', 'המדריך בודק מול דף הפתרון'],
+        win: 'מי שמסיים נכון – מקבל חותמת אסטרונאוט.' },
+      { ic: '🚀', bg: '#fff4d6', name: 'בונים חללית', sub: 'גזירה והדבקה',
+        goal: 'כל ילד בונה חללית מנייר.',
+        need: ['דף חללית לכל ילד', 'מספריים, דבק, צבעים'],
+        how: ['צובעים', 'גוזרים לפי הקווים', 'מקפלים ומדביקים'],
+        win: 'אין מנצחים – לוקחים הביתה.' },
+      { ic: '🌌', bg: '#e8f3ec', name: 'מרוץ הגלקסיה', sub: 'משחק לוח',
+        goal: 'להגיע ראשונים לסוף הגלקסיה.',
+        need: ['לוח המשחק', 'קובייה וכלים'],
+        how: ['מטילים קובייה ומתקדמים', 'עונים על שאלות בדרך', 'מי שמגיע ראשון – מנצח'],
+        win: 'הראשון שמגיע לסוף.' }
+    ],
+    pages: [
+      { name: 'שבוע החלל – כל דפי הפעילות', meta: 'כל השכבות', todo: 'להדפיס לפי שכבה', blank: A('MyntEBgZCz4F1657UURQrf') },
+      { name: 'דף פעילות א׳–ג׳', meta: 'A4', todo: 'להדפיס עותק לכל ילד', blank: A('1tchb9wnLFp8uYn7xjwywB'), solUrl: A('95rzf643qa1MMN3yBNDye8') },
+      { name: '4 דפי פעילות', meta: 'A4', todo: 'להדפיס עותק לכל ילד', blank: A('4zFmwE8zDcGs1fTNFcuNN9'), solUrl: A('DrTw1faWj9gRnuSmvjSwxe') },
+      { name: 'בונים חללית', meta: 'דף גזירה', todo: 'להדפיס עותק לכל ילד ולגזור', blank: A('UqfX4Bf3P66Ji7s2whxkow') },
+      { name: 'מרוץ הגלקסיה', meta: 'משחק', todo: 'להדפיס את לוח המשחק', blank: A('KqeDkWopGQ3w2xkdzgdBAP') },
+      { name: 'דפי חלל א׳–ג׳ ו-ד׳–ו׳ (קנבס)', meta: 'עם דפי מורה', todo: 'להדפיס לפי שכבה', blank: A('JEDWxK9GxFhmZBnXPNtUDY') }
+    ]
+  }
+];
+
+const LOCAL = {
+  notes: () => notesPage(),
+  lists: () => listsPage(),
+  story: b => storyPage(b, false),
+  storySol: b => storyPage(b, true),
+  cards: b => cardsPages(b),
+  ws13: () => wsPage(false, 'כיתות א׳–ג׳'), ws13s: () => wsPage(true, 'כיתות א׳–ג׳'),
+  ws46: () => wsPage(false, 'כיתות ד׳–ו׳'), ws46s: () => wsPage(true, 'כיתות ד׳–ו׳')
+};
+const TITLES = { notes: '30 פתקים', lists: 'רשימת הפתקים (גב דף החוקים)', story: 'הנס של פך השמן', storySol: 'פתרון – הסדר הנכון', cards: 'כרטיסי תמונה', ws13: 'תפזורת א׳–ג׳', ws13s: 'תפזורת א׳–ג׳ – פתרון', ws46: 'תפזורת ד׳–ו׳', ws46s: 'תפזורת ד׳–ו׳ – פתרון' };
+
+/* ---------- storage ---------- */
+const st = { get(k, d) { try { const v = localStorage.getItem('hub_' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('hub_' + k, JSON.stringify(v)); } catch {} } };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+let cur = st.get('week', 'hanukkah');
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = WEEKS.map(w => `<button class="tab ${w.id === cur ? 'on' : ''}" data-w="${w.id}">${w.tab}</button>`).join('');
+}
+document.getElementById('tabs').onclick = e => { const b = e.target.closest('[data-w]'); if (!b) return; cur = b.dataset.w; st.set('week', cur); render(); };
+
+function render() {
+  renderTabs();
+  const w = WEEKS.find(x => x.id === cur);
+  const done = st.get('done_' + w.id, {});
+  const prep = w.prep.map(([t, d, who], i) => `<label class="chk ${done[i] ? 'done' : ''}"><input type="checkbox" data-i="${i}" ${done[i] ? 'checked' : ''}><span><b>${esc(t)}${who ? `<span class="who">📍 ${esc(who)}</span>` : ''}</b><small>${esc(d)}</small></span></label>`).join('');
+  const games = w.games.map(g => `<details class="game"><summary><span class="gic" style="background:${g.bg}">${g.ic}</span><span class="gt"><b>${esc(g.name)}</b><small>${esc(g.sub)}</small></span><span class="chev">⌄</span></summary>
+    <div class="gbody">
+      <div class="gbox wide"><h4>🎯 המטרה</h4><div style="font-size:14.5px;line-height:1.6">${esc(g.goal)}</div></div>
+      <div class="gbox"><h4>🧺 מה צריך</h4><ul>${g.need.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div class="gbox"><h4>▶️ איך משחקים</h4><ol>${g.how.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
+      <div class="gbox wide" style="background:var(--g2);border-color:#bfe0cc"><h4>🏆 מי מנצח</h4><div style="font-size:14.5px">${esc(g.win)}</div></div>
+    </div></details>`).join('');
+  const pages = w.pages.map((p, i) => {
+    const blank = p.blankLocal ? `<button class="btn sm pri" data-open="${p.blankLocal}">📄 דף ריק</button>` : p.blank ? `<a class="btn sm pri" href="${p.blank}" target="_blank" rel="noopener">📄 פתיחה</a>` : '';
+    const sol = p.sol ? `<button class="btn sm gold" data-open="${p.sol}">✅ פתרון</button>` : p.solUrl ? `<a class="btn sm gold" href="${p.solUrl}" target="_blank" rel="noopener">✅ פתרון</a>` : '';
+    return `<div class="pg"><b>${esc(p.name)}</b><div class="meta">${esc(p.meta)}</div><div class="todo">✂️ מה עושים: ${esc(p.todo)}</div><div class="row">${blank}${sol}</div></div>`;
+  }).join('');
+  document.getElementById('week').innerHTML = `
+    <div class="hero" style="background:${w.color}">
+      <h1>${esc(w.title)}</h1><p>${esc(w.intro)}</p>
+      <ul>${w.what.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    </div>
+    <section class="sec"><h2>✅ הכנות לפני <span class="c" id="prepCount"></span></h2><div class="prep">${prep}</div></section>
+    <section class="sec"><h2>🎲 תדריך לכל משחק</h2><div class="games">${games}</div></section>
+    <section class="sec"><h2>📄 כל הדפים <span class="c">${w.pages.length}</span></h2><div class="pages">${pages}</div>
+      <p class="note">דפים שנפתחים כאן ("דף ריק" / "פתרון") אפשר להדפיס ישר מהאתר. דפים עם "פתיחה" נמצאים בעמודים שעשינו קודם ונפתחים בלשונית חדשה.</p></section>`;
+  updCount(w);
+}
+function updCount(w) { const d = st.get('done_' + w.id, {}); const n = Object.values(d).filter(Boolean).length; const el = document.getElementById('prepCount'); if (el) el.textContent = n + '/' + w.prep.length; }
+document.getElementById('week').addEventListener('change', e => {
+  const cb = e.target.closest('input[data-i]'); if (!cb) return;
+  const w = WEEKS.find(x => x.id === cur); const d = st.get('done_' + w.id, {}); d[cb.dataset.i] = cb.checked; st.set('done_' + w.id, d);
+  cb.closest('.chk').classList.toggle('done', cb.checked); updCount(w);
+});
+document.getElementById('week').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openViewer(b.dataset.open); });
+
+/* ---------- viewer + print ---------- */
+const BASE = new URL('.', location.href).href;
+function openViewer(key) {
+  const html = LOCAL[key](BASE);
+  const bg = document.createElement('div'); bg.className = 'vbg';
+  bg.innerHTML = `<div class="vbar"><b>${esc(TITLES[key])}</b><button class="btn sm pri" data-p>🖨️ הדפסה</button><button class="btn sm" data-x>סגירה ✕</button></div><div class="vpages">${html}</div>`;
+  const pages = bg.querySelector('.vpages');
+  const scale = Math.min(1, (innerWidth - 28) / 794);
+  pages.style.transform = `scale(${scale})`;
+  bg.querySelectorAll('.p').forEach(p => p.classList.add('sheet'));
+  const fit = () => { pages.style.marginBottom = -(pages.scrollHeight * (1 - scale)) + 'px'; }; setTimeout(fit, 50);
+  bg.querySelector('[data-x]').onclick = () => bg.remove();
+  bg.querySelector('[data-p]').onclick = () => printHtml(html, TITLES[key]);
+  bg.addEventListener('click', e => { if (e.target === bg) bg.remove(); });
+  const inner = document.createElement('div'); inner.innerHTML = head; bg.prepend(...inner.childNodes);
+  document.body.appendChild(bg);
+}
+function printHtml(html, title) {
+  const f = document.createElement('iframe');
+  f.style.cssText = 'position:fixed;width:0;height:0;border:0;right:0;bottom:0';
+  document.body.appendChild(f);
+  f.srcdoc = `<!doctype html><html dir="rtl" lang="he"><head><meta charset="utf-8"><title>${esc(title)}</title><base href="${BASE}">${head}</head><body>${html}</body></html>`;
+  f.onload = async () => {
+    await Promise.all([...f.contentDocument.images].map(i => i.decode().catch(() => {})));
+    try { await f.contentDocument.fonts.ready; } catch {}
+    setTimeout(() => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch {} setTimeout(() => f.remove(), 60000); }, 200);
+  };
+}
+
+/* ---------- QR ---------- */
+function renderQr() {
+  try { const q = qrcode(0, 'M'); q.addData(SITE_URL); q.make(); document.getElementById('qr').innerHTML = q.createSvgTag({ cellSize: 5, margin: 0, scalable: true }); }
+  catch { document.getElementById('qr').textContent = 'ברקוד לא נטען'; }
+}
+document.getElementById('copyUrl').onclick = async () => { try { await navigator.clipboard.writeText(SITE_URL); document.getElementById('copyUrl').textContent = 'הועתק ✓'; } catch { prompt('הקישור:', SITE_URL); } };
+document.getElementById('printQr').onclick = () => {
+  const svg = document.getElementById('qr').innerHTML;
+  printHtml(`<div class="p" style="align-items:center;justify-content:center;gap:24px;text-align:center"><h1 style="font-family:'Frank Ruhl Libre',serif;font-size:50px;margin:0">מרכז התחנות</h1><div style="font-size:22px">סורקים ומגיעים לכל התחנות, הדפים והתדריכים</div><div style="width:420px;height:420px">${svg.replace('<svg', '<svg style="width:100%;height:100%"')}</div>${FT}</div>`, 'ברקוד');
+};
+
+render(); renderQr();
+})();
+</script>
+</body>
+</html>
