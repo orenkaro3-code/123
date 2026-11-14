@@ -5,237 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>מרכז התחנות – מועצת תלמידים תשפ"ז · צמח א׳ אשדוד</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Frank+Ruhl+Libre:wght@700;900&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
-:root{--g:#1f7a4d;--g2:#e8f3ec;--gold:#e3a21a;--gold2:#fff4d6;--ink:#17181f;--mut:#5b6070;--line:#e4e6ec;--red:#d0283a;--blue:#1d55cc;--bg:#f6f7f4}
+:root{--g:#1f7a4d;--g2:#e8f3ec;--gold:#e3a21a;--gold2:#fff4d6;--ink:#17181f;--mut:#5b6070;--line:#e4e6ec}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Heebo,Arial,sans-serif}
+html,body{margin:0;background:#f4f5f1;color:var(--ink);font-family:Heebo,Arial,sans-serif}
 button{font:inherit;cursor:pointer}
-a{color:var(--g)}
-.wrap{max-width:1100px;margin:0 auto;padding:0 18px 60px}
-header.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
-.topin{max-width:1100px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px}
-.emb{width:52px;height:52px;border-radius:50%;background:var(--g);display:grid;place-items:center;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--gold);flex:none}
-.emb svg{width:30px;height:30px}
-.brand b{display:block;font-size:19px;font-weight:900;color:var(--g);line-height:1.15}
-.brand span{font-size:13.5px;font-weight:700;color:#8a5a00}
-.topin .sp{flex:1}
-.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;white-space:nowrap}
-.btn:hover{border-color:#c9cdd8;background:#fafafa}
-.btn.pri{background:var(--g);border-color:var(--g);color:#fff}
-.btn.pri:hover{background:#196640}
-.btn.gold{background:var(--gold2);border-color:#f0d58c;color:#6d4700}
-.btn.sm{padding:6px 11px;font-size:13px;border-radius:10px}
-.tabs{display:flex;gap:8px;margin:22px 0 4px;flex-wrap:wrap}
-.tab{border:2px solid var(--line);background:#fff;border-radius:999px;padding:10px 20px;font-weight:800;font-size:16px;color:var(--mut)}
-.tab.on{border-color:var(--g);background:var(--g);color:#fff}
-.hero{margin-top:18px;border-radius:22px;padding:26px 28px;color:#fff;position:relative;overflow:hidden}
-.hero h1{margin:0 0 6px;font-family:'Frank Ruhl Libre',serif;font-size:40px;line-height:1.1}
-.hero p{margin:0;font-size:16.5px;line-height:1.6;max-width:720px;opacity:.95}
-.hero ul{margin:12px 0 0;padding:0 20px 0 0;font-size:15.5px;line-height:1.75}
-.sec{margin-top:28px}
+header.top{position:relative;overflow:hidden;padding:26px 20px 64px;text-align:center;color:#fff;background:var(--hbg,#1f7a4d);transition:background .4s}
+header.top .tdot{position:absolute;background:#fff;border-radius:50%;opacity:.55}
+.logo{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 16px 6px 8px;margin-bottom:12px}
+.emb{width:44px;height:44px;border-radius:50%;background:#1f7a4d;display:grid;place-items:center;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--gold);flex:none}
+.emb svg{width:26px;height:26px}
+.logo b{font-size:16px;display:block;line-height:1.1}
+.logo small{font-size:12.5px;color:#ffe9b0;font-weight:700}
+header h1{margin:4px 0 6px;font-family:'Frank Ruhl Libre',serif;font-size:48px;line-height:1;text-shadow:3px 3px 0 rgba(0,0,0,.25)}
+header p{margin:0;font-size:17px;opacity:.92}
+.wtabs{display:inline-flex;gap:6px;margin-top:16px;background:rgba(0,0,0,.18);padding:5px;border-radius:999px}
+.wtabs button{border:0;background:transparent;color:#fff;font-weight:800;font-size:16px;padding:10px 20px;border-radius:999px;font-family:Fredoka,Heebo,sans-serif}
+.wtabs button[aria-pressed=true]{background:#fff;color:var(--ink)}
+.prbar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.pb{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:0;background:#fff;color:var(--ink);font-weight:800;font-size:14.5px}
+.pb.hp{background:var(--gold);color:#2b1a00}
+.curve{position:absolute;left:-12%;width:124%;bottom:-38px;height:72px;background:#f4f5f1;border-radius:50%}
+.wrap{max-width:1180px;margin:0 auto;padding:6px 18px 60px}
+.sec{margin-top:26px}
 .sec h2{font-size:22px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
-.sec h2 .c{font-size:13px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.cnt{font-size:13px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.intro{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px;font-size:15.5px;line-height:1.7}
+.intro ul{margin:6px 0 0;padding:0 20px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.sc{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;box-shadow:0 6px 20px rgba(0,0,0,.05)}
+.thumb{position:relative;border:0;padding:0;background:#eef0ea;aspect-ratio:794/1123;overflow:hidden;display:block;width:100%}
+.thumb iframe{position:absolute;top:0;right:0;width:794px;height:1123px;border:0;transform-origin:top right;pointer-events:none;background:#fff}
+.badge{position:absolute;top:10px;right:10px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;z-index:2}
+.badge.n{right:auto;left:10px;background:var(--gold);color:#2b1a00}
+.info{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.info h3{margin:0;font-size:16.5px}
+.info .gr{font-size:12.5px;color:var(--mut)}
+.todo{font-size:12.5px;font-weight:700;color:#6d4700;background:var(--gold2);border-radius:10px;padding:5px 8px;line-height:1.45}
+.btns{display:flex;gap:6px;margin-top:auto;padding-top:4px}
+.btns button{flex:1;min-height:40px;border-radius:12px;border:2px solid var(--g);font-weight:800;font-size:14px}
+.b1{background:var(--g);color:#fff}.b2{background:#fff;color:var(--g)}
 .prep{display:flex;flex-direction:column;gap:8px}
 .chk{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
 .chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--g);flex:none}
-.chk b{display:block;font-size:15.5px}
-.chk small{color:var(--mut);font-size:13.5px;line-height:1.5}
-.chk.done{background:var(--g2);border-color:#bfe0cc}
-.chk.done b{text-decoration:line-through;color:#4b6b58}
-.who{display:inline-block;font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--gold2);color:#6d4700;margin-inline-start:6px;vertical-align:1px}
-.games{display:flex;flex-direction:column;gap:12px}
-details.game{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
-details.game summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px}
+.chk b{display:block;font-size:15.5px}.chk small{color:var(--mut);font-size:13.5px;line-height:1.5}
+.chk.done{background:var(--g2);border-color:#bfe0cc}.chk.done b{text-decoration:line-through;color:#4b6b58}
+.who{display:inline-block;font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--gold2);color:#6d4700;margin-inline-start:6px}
+details.game{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:10px}
+details.game summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:14px}
 details.game summary::-webkit-details-marker{display:none}
-.gic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:none;font-size:24px}
-.gt b{display:block;font-size:18px}
-.gt small{color:var(--mut);font-size:13.5px}
+.gic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;flex:none}
+.gt b{display:block;font-size:18px}.gt small{color:var(--mut);font-size:13.5px}
 .chev{margin-inline-start:auto;font-size:20px;color:var(--mut);transition:.2s}
 details[open] .chev{transform:rotate(180deg)}
-.gbody{padding:0 20px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gbody{padding:0 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .gbox{background:#fafbf9;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .gbox h4{margin:0 0 6px;font-size:14px;color:var(--g)}
 .gbox ul,.gbox ol{margin:0;padding:0 18px 0 0;font-size:14.5px;line-height:1.65}
 .gbox.wide{grid-column:1/-1}
-.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.pg{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px}
-.pg b{font-size:15.5px}
-.pg .meta{font-size:12.5px;color:var(--mut)}
-.todo{font-size:13px;font-weight:700;color:#6d4700;background:var(--gold2);border-radius:10px;padding:6px 9px;line-height:1.45}
-.pg .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
-.note{font-size:13.5px;color:var(--mut);line-height:1.6;margin-top:10px}
-.qrcard{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.qrbox{width:170px;height:170px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;flex:none}
+.qrcard{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px}
+.qrbox{width:160px;height:160px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
 .qrbox svg{width:100%;height:100%;display:block}
-footer.ft{margin-top:40px;display:flex;justify-content:center;align-items:center;gap:12px;color:var(--mut);font-size:13px}
+footer{margin-top:34px;display:flex;justify-content:center;align-items:center;gap:10px;color:var(--mut);font-size:13px}
 /* viewer */
-.vbg{position:fixed;inset:0;background:rgba(15,18,24,.6);z-index:50;display:flex;flex-direction:column;align-items:center;padding:14px;gap:10px;overflow:auto}
-.vbar{display:flex;gap:8px;align-items:center;background:#fff;border-radius:14px;padding:8px 10px;position:sticky;top:0;z-index:2;box-shadow:0 8px 30px rgba(0,0,0,.25)}
-.vbar b{font-size:15px;padding:0 8px}
-.vpages{display:flex;flex-direction:column;gap:14px;align-items:center;transform-origin:top center}
-.sheet{width:794px;height:1123px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.35);overflow:hidden;flex:none}
-@media (max-width:760px){.gbody{grid-template-columns:1fr}.hero h1{font-size:30px}.topin .hide-m{display:none}}
+#viewer{position:fixed;inset:0;z-index:50;background:rgba(14,16,22,.92);display:none;flex-direction:column}
+#viewer.open{display:flex}
+.vbar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#111318;color:#fff;flex-wrap:wrap}
+.vbar .t{font-weight:800;font-size:15px;flex:1;min-width:160px}
+.vbar button{min-height:40px;border-radius:12px;border:0;padding:0 14px;font-weight:800;background:#2a2d36;color:#fff}
+.vbar button[aria-pressed=true]{background:var(--gold);color:#2b1a00}
+.vbar .pr{background:var(--g)}
+#stage{flex:1;overflow:auto;display:flex;justify-content:center;padding:14px}
+#holder{position:relative;flex:none;background:#fff;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+#holder iframe{position:absolute;top:0;right:0;width:794px;height:1123px;border:0;transform-origin:top right}
+@media (max-width:700px){header h1{font-size:36px}.gbody{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr);gap:10px}}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin">
-  <div class="emb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/><path d="M8 21h8"/></svg></div>
-  <div class="brand"><b>מועצת תלמידים תשפ"ז</b><span>בית ספר צמח א׳ · אשדוד</span></div>
-  <div class="sp"></div>
-  <a class="btn hide-m" href="#share">📱 ברקוד לשיתוף</a>
-</div></header>
+<header class="top" id="hdr">
+  <span class="tdot" style="width:4px;height:4px;top:24px;left:12%"></span><span class="tdot" style="width:3px;height:3px;top:70px;left:30%"></span><span class="tdot" style="width:5px;height:5px;top:40px;right:14%"></span><span class="tdot" style="width:3px;height:3px;top:120px;right:30%"></span><span class="tdot" style="width:4px;height:4px;top:140px;left:8%"></span>
+  <div class="logo"><div class="emb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/><path d="M8 21h8"/></svg></div><div style="text-align:right"><b>מועצת תלמידים תשפ"ז</b><small>בית ספר צמח א׳ · אשדוד</small></div></div>
+  <h1 id="ht">מרכז התחנות</h1>
+  <p id="hp">כל הדפים – ריקים וגם עם פתרון, תדריך לכל משחק ורשימת הכנות</p>
+  <div class="wtabs" role="group" aria-label="בחירת שבוע" id="wtabs"></div>
+  <div class="prbar"><button class="pb hp" id="prB">🖨️ הדפסת כל הדפים הריקים</button><button class="pb" id="prK">🖨️ הדפסת כל הפתרונות</button></div>
+  <div class="curve" aria-hidden="true"></div>
+</header>
 
 <main class="wrap">
-  <div class="tabs" id="tabs"></div>
-  <div id="week"></div>
-
-  <section class="sec" id="share">
-    <h2>📱 ברקוד לאתר</h2>
-    <div class="card qrcard">
-      <div class="qrbox" id="qr"></div>
-      <div style="flex:1;min-width:240px">
-        <b style="font-size:17px">סורקים ומגיעים לכל התחנות</b>
-        <p class="note" style="margin-top:6px">מראים את הברקוד למורה או לחבר במועצה – הם סורקים במצלמה ונכנסים לאתר.</p>
-        <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn sm" id="copyUrl">העתקת קישור</button>
-          <button class="btn sm" id="printQr">הדפסת הברקוד</button>
-        </div>
-      </div>
-    </div>
+  <section class="sec"><div class="intro" id="intro"></div></section>
+  <section class="sec"><h2>📄 כל הדפים <span class="cnt" id="pcnt"></span></h2><div class="grid" id="grid"></div></section>
+  <section class="sec"><h2>✅ הכנות לפני <span class="cnt" id="prepCount"></span></h2><div class="prep" id="prep"></div></section>
+  <section class="sec"><h2>🎲 תדריך לכל משחק</h2><div id="games"></div></section>
+  <section class="sec" id="share"><h2>📱 ברקוד לאתר</h2>
+    <div class="qrcard"><div class="qrbox" id="qr"></div><div style="flex:1;min-width:220px"><b style="font-size:17px">סורקים ומגיעים לכל התחנות</b><p style="color:var(--mut);font-size:14px;line-height:1.6;margin:6px 0 10px">מראים את הברקוד למורה או לחבר במועצה – הם סורקים במצלמה ונכנסים לאתר.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="pb" style="border:1px solid var(--line)" id="copyUrl">העתקת קישור</button><button class="pb hp" id="printQr">הדפסת הברקוד</button></div></div></div>
   </section>
-
-  <footer class="ft">
-    <div class="emb" style="width:34px;height:34px" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></div>
-    מועצת תלמידים תשפ"ז · בית ספר צמח א׳, אשדוד
-  </footer>
+  <footer><div class="emb" style="width:30px;height:30px;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--gold)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></div>מועצת תלמידים תשפ"ז · בית ספר צמח א׳, אשדוד</footer>
 </main>
+
+<div id="viewer" role="dialog" aria-modal="true" aria-labelledby="vt">
+  <div class="vbar">
+    <span class="t" id="vt"></span>
+    <button id="kb" aria-pressed="true">דף ריק</button><button id="kk" aria-pressed="false">פתרון</button>
+    <button id="prev" aria-label="הקודם">→</button><span id="pn" style="font-size:13px;opacity:.8"></span><button id="next" aria-label="הבא">←</button>
+    <button class="pr" id="vprint">🖨️ הדפסה</button><button id="close">סגירה ✕</button>
+  </div>
+  <div id="stage"><div id="holder"></div></div>
+</div>
 
 <script>
 (() => {
 const SITE_URL = 'https://tahanot-tzemach.vercel.app/';
-const A = id => 'https://claude.ai/artifact/' + id;
-const CANVAS = A('9pkFPrH3PgnTts5XdH8ihj');
-
-/* ---------- Hanukkah story ---------- */
-const STORY = [
-  'היוונים שולטים בארץ ואוסרים לשמור שבת וללמוד תורה',
-  'היוונים נכנסים לבית המקדש ומטמאים את כדי השמן',
-  'מתתיהו הכהן קורא בקול: "מי לה\' – אליי!"',
-  'יהודה המכבי ואחיו יוצאים להילחם ביוונים',
-  'המכבים מנצחים במלחמה – מעטים מול רבים!',
-  'המכבים חוזרים לירושלים ומנקים את בית המקדש',
-  'מוצאים פך שמן קטן אחד – מספיק רק ליום אחד',
-  'נס! המנורה דולקת שמונה ימים'
-];
-const CARD_ORDER = [5, 2, 8, 3, 7, 1, 6, 4];
-const RED = ['חנוכייה','סופגנייה','לביבה','סביבון','שמש','נר','שמן','פך השמן','המכבים','יהודה המכבי','בית המקדש','נס','דמי חנוכה','"נס גדול היה פה"','מתתיהו'];
-const BLUE = ['מצה','שופר','סוכה','מגילת אסתר','רעשן','תחפושת','חרוסת','לולב','אוזני המן','עץ אשוח','ביצת שוקולד','דלעת','חלה עגולה','תפוח בדבש','ט"ו בשבט'];
-
-/* ---------- Hanukkah word search (seeded, so blank and solution match) ---------- */
-const WS_WORDS = ['חנוכייה','סביבון','סופגנייה','לביבה','מכבים','מקדש','מתתיהו','יהודה','שמן','נרות','שמש','נס'];
-const WS = (() => {
-  const N = 12; let seed = 5771;
-  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  for (let attempt = 0; attempt < 200; attempt++) {
-    const g = Array.from({ length: N }, () => Array(N).fill(''));
-    const place = [];
-    let ok = true;
-    for (const w of [...WS_WORDS].sort((a, b) => b.length - a.length)) {
-      let done = false;
-      for (let t = 0; t < 300 && !done; t++) {
-        const dir = rnd() < 0.5 ? [0, -1] : [1, 0]; // right-to-left across, or top-down
-        const r = Math.floor(rnd() * N), c = Math.floor(rnd() * N);
-        const cells = [];
-        for (let i = 0; i < w.length; i++) {
-          const rr = r + dir[0] * i, cc = c + dir[1] * i;
-          if (rr < 0 || rr >= N || cc < 0 || cc >= N) { cells.length = 0; break; }
-          if (g[rr][cc] && g[rr][cc] !== w[i]) { cells.length = 0; break; }
-          cells.push([rr, cc]);
-        }
-        if (cells.length === w.length) { cells.forEach(([rr, cc], i) => g[rr][cc] = w[i]); place.push({ w, cells }); done = true; }
-      }
-      if (!done) { ok = false; break; }
-    }
-    if (!ok) continue;
-    const fill = 'אבגדהוזחטיכלמנסעפצקרשת';
-    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (!g[r][c]) g[r][c] = fill[Math.floor(rnd() * fill.length)];
-    return { N, g, place };
-  }
-})();
-
-/* ---------- printable pages built here ---------- */
-const head = `<style>@page{size:A4;margin:0}html,body{margin:0}body{font-family:Heebo,Arial,sans-serif;color:#17181f}
-.p{width:794px;height:1123px;box-sizing:border-box;padding:40px 46px;position:relative;overflow:hidden;page-break-after:always;break-after:page;background:#fff;display:flex;flex-direction:column}
-.p:last-child{page-break-after:auto}
-.ft{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;border-top:2px solid #ece6d6;padding-top:12px;font-weight:800;color:#1f7a4d;font-size:16px}
-.ft i{width:34px;height:34px;border-radius:50%;background:#1f7a4d;display:inline-block;box-shadow:0 0 0 3px #fff,0 0 0 5px #e3a21a}
-.ft small{color:#8a5a00;font-size:13px;margin-inline-start:6px}
-</style><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800;900&family=Frank+Ruhl+Libre:wght@900&display=swap" rel="stylesheet">`;
-const FT = `<div class="ft"><i></i>מועצת תלמידים תשפ"ז<small>בית ספר צמח א׳ · אשדוד</small></div>`;
-
-function wsPage(sol, grade) {
-  const hl = new Map();
-  if (sol) WS.place.forEach((p, k) => p.cells.forEach(([r, c]) => hl.set(r + ',' + c, k)));
-  const cols = ['#ffd6a5','#caffbf','#9bf6ff','#bdb2ff','#ffc6ff','#fdffb6','#a0c4ff','#ffadad','#d0f4de','#fcf6bd','#e4c1f9','#b9fbc0'];
-  let rows = '';
-  for (let r = 0; r < WS.N; r++) {
-    rows += '<tr>' + WS.g[r].map((ch, c) => { const k = hl.get(r + ',' + c); return `<td style="${k !== undefined ? 'background:' + cols[k % cols.length] + ';font-weight:900' : ''}">${ch}</td>`; }).join('') + '</tr>';
-  }
-  const words = WS_WORDS.map(w => `<span>${w}</span>`).join('');
-  return `<div class="p">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:4px solid #e3a21a;padding-bottom:10px">
-      <div><div style="display:inline-block;background:#e3a21a;color:#fff;font-weight:800;border-radius:999px;padding:3px 14px;font-size:14px">חנוכה · ${grade}</div>
-      <h1 style="margin:4px 0 0;font-family:'Frank Ruhl Libre',serif;font-size:46px">תפזורת חנוכה${sol ? ' – פתרון' : ''}</h1></div>
-      <div style="font-size:16px">שם: <span style="display:inline-block;width:170px;border-bottom:2px solid #aaa"></span></div>
-    </div>
-    <p style="font-size:17px;margin:14px 0 10px">מצאו את ${WS_WORDS.length} המילים. המילים כתובות <b>מימין לשמאל</b> או <b>מלמעלה למטה</b>. סמנו כל מילה שמצאתם ✓</p>
-    <table style="border-collapse:collapse;margin:6px auto 16px;direction:rtl">${rows}</table>
-    <div style="display:flex;flex-wrap:wrap;gap:8px 10px;justify-content:center">${words}</div>
-    ${FT}
-    <style>td{width:50px;height:50px;border:2px solid #2b2d38;text-align:center;font-size:27px;font-weight:700}
-    .p span{border:2px solid #e3a21a;border-radius:999px;padding:4px 14px;font-size:18px;font-weight:700}</style>
-  </div>`;
-}
-function cardsPages(base) {
-  const card = n => `<div style="position:relative;width:702px;height:500px;border-radius:22px;overflow:hidden;border:3px solid #17181f">
-      <img src="${base}img/s${n}.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-      <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);background:rgba(12,12,22,.66);padding:22px 34px;text-align:center;color:#fff;font-size:35px;font-weight:900;line-height:1.3">${STORY[n - 1]}</div></div>`;
-  let out = '';
-  for (let i = 0; i < 8; i += 2) out += `<div class="p" style="padding:40px 46px;align-items:center;justify-content:space-between">${card(CARD_ORDER[i])}<div style="width:100%;border-top:2px dashed #9a9ca6"></div>${card(CARD_ORDER[i + 1])}</div>`;
-  return out;
-}
-function storyPage(base, sol) {
-  const paras = sol
-    ? STORY.map((s, i) => `<div style="display:flex;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="width:44px;height:44px;border-radius:50%;background:#e3a21a;display:grid;place-items:center;font-weight:900;font-size:22px;flex:none">${i + 1}</span><img src="${base}img/s${i + 1}.jpg" style="width:78px;height:78px;border-radius:12px;object-fit:cover"><b style="font-size:19px">${s}</b></div>`).join('')
-    : `<div style="font-size:17.5px;line-height:1.68;display:flex;flex-direction:column;gap:12px">
-      <p style="margin:0">לפני הרבה מאוד שנים שלטו היוונים בארץ ישראל. הם רצו שכולם יחיו כמוהם, ולכן אסרו על היהודים לשמור שבת וללמוד תורה. הם אפילו נכנסו לבית המקדש בירושלים, הציבו בו פסלים וטימאו את כל כדי השמן שבהם הדליקו את המנורה.</p>
-      <p style="margin:0">בכפר קטן בשם מודיעין גר כהן זקן ואמיץ בשם <b>מתתיהו</b>. כשהחיילים היוונים ציוו עליו להשתחוות לפסל, הוא סירב, הרים את ידו וקרא בקול: "מי לה' – אליי!" ואנשים רבים נאספו סביבו.</p>
-      <p style="margin:0">בניו של מתתיהו, ובראשם <b>יהודה המכבי</b>, יצאו להילחם ביוונים. הם היו קבוצה קטנה מול צבא ענק וחזק, אבל היה להם אומץ, הם הכירו כל שביל בהרים והאמינו בדרכם. וכך, למרות הכול, המכבים ניצחו – הרבים נמסרו ביד המעטים.</p>
-      <p style="margin:0">אחרי הניצחון חזרו המכבים לירושלים. הם ניקו את בית המקדש, הוציאו ממנו את הפסלים ורצו להדליק שוב את המנורה. אבל איפה ימצאו שמן טהור? הם חיפשו וחיפשו, ובסוף מצאו <b>פך שמן קטן אחד</b> – שמן שמספיק ליום אחד בלבד.</p>
-      <p style="margin:0">הם הדליקו את המנורה, וקרה נס: השמן הקטן דלק לא יום אחד, אלא <b>שמונה ימים שלמים</b>! לזכר הנס הזה אנחנו מדליקים חנוכייה שמונה ימים, ואומרים יחד: <b>"נס גדול היה שם"</b>.</p></div>`;
-  return `<div class="p">
-    ${sol ? '' : `<img src="${base}img/s8.jpg" style="width:100%;height:200px;object-fit:cover;object-position:center 40%;border-radius:20px;border:3px solid #e3a21a;margin-bottom:14px">`}
-    <div style="font-size:15px;font-weight:800;color:#8a5a00">סיפור חנוכה</div>
-    <h1 style="margin:2px 0 14px;font-family:'Frank Ruhl Libre',serif;font-size:46px">${sol ? 'הנס של פך השמן – הסדר הנכון' : 'הנס של פך השמן'}</h1>
-    ${paras}${FT}</div>`;
-}
-function listsPage() {
-  const col = (t, c, arr) => `<div style="flex:1;border:4px solid ${c};border-radius:20px;padding:16px 18px"><h2 style="margin:0 0 10px;color:${c};font-size:28px">${t}</h2><ol style="margin:0;padding-right:24px;font-size:20px;line-height:1.75">${arr.map(w => `<li>${w}</li>`).join('')}</ol></div>`;
-  return `<div class="p"><div style="font-size:15px;font-weight:800;color:#8a5a00">גב דף החוקים · למדריך</div>
-    <h1 style="margin:2px 0 16px;font-family:'Frank Ruhl Libre',serif;font-size:42px">אדומים נגד כחולים – הפתקים</h1>
-    <div style="display:flex;gap:16px">${col('🔴 אדומים – קשור לחנוכה', '#d0283a', RED)}${col('🔵 כחולים – לא קשור', '#1d55cc', BLUE)}</div>
-    <p style="font-size:16px;margin-top:14px">בסוף בודקים את הסלסלות: פתק בסלסלה הלא נכונה חוזר לשטח.</p>${FT}</div>`;
-}
-function notesPage() {
-  const all = [...RED, ...BLUE].sort(() => 0).map((w, i) => i);
-  const mixed = [5,17,8,22,0,29,12,19,3,25,10,15,27,1,21,6,24,13,18,9,26,2,16,11,28,4,20,14,23,7].map(i => [...RED, ...BLUE][i]);
-  return `<div class="p" style="padding:30px"><div style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;height:100%;border:2px dashed #9a9ca6">${mixed.map(w => `<div style="border:2px dashed #9a9ca6;display:grid;place-items:center;font-size:26px;font-weight:900;text-align:center;padding:6px">${w}</div>`).join('')}</div></div>`;
-}
-
-/* ---------- weeks ---------- */
+const DATA = {"hanukkah": [{"t": "אדומים נגד כחולים – דף חוקים", "g": "לתחנה", "todo": "להדפיס. בגב: רשימת הפתקים (הפתרון)", "blank": ["sheets/rules.html"], "key": ["sheets/notes-key.html"]}, {"t": "30 פתקים לגזירה", "g": "סט לכל כיתה", "todo": "להדפיס, לגזור ולקפל", "blank": ["sheets/notes.html"], "key": ["sheets/notes-key.html"]}, {"t": "הנס של פך השמן – סיפור", "g": "להקראה", "todo": "להדפיס ולהקריא לילדים", "blank": ["sheets/story.html"], "key": ["sheets/story-numbered.html"]}, {"t": "כרטיסי תמונה – 8 תמונות", "g": "4 דפים · 2 סטים", "todo": "להדפיס פעמיים וללמנן אצל אורנה באולם", "blank": ["sheets/photo-1.html", "sheets/photo-2.html", "sheets/photo-3.html", "sheets/photo-4.html"], "key": ["sheets/story-key.html"]}, {"t": "תפזורת חנוכה", "g": "כל הכיתות", "todo": "להדביק על בריסטול וללמנן אצל אורנה", "blank": ["sheets/wordsearch.html"], "key": ["sheets/wordsearch-key.html"]}, {"t": "חג האורים שלי", "g": "כיתות א׳–ג׳", "todo": "להדפיס עותק לכל ילד", "blank": ["sheets/hanukkah-13.html"], "key": ["sheets/hanukkah-13-key.html"]}, {"t": "בלשי חנוכה", "g": "כיתות ד׳–ו׳", "todo": "להדפיס עותק לכל ילד", "blank": ["sheets/hanukkah-46.html"], "key": ["sheets/hanukkah-46-key.html"]}, {"t": "בונים סביבון", "g": "2 דפי גזירה", "todo": "להדפיס עותק לכל ילד ולגזור", "blank": ["sheets/sevivon-1.html"], "key": []}, {"t": "מרוץ המכבים", "g": "משחק לוח", "todo": "להדפיס את לוח המשחק", "blank": [], "key": []}, {"t": "8 תחנות חנוכה מהבית", "g": "למדריכים", "todo": "להדפיס למארגנים", "blank": ["sheets/stations-home.html"], "key": []}], "space": [{"t": "מסע בחלל!", "g": "א׳–ג׳", "blank": ["sheets/space-a1-b.html"], "key": ["sheets/space-a1-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "הירח והכוכבים", "g": "א׳–ג׳", "blank": ["sheets/space-a2-b.html"], "key": ["sheets/space-a2-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "אסטרונאוטים בחלל", "g": "א׳–ג׳", "blank": ["sheets/space-a3-b.html"], "key": ["sheets/space-a3-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "מסע בין כוכבי הלכת", "g": "א׳–ג׳", "blank": ["sheets/space-a4-b.html"], "key": ["sheets/space-a4-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "השמש ושמי הלילה", "g": "א׳–ג׳", "blank": ["sheets/space-a5-b.html"], "key": ["sheets/space-a5-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "מערכת השמש", "g": "ד׳–ו׳", "blank": ["sheets/space-b1-b.html"], "key": ["sheets/space-b1-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "הירח", "g": "ד׳–ו׳", "blank": ["sheets/space-b2-b.html"], "key": ["sheets/space-b2-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "חקר החלל", "g": "ד׳–ו׳", "blank": ["sheets/space-b3-b.html"], "key": ["sheets/space-b3-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "כוכבים וגלקסיות", "g": "ד׳–ו׳", "blank": ["sheets/space-b4-b.html"], "key": ["sheets/space-b4-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "חשבון וחשיבה בחלל", "g": "ד׳–ו׳", "blank": ["sheets/space-b5-b.html"], "key": ["sheets/space-b5-k.html"], "todo": "להדפיס עותק לכל ילד"}, {"t": "בונים חללית", "g": "דפי גזירה", "todo": "להדפיס עותק לכל ילד ולגזור", "blank": ["sheets/spaceship-1.html"], "key": []}, {"t": "מרוץ הגלקסיה", "g": "משחק לוח", "todo": "להדפיס את לוח המשחק", "blank": [], "key": []}]};
+const HDR = { hanukkah: { bg: 'linear-gradient(135deg,#7a4b00,#e3a21a)', t: 'חנוכה', p: 'תחנות חנוכה – דפים ריקים ופתרונות, תדריכים והכנות' }, space: { bg: 'linear-gradient(135deg,#141547,#23246b 60%,#3a86ff)', t: 'שבוע החלל', p: 'משימות חלל לכיתות א׳–ג׳ ו-ד׳–ו׳ – וגם דפי פתרון' } };
+const A = () => '', CANVAS = '';
 const WEEKS = [
   {
     id: 'hanukkah', tab: '🕎 שבוע חנוכה', color: 'linear-gradient(120deg,#8a5a00,#e3a21a)',
@@ -322,104 +207,90 @@ const WEEKS = [
   }
 ];
 
-const LOCAL = {
-  notes: () => notesPage(),
-  lists: () => listsPage(),
-  story: b => storyPage(b, false),
-  storySol: b => storyPage(b, true),
-  cards: b => cardsPages(b),
-  ws13: () => wsPage(false, 'כיתות א׳–ג׳'), ws13s: () => wsPage(true, 'כיתות א׳–ג׳'),
-  ws46: () => wsPage(false, 'כיתות ד׳–ו׳'), ws46s: () => wsPage(true, 'כיתות ד׳–ו׳')
-};
-const TITLES = { notes: '30 פתקים', lists: 'רשימת הפתקים (גב דף החוקים)', story: 'הנס של פך השמן', storySol: 'פתרון – הסדר הנכון', cards: 'כרטיסי תמונה', ws13: 'תפזורת א׳–ג׳', ws13s: 'תפזורת א׳–ג׳ – פתרון', ws46: 'תפזורת ד׳–ו׳', ws46s: 'תפזורת ד׳–ו׳ – פתרון' };
 
-/* ---------- storage ---------- */
-const st = { get(k, d) { try { const v = localStorage.getItem('hub_' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('hub_' + k, JSON.stringify(v)); } catch {} } };
+const st = { get(k, d) { try { const v = localStorage.getItem('hub2_' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('hub2_' + k, JSON.stringify(v)); } catch {} } };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const $ = id => document.getElementById(id);
+let wk = st.get('week', 'hanukkah'); if (!DATA[wk]) wk = 'hanukkah';
 
-let cur = st.get('week', 'hanukkah');
-function renderTabs() {
-  document.getElementById('tabs').innerHTML = WEEKS.map(w => `<button class="tab ${w.id === cur ? 'on' : ''}" data-w="${w.id}">${w.tab}</button>`).join('');
-}
-document.getElementById('tabs').onclick = e => { const b = e.target.closest('[data-w]'); if (!b) return; cur = b.dataset.w; st.set('week', cur); render(); };
+/* flat list of sheets for the viewer */
+function flat() { const out = []; DATA[wk].forEach((it, i) => it.blank.forEach((src, j) => out.push({ i, j, it }))); return out; }
 
 function render() {
-  renderTabs();
-  const w = WEEKS.find(x => x.id === cur);
-  const done = st.get('done_' + w.id, {});
-  const prep = w.prep.map(([t, d, who], i) => `<label class="chk ${done[i] ? 'done' : ''}"><input type="checkbox" data-i="${i}" ${done[i] ? 'checked' : ''}><span><b>${esc(t)}${who ? `<span class="who">📍 ${esc(who)}</span>` : ''}</b><small>${esc(d)}</small></span></label>`).join('');
-  const games = w.games.map(g => `<details class="game"><summary><span class="gic" style="background:${g.bg}">${g.ic}</span><span class="gt"><b>${esc(g.name)}</b><small>${esc(g.sub)}</small></span><span class="chev">⌄</span></summary>
-    <div class="gbody">
-      <div class="gbox wide"><h4>🎯 המטרה</h4><div style="font-size:14.5px;line-height:1.6">${esc(g.goal)}</div></div>
-      <div class="gbox"><h4>🧺 מה צריך</h4><ul>${g.need.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
-      <div class="gbox"><h4>▶️ איך משחקים</h4><ol>${g.how.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
-      <div class="gbox wide" style="background:var(--g2);border-color:#bfe0cc"><h4>🏆 מי מנצח</h4><div style="font-size:14.5px">${esc(g.win)}</div></div>
-    </div></details>`).join('');
-  const pages = w.pages.map((p, i) => {
-    const blank = p.blankLocal ? `<button class="btn sm pri" data-open="${p.blankLocal}">📄 דף ריק</button>` : p.blank ? `<a class="btn sm pri" href="${p.blank}" target="_blank" rel="noopener">📄 פתיחה</a>` : '';
-    const sol = p.sol ? `<button class="btn sm gold" data-open="${p.sol}">✅ פתרון</button>` : p.solUrl ? `<a class="btn sm gold" href="${p.solUrl}" target="_blank" rel="noopener">✅ פתרון</a>` : '';
-    return `<div class="pg"><b>${esc(p.name)}</b><div class="meta">${esc(p.meta)}</div><div class="todo">✂️ מה עושים: ${esc(p.todo)}</div><div class="row">${blank}${sol}</div></div>`;
-  }).join('');
-  document.getElementById('week').innerHTML = `
-    <div class="hero" style="background:${w.color}">
-      <h1>${esc(w.title)}</h1><p>${esc(w.intro)}</p>
-      <ul>${w.what.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-    </div>
-    <section class="sec"><h2>✅ הכנות לפני <span class="c" id="prepCount"></span></h2><div class="prep">${prep}</div></section>
-    <section class="sec"><h2>🎲 תדריך לכל משחק</h2><div class="games">${games}</div></section>
-    <section class="sec"><h2>📄 כל הדפים <span class="c">${w.pages.length}</span></h2><div class="pages">${pages}</div>
-      <p class="note">דפים שנפתחים כאן ("דף ריק" / "פתרון") אפשר להדפיס ישר מהאתר. דפים עם "פתיחה" נמצאים בעמודים שעשינו קודם ונפתחים בלשונית חדשה.</p></section>`;
-  updCount(w);
+  const W = WEEKS.find(x => x.id === wk), H = HDR[wk];
+  $('hdr').style.setProperty('--hbg', H.bg); $('hdr').style.background = H.bg;
+  $('ht').textContent = H.t; $('hp').textContent = H.p;
+  $('wtabs').innerHTML = WEEKS.map(w => `<button data-w="${w.id}" aria-pressed="${w.id === wk}">${w.tab}</button>`).join('');
+  $('intro').innerHTML = `<b style="font-size:17px">מה עושים השבוע</b><ul>${W.what.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  const items = DATA[wk];
+  $('pcnt').textContent = items.reduce((n, it) => n + it.blank.length, 0) + ' דפים';
+  $('grid').innerHTML = items.map((it, i) => `<article class="sc">
+      <button class="thumb" data-open="${i}" data-k="b" aria-label="פתיחת ${esc(it.t)}"><span class="badge">${esc(it.g)}</span>${it.blank.length > 1 ? `<span class="badge n">${it.blank.length} דפים</span>` : ''}<iframe loading="lazy" tabindex="-1" aria-hidden="true" data-src="${it.blank[0]}"></iframe></button>
+      <div class="info"><h3>${esc(it.t)}</h3><div class="todo">✂️ ${esc(it.todo)}</div>
+      <div class="btns"><button class="b1" data-open="${i}" data-k="b">דף ריק</button>${it.key.length ? `<button class="b2" data-open="${i}" data-k="k">פתרון</button>` : ''}</div></div></article>`).join('');
+  const done = st.get('done_' + wk, {});
+  $('prep').innerHTML = W.prep.map(([t, d, who], i) => `<label class="chk ${done[i] ? 'done' : ''}"><input type="checkbox" data-i="${i}" ${done[i] ? 'checked' : ''}><span><b>${esc(t)}${who ? `<span class="who">📍 ${esc(who)}</span>` : ''}</b><small>${esc(d)}</small></span></label>`).join('');
+  updCount();
+  $('games').innerHTML = W.games.map(g => `<details class="game"><summary><span class="gic" style="background:${g.bg}">${g.ic}</span><span class="gt"><b>${esc(g.name)}</b><small>${esc(g.sub)}</small></span><span class="chev">⌄</span></summary><div class="gbody">
+    <div class="gbox wide"><h4>🎯 המטרה</h4><div style="font-size:14.5px;line-height:1.6">${esc(g.goal)}</div></div>
+    <div class="gbox"><h4>🧺 מה צריך</h4><ul>${g.need.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    <div class="gbox"><h4>▶️ איך משחקים</h4><ol>${g.how.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
+    <div class="gbox wide" style="background:var(--g2);border-color:#bfe0cc"><h4>🏆 מי מנצח</h4><div style="font-size:14.5px">${esc(g.win)}</div></div></div></details>`).join('');
+  $('prK').hidden = !items.some(it => it.key.length);
+  thumbs();
 }
-function updCount(w) { const d = st.get('done_' + w.id, {}); const n = Object.values(d).filter(Boolean).length; const el = document.getElementById('prepCount'); if (el) el.textContent = n + '/' + w.prep.length; }
-document.getElementById('week').addEventListener('change', e => {
-  const cb = e.target.closest('input[data-i]'); if (!cb) return;
-  const w = WEEKS.find(x => x.id === cur); const d = st.get('done_' + w.id, {}); d[cb.dataset.i] = cb.checked; st.set('done_' + w.id, d);
-  cb.closest('.chk').classList.toggle('done', cb.checked); updCount(w);
-});
-document.getElementById('week').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openViewer(b.dataset.open); });
+function thumbs() {
+  document.querySelectorAll('.thumb').forEach(t => {
+    const f = t.querySelector('iframe'); const s = t.clientWidth / 794; f.style.transform = `scale(${s})`;
+    if (!f.src) f.src = f.dataset.src;
+  });
+}
+function updCount() { const W = WEEKS.find(x => x.id === wk); const d = st.get('done_' + wk, {}); $('prepCount').textContent = Object.values(d).filter(Boolean).length + '/' + W.prep.length; }
+$('wtabs').onclick = e => { const b = e.target.closest('[data-w]'); if (!b) return; wk = b.dataset.w; st.set('week', wk); render(); };
+$('prep').addEventListener('change', e => { const cb = e.target.closest('input[data-i]'); if (!cb) return; const d = st.get('done_' + wk, {}); d[cb.dataset.i] = cb.checked; st.set('done_' + wk, d); cb.closest('.chk').classList.toggle('done', cb.checked); updCount(); });
+$('grid').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openV(+b.dataset.open, 0, b.dataset.k); });
 
-/* ---------- viewer + print ---------- */
-const BASE = new URL('.', location.href).href;
-function openViewer(key) {
-  const html = LOCAL[key](BASE);
-  const bg = document.createElement('div'); bg.className = 'vbg';
-  bg.innerHTML = `<div class="vbar"><b>${esc(TITLES[key])}</b><button class="btn sm pri" data-p>🖨️ הדפסה</button><button class="btn sm" data-x>סגירה ✕</button></div><div class="vpages">${html}</div>`;
-  const pages = bg.querySelector('.vpages');
-  const scale = Math.min(1, (innerWidth - 28) / 794);
-  pages.style.transform = `scale(${scale})`;
-  bg.querySelectorAll('.p').forEach(p => p.classList.add('sheet'));
-  const fit = () => { pages.style.marginBottom = -(pages.scrollHeight * (1 - scale)) + 'px'; }; setTimeout(fit, 50);
-  bg.querySelector('[data-x]').onclick = () => bg.remove();
-  bg.querySelector('[data-p]').onclick = () => printHtml(html, TITLES[key]);
-  bg.addEventListener('click', e => { if (e.target === bg) bg.remove(); });
-  const inner = document.createElement('div'); inner.innerHTML = head; bg.prepend(...inner.childNodes);
-  document.body.appendChild(bg);
+/* viewer */
+let cur = { i: 0, j: 0, k: 'b' };
+function srcOf() { const it = DATA[wk][cur.i]; const arr = cur.k === 'k' && it.key.length ? it.key : it.blank; return arr[Math.min(cur.j, arr.length - 1)]; }
+function show() {
+  const it = DATA[wk][cur.i]; const h = $('holder');
+  h.innerHTML = `<iframe src="${srcOf()}" title="${esc(it.t)}"></iframe>`;
+  fit();
+  const fl = flat(); const pos = fl.findIndex(x => x.i === cur.i && x.j === cur.j);
+  $('vt').textContent = it.t + (it.blank.length > 1 ? ` · דף ${cur.j + 1}` : '') + (cur.k === 'k' ? ' · פתרון' : '');
+  $('pn').textContent = (pos + 1) + ' / ' + fl.length;
+  $('kb').setAttribute('aria-pressed', cur.k === 'b'); $('kk').setAttribute('aria-pressed', cur.k === 'k'); $('kk').hidden = !it.key.length;
 }
-function printHtml(html, title) {
-  const f = document.createElement('iframe');
-  f.style.cssText = 'position:fixed;width:0;height:0;border:0;right:0;bottom:0';
+function fit() { const h = $('holder'); const s = Math.min(($('stage').clientWidth - 28) / 794, 1); h.style.width = 794 * s + 'px'; h.style.height = 1123 * s + 'px'; const f = h.querySelector('iframe'); if (f) f.style.transform = `scale(${s})`; }
+function openV(i, j, k) { cur = { i, j, k }; $('viewer').classList.add('open'); document.body.style.overflow = 'hidden'; show(); $('close').focus(); }
+function closeV() { $('viewer').classList.remove('open'); document.body.style.overflow = ''; $('holder').innerHTML = ''; }
+function step(d) { const fl = flat(); let pos = fl.findIndex(x => x.i === cur.i && x.j === cur.j); pos = (pos + d + fl.length) % fl.length; cur.i = fl[pos].i; cur.j = fl[pos].j; if (!DATA[wk][cur.i].key.length) cur.k = 'b'; show(); }
+$('close').onclick = closeV; $('kb').onclick = () => { cur.k = 'b'; show(); }; $('kk').onclick = () => { cur.k = 'k'; show(); };
+$('next').onclick = () => step(1); $('prev').onclick = () => step(-1);
+$('vprint').onclick = () => { const f = $('holder').querySelector('iframe'); try { f.contentWindow.focus(); f.contentWindow.print(); } catch { window.open(srcOf(), '_blank'); } };
+document.addEventListener('keydown', e => { if (!$('viewer').classList.contains('open')) return; if (e.key === 'Escape') closeV(); if (e.key === 'ArrowLeft') step(1); if (e.key === 'ArrowRight') step(-1); });
+let sx = null; $('stage').addEventListener('touchstart', e => { sx = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive: true });
+$('stage').addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 70) step(dx < 0 ? 1 : -1); sx = null; });
+addEventListener('resize', () => { thumbs(); fit(); });
+
+/* print all (each sheet as an A4 iframe, one per page) */
+function printAll(kind) {
+  const list = []; DATA[wk].forEach(it => { const arr = kind === 'k' ? it.key : it.blank; arr.forEach(s => list.push(s)); });
+  const uniq = [...new Set(list)];
+  const f = document.createElement('iframe'); f.style.cssText = 'position:fixed;width:0;height:0;border:0;right:0;bottom:0';
   document.body.appendChild(f);
-  f.srcdoc = `<!doctype html><html dir="rtl" lang="he"><head><meta charset="utf-8"><title>${esc(title)}</title><base href="${BASE}">${head}</head><body>${html}</body></html>`;
-  f.onload = async () => {
-    await Promise.all([...f.contentDocument.images].map(i => i.decode().catch(() => {})));
-    try { await f.contentDocument.fonts.ready; } catch {}
-    setTimeout(() => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch {} setTimeout(() => f.remove(), 60000); }, 200);
-  };
+  f.srcdoc = `<!doctype html><html><head><base href="${location.href.replace(/[^/]*$/, '')}"><style>@page{size:A4;margin:0}html,body{margin:0}iframe{display:block;width:794px;height:1123px;border:0;page-break-after:always;break-after:page}iframe:last-child{page-break-after:auto}</style></head><body>${uniq.map(s => `<iframe src="${s}"></iframe>`).join('')}</body></html>`;
+  f.onload = () => { const fr = [...f.contentDocument.querySelectorAll('iframe')]; let n = 0; const go = () => setTimeout(() => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch {} setTimeout(() => f.remove(), 60000); }, 1500); fr.forEach(x => x.addEventListener('load', () => { if (++n === fr.length) go(); })); if (!fr.length) go(); };
 }
+$('prB').onclick = () => printAll('b'); $('prK').onclick = () => printAll('k');
 
-/* ---------- QR ---------- */
-function renderQr() {
-  try { const q = qrcode(0, 'M'); q.addData(SITE_URL); q.make(); document.getElementById('qr').innerHTML = q.createSvgTag({ cellSize: 5, margin: 0, scalable: true }); }
-  catch { document.getElementById('qr').textContent = 'ברקוד לא נטען'; }
-}
-document.getElementById('copyUrl').onclick = async () => { try { await navigator.clipboard.writeText(SITE_URL); document.getElementById('copyUrl').textContent = 'הועתק ✓'; } catch { prompt('הקישור:', SITE_URL); } };
-document.getElementById('printQr').onclick = () => {
-  const svg = document.getElementById('qr').innerHTML;
-  printHtml(`<div class="p" style="align-items:center;justify-content:center;gap:24px;text-align:center"><h1 style="font-family:'Frank Ruhl Libre',serif;font-size:50px;margin:0">מרכז התחנות</h1><div style="font-size:22px">סורקים ומגיעים לכל התחנות, הדפים והתדריכים</div><div style="width:420px;height:420px">${svg.replace('<svg', '<svg style="width:100%;height:100%"')}</div>${FT}</div>`, 'ברקוד');
-};
+/* QR */
+try { const q = qrcode(0, 'M'); q.addData(SITE_URL); q.make(); $('qr').innerHTML = q.createSvgTag({ cellSize: 5, margin: 0, scalable: true }); } catch {}
+$('copyUrl').onclick = async () => { try { await navigator.clipboard.writeText(SITE_URL); $('copyUrl').textContent = 'הועתק ✓'; } catch { prompt('הקישור:', SITE_URL); } };
+$('printQr').onclick = () => { const w = window.open('', '_blank'); if (!w) return; w.document.write(`<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>ברקוד</title><style>@page{size:A4;margin:0}body{margin:0;font-family:Arial;text-align:center;padding-top:120px}</style></head><body><h1 style="font-size:46px">מרכז התחנות</h1><p style="font-size:22px">מועצת תלמידים תשפ"ז · צמח א׳ אשדוד</p><div style="width:420px;height:420px;margin:30px auto">${$('qr').innerHTML.replace('<svg', '<svg style="width:100%;height:100%"')}</div><p style="font-size:20px">${SITE_URL}</p><script>setTimeout(()=>print(),400)<\/script></body></html>`); w.document.close(); };
 
-render(); renderQr();
+render();
 })();
 </script>
 </body>
