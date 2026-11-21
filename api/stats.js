@@ -19,7 +19,7 @@ export default async function handler(req,res){res.setHeader('Cache-Control','no
   if(req.method==='POST'){let b=req.body;if(typeof b==='string'){try{b=JSON.parse(b)}catch(e){b={}}}b=b||{};
    const sid=clean(b.sid,40),vid=clean(b.vid,40);if(!/^[a-z0-9]{8,40}$/i.test(sid)||!/^[a-z0-9]{8,40}$/i.test(vid))return res.status(400).json({error:'bad id'});
    const u=await who(req),now=Date.now(),d=day(),ua=req.headers['user-agent']||'';
-   const rec={sid,vid,day:d,first:Math.min(now,Number(b.first)||now),last:now,views:Math.max(1,Math.min(500,Number(b.views)||1)),path:clean(b.path,120),ref:clean(b.ref,160),dev:device(ua),br:browser(ua),
+   const rec={sid,vid,day:d,first:Math.min(now,Number(b.first)||now),last:now,views:Math.max(1,Math.min(500,Number(b.views)||1)),paid:Number(b.paid)>Date.now()?Math.min(Number(b.paid),Date.now()+400*864e5):0,path:clean(b.path,120),ref:clean(b.ref,160),dev:device(ua),br:browser(ua),
     country:clean(req.headers['x-vercel-ip-country'],4),city:decodeURIComponent(clean(req.headers['x-vercel-ip-city'],60)||''),user:u};
    await put(keyFor(d,sid),JSON.stringify(rec),{access:'public',contentType:'application/json',addRandomSuffix:false,allowOverwrite:true,cacheControlMaxAge:60});
    return res.status(200).json({ok:true})}
@@ -33,12 +33,12 @@ export default async function handler(req,res){res.setHeader('Cache-Control','no
   blobs.sort((a,b)=>new Date(b.uploadedAt)-new Date(a.uploadedAt));blobs=blobs.slice(0,1500);
   const recs=[];for(let i=0;i<blobs.length;i+=40){const part=await Promise.all(blobs.slice(i,i+40).map(x=>readJSON(x.url)));recs.push(...part.filter(Boolean))}
   const byDay={};for(let k=0;k<days;k++){const dd=day(new Date(Date.now()-(days-1-k)*864e5));byDay[dd]={day:dd,views:0,sessions:0,visitors:new Set()}}
-  const vis=new Set(),users={},cnt=(o,k)=>{if(!k)return;o[k]=(o[k]||0)+1},refs={},devs={},brs={},ctry={};let views=0;
-  for(const r of recs){views+=r.views;vis.add(r.vid);const D=byDay[r.day];if(D){D.views+=r.views;D.sessions++;D.visitors.add(r.vid)}
+  const payers=new Set(),vis=new Set(),users={},cnt=(o,k)=>{if(!k)return;o[k]=(o[k]||0)+1},refs={},devs={},brs={},ctry={};let views=0;
+  for(const r of recs){views+=r.views;vis.add(r.vid);if(r.paid)payers.add(r.vid);const D=byDay[r.day];if(D){D.views+=r.views;D.sessions++;D.visitors.add(r.vid)}
    let ref='';try{ref=r.ref?new URL(r.ref).hostname.replace(/^www\./,''):''}catch(e){}cnt(refs,ref||'ישיר / לא ידוע');cnt(devs,r.dev);cnt(brs,r.br);cnt(ctry,r.country||'?');
-   if(r.user&&r.user.sub){const k=r.user.via+':'+r.user.sub,U=users[k]||(users[k]={via:r.user.via,email:r.user.email,name:r.user.name,pic:r.user.pic,first:r.first,last:r.last,sessions:0,views:0});U.sessions++;U.views+=r.views;U.first=Math.min(U.first,r.first);U.last=Math.max(U.last,r.last);if(r.user.email)U.email=r.user.email;if(r.user.name)U.name=r.user.name;if(r.user.pic)U.pic=r.user.pic}}
+   if(r.user&&r.user.sub){const k=r.user.via+':'+r.user.sub,U=users[k]||(users[k]={via:r.user.via,email:r.user.email,name:r.user.name,pic:r.user.pic,first:r.first,last:r.last,sessions:0,views:0});U.sessions++;U.views+=r.views;if(r.paid)U.paid=Math.max(U.paid||0,r.paid);U.first=Math.min(U.first,r.first);U.last=Math.max(U.last,r.last);if(r.user.email)U.email=r.user.email;if(r.user.name)U.name=r.user.name;if(r.user.pic)U.pic=r.user.pic}}
   const top=o=>Object.entries(o).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  const recent=recs.sort((a,b)=>b.last-a.last).slice(0,40).map(r=>({last:r.last,views:r.views,dev:r.dev,br:r.br,country:r.country,city:r.city,ref:r.ref,user:r.user?{via:r.user.via,email:r.user.email,name:r.user.name}:null}));
-  return res.status(200).json({days,since,totals:{views,sessions:recs.length,visitors:vis.size,signedIn:Object.keys(users).length,today:byDay[day()]?{views:byDay[day()].views,visitors:byDay[day()].visitors.size}:null},
+  const recent=recs.sort((a,b)=>b.last-a.last).slice(0,40).map(r=>({last:r.last,views:r.views,dev:r.dev,br:r.br,country:r.country,city:r.city,ref:r.ref,paid:!!r.paid,user:r.user?{via:r.user.via,email:r.user.email,name:r.user.name}:null}));
+  return res.status(200).json({days,since,totals:{views,sessions:recs.length,visitors:vis.size,signedIn:Object.keys(users).length,payers:payers.size,today:byDay[day()]?{views:byDay[day()].views,visitors:byDay[day()].visitors.size}:null},
    series:Object.values(byDay).map(x=>({day:x.day,views:x.views,sessions:x.sessions,visitors:x.visitors.size})),users:Object.values(users).sort((a,b)=>b.last-a.last),refs:top(refs),devices:top(devs),browsers:top(brs),countries:top(ctry),recent,capped:blobs.length>=1500,admin:me.email})
  }catch(e){return res.status(500).json({error:String(e.message||e)})}}

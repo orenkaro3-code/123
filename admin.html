@@ -24,7 +24,7 @@ header h1{font-size:22px;margin:0;font-weight:800}header h1 small{color:var(--mu
 .btn{background:var(--panel2);border:1px solid var(--line);color:var(--ink);font:600 13px Rubik,system-ui,sans-serif;padding:8px 14px;border-radius:10px;cursor:pointer}
 .btn.pri{background:var(--blue);border-color:var(--blue);color:#fff;font-size:16px;padding:12px 22px}
 .me{color:var(--mut);font-size:13px}
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
 .kpi span{color:var(--mut);font-size:13px}.kpi b{display:block;font-size:30px;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
 .kpi i{font-style:normal;font-size:12px;color:var(--mut)}
@@ -87,11 +87,12 @@ function render(j){const T=j.totals;
   <div class="kpi"><span>צפיות בעמוד</span><b>${nf(T.views)}</b><i>כל טעינה של האתר</i></div>
   <div class="kpi"><span>ביקורים</span><b>${nf(T.sessions)}</b><i>כניסות נפרדות</i></div>
   <div class="kpi"><span>נכנסו עם חשבון</span><b>${nf(T.signedIn)}</b><i>Google, QR או קוד</i></div>
+  <div class="kpi"><span>שילמו ₪5</span><b>${nf(T.payers||0)}</b><i>מכשירים עם מנוי פעיל</i></div>
   <div class="kpi"><span>היום</span><b>${nf(T.today?T.today.visitors:0)}</b><i>${nf(T.today?T.today.views:0)} צפיות</i></div>
  </div>
  <div class="grid2"><div class="card"><h2>צפיות ומבקרים לפי יום</h2><div class="legend"><span><i style="background:#4C74FF"></i>צפיות</span><span><i style="background:#FFC21A"></i>מבקרים</span></div>${chart(j.series)}</div>
   <div class="card"><h2>כניסות אחרונות <small>40 האחרונות</small></h2><div class="feed" style="max-height:250px;overflow:auto">${j.recent.length?j.recent.map(r=>`<div><time>${ago(r.last)}</time><span>${FLAG(r.country)} ${esc(r.dev)} · ${esc(r.br)}</span><span class="sp"></span>${r.user?`<span class="tag ${r.user.via}" title="${esc(r.user.email)}">${esc(r.user.name||r.user.email)}</span>`:'<span class="tag">אורח</span>'}</div>`).join(''):'<div class="empty">עדיין אין כניסות</div>'}</div></div></div>
- <div class="card"><h2>מי נכנס עם חשבון <small>${nf(j.users.length)} חשבונות</small></h2><div class="scroll">${j.users.length?`<table><thead><tr><th>משתמש</th><th>דרך</th><th class="hide-m">כניסה ראשונה</th><th>כניסה אחרונה</th><th>ביקורים</th><th>צפיות</th></tr></thead><tbody>${j.users.map(u=>`<tr><td><div class="u">${u.pic?`<img src="${esc(u.pic)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${esc((u.name||u.email||'?').trim()[0]||'?')}</span>`}<div><b>${esc(u.name||'ללא שם')}</b><small>${esc(u.email||'—')}</small></div></div></td><td><span class="tag ${u.via}">${VIA[u.via]||u.via}</span></td><td class="hide-m">${fmt(u.first)}</td><td>${ago(u.last)}</td><td>${nf(u.sessions)}</td><td>${nf(u.views)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">עוד אף אחד לא התחבר עם חשבון בתקופה הזאת</div>'}</div></div>
+ <div class="card"><h2>מי נכנס עם חשבון <small>${nf(j.users.length)} חשבונות</small></h2><div class="scroll">${j.users.length?`<table><thead><tr><th>משתמש</th><th>דרך</th><th class="hide-m">כניסה ראשונה</th><th>כניסה אחרונה</th><th>ביקורים</th><th>צפיות</th></tr></thead><tbody>${j.users.map(u=>`<tr><td><div class="u">${u.pic?`<img src="${esc(u.pic)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${esc((u.name||u.email||'?').trim()[0]||'?')}</span>`}<div><b>${esc(u.name||'ללא שם')}</b><small>${esc(u.email||'—')}</small></div></div></td><td><span class="tag ${u.via}">${VIA[u.via]||u.via}</span>${u.paid?' <span class="tag" style="border-color:#20C98A;color:#7BE7BE">שילם</span>':''}</td><td class="hide-m">${fmt(u.first)}</td><td>${ago(u.last)}</td><td>${nf(u.sessions)}</td><td>${nf(u.views)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">עוד אף אחד לא התחבר עם חשבון בתקופה הזאת</div>'}</div></div>
  <div class="grid4"><div class="card"><h2>מאיפה הגיעו</h2>${bars(j.refs,'#4C74FF')}</div><div class="card"><h2>מכשירים</h2>${bars(j.devices,'#20C98A')}</div><div class="card"><h2>דפדפנים</h2>${bars(j.browsers,'#FF5A3C')}</div><div class="card"><h2>מדינות</h2>${bars(j.countries.map(([k,v])=>[FLAG(k)+' '+k,v]),'#FFC21A')}</div></div>
  ${j.capped?'<p class="me">יש הרבה נתונים, מוצגות 1,500 הכניסות האחרונות.</p>':''}`;
  document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{DAYS=+b.dataset.d;localStorage.setItem('adm-days',DAYS);load()});$('#rf').onclick=load;$('#lo').onclick=logout}
